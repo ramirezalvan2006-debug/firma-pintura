@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firma Pintura | Rio Branco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F1B2D;
+    --navy-2:#16263E;
+    --orange:#F5A623;
+    --white:#FFFFFF;
+    --gray-text:#5B6472;
+    --gray-bg:#F4F5F7;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    font-family:'Inter',sans-serif;
+    color:#1A2233;
+    background:var(--white);
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Barlow Condensed',sans-serif;
+    line-height:1.05;
+  }
+
+  /* ===== HERO ===== */
+  .site-header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:30;
+    background:var(--white);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 20px;
+    box-shadow:0 1px 0 rgba(15,27,45,0.06);
+  }
+  .menu-btn{
+    background:none;
+    border:none;
+    padding:6px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+  }
+  .menu-btn span{
+    display:block;
+    width:24px;height:2.5px;
+    background:#1A2233;
+    border-radius:2px;
+  }
+  .site-header .brand{
+    display:flex;
+    flex-direction:column;
+    line-height:1.1;
+  }
+  .site-header .brand-name{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.25rem;
+    color:#1A2233;
+    letter-spacing:0.01em;
+  }
+  .site-header .brand-city{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:0.72rem;
+    color:var(--gray-text);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+
+  .nav-menu{
+    position:fixed;
+    top:64px;left:0;right:0;
+    z-index:29;
+    background:var(--white);
+    box-shadow:0 12px 24px rgba(15,27,45,0.1);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .nav-menu.open{max-height:220px;}
+  .nav-menu a{
+    display:block;
+    padding:16px 24px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    color:#1A2233;
+    text-decoration:none;
+    border-bottom:1px solid #F0F1F3;
+  }
+  .nav-menu a:active{background:var(--gray-bg);}
+
+  .hero{
+    position:relative;
+    min-height:115vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:32px 24px 40px;
+    padding-top:240px;
+    color:var(--white);
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0) 100%),
+      url('hero.webp')
+      center top / cover no-repeat;
+  }
+
+  .hero-eyebrow{
+    display:inline-block;
+    background:var(--orange);
+    color:var(--navy);
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    letter-spacing:0.08em;
+    font-size:13px;
+    padding:9px 18px;
+    border-radius:999px;
+    margin-bottom:18px;
+    width:fit-content;
+    text-transform:uppercase;
+  }
+
+  .hero h1,
+  .hero p,
+  .hero .btn-primary{
+    max-width:78%;
+  }
+
+  .hero h1{
+    font-family:'Inter',sans-serif;
+    font-weight:900;
+    font-size:clamp(1.7rem, 6.5vw, 2.5rem);
+    line-height:1.08;
+    margin-bottom:24px;
+    letter-spacing:-0.02em;
+    text-transform:uppercase;
+  }
+
+  .hero p{
+    font-size:1.05rem;
+    color:rgba(255,255,255,0.82);
+    max-width:78%;
+    margin-bottom:30px;
+    line-height:1.5;
+  }
+
+  .trust-badges{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:30px;
+    max-width:55%;
+  }
+  .trust-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:11px 0;
+  }
+  .trust-item .icon-box{
+    flex:0 0 auto;
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .trust-item .icon-box svg{
+    width:27px;
+    height:27px;
+    stroke:var(--white);
+    fill:none;
+    stroke-width:1.6;
+  }
+  .trust-item .trust-text{
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    font-size:0.85rem;
+    line-height:1.35;
+    color:var(--white);
+  }
+  .trust-divider{
+    height:1px;
+    background:rgba(245,166,35,0.6);
+    width:100%;
+  }
+
+  .btn-primary{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:var(--orange);
+    color:var(--navy);
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:18px 24px;
+    border-radius:14px;
+    border:none;
+    text-decoration:none;
+    width:100%;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:active{transform:scale(0.97);}
+
+  .btn-ghost{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.25);
+    color:var(--white);
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:16px 24px;
+    border-radius:14px;
+    width:100%;
+    margin-top:12px;
+    cursor:pointer;
+    backdrop-filter:blur(6px);
+  }
+
+  .hero-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:26px;
+  }
+  .hero-dots span{
+    width:6px;height:6px;border-radius:50%;
+    background:rgba(255,255,255,0.3);
+  }
+  .hero-dots span.active{
+    width:18px;border-radius:4px;
+    background:var(--orange);
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .section{
+    padding:56px 24px 48px;
+  }
+  .section.dark{
+    background:var(--navy);
+    color:var(--white);
+  }
+  .eyebrow{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:#C0552A;
+    margin-bottom:6px;
+  }
+  .section.dark .eyebrow{color:var(--orange);}
+
+  .section-title-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .section-title-row h2{
+    font-size:2.2rem;
+    font-weight:800;
+    color:#1A2233;
+  }
+  .section.dark .section-title-row h2{color:var(--white);}
+
+  .ver-todos{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:0.9rem;
+    color:#1A2233;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    white-space:nowrap;
+  }
+  .section.dark .ver-todos{color:var(--white);}
+
+  /* ===== CARROSSEL GENÉRICO ===== */
+  .carousel{
+    display:flex;
+    gap:16px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:8px;
+    margin:0 -24px;
+    padding-left:24px;
+    padding-right:24px;
+  }
+  .carousel.snap{
+    scroll-snap-type:x mandatory;
+  }
+  .carousel::-webkit-scrollbar{display:none;}
+
+  .carousel-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:20px;
+  }
+  .carousel-dots span{
+    width:6px;height:6px;border-radius:50%;
+    background:#D8DCE2;
+    transition:all .25s ease;
+  }
+  .carousel-dots span.active{
+    width:18px;border-radius:4px;
+    background:var(--orange);
+  }
+  .section.dark .carousel-dots span{background:rgba(255,255,255,0.2);}
+  .section.dark .carousel-dots span.active{background:var(--orange);}
+
+  /* ===== PORTFOLIO CARDS ===== */
+  .portfolio-card{
+    flex:0 0 78%;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 10px 30px rgba(15,27,45,0.12);
+  }
+  .portfolio-card img{
+    width:100%;
+    height:340px;
+    object-fit:cover;
+    display:block;
+  }
+  .portfolio-info{
+    padding-top:14px;
+  }
+  .portfolio-info h3{
+    font-size:1.3rem;
+    font-weight:700;
+    color:#1A2233;
+  }
+  .portfolio-info p{
+    font-size:0.92rem;
+    color:var(--gray-text);
+    margin-top:2px;
+  }
+
+  /* ===== SERVICE CARDS ===== */
+  .services-stack{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+  }
+  .service-card{
+    width:100%;
+    border-radius:20px;
+    padding:30px 26px;
+    display:flex;
+    flex-direction:column;
+    min-height:280px;
+  }
+  .service-card.light{
+    background:var(--white);
+    border:1px solid #ECEDF0;
+    box-shadow:0 6px 20px rgba(15,27,45,0.06);
+  }
+  .service-card.solid-dark{
+    background:var(--navy-2);
+    color:var(--white);
+  }
+  .service-icon{
+    width:56px;height:56px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:22px;
+  }
+  .service-icon.dark-bg{background:var(--navy);}
+  .service-icon.orange-bg{background:var(--orange);}
+  .service-icon svg{width:26px;height:26px;}
+
+  .service-card h3{
+    font-size:1.7rem;
+    font-weight:700;
+    margin-bottom:12px;
+    font-family:'Inter',sans-serif;
+  }
+  .service-card p{
+    font-size:0.96rem;
+    line-height:1.5;
+    color:var(--gray-text);
+    margin-bottom:22px;
+    flex-grow:1;
+  }
+  .service-card.solid-dark p{color:rgba(255,255,255,0.75);}
+
+  .tag-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{
+    background:var(--gray-bg);
+    color:#1A2233;
+    font-size:0.82rem;
+    font-weight:600;
+    padding:8px 16px;
+    border-radius:999px;
+  }
+  .service-card.solid-dark .tag{
+    background:rgba(255,255,255,0.1);
+    color:var(--white);
+  }
+
+  /* ===== FOOTER MINI ===== */
+  .footer-note{
+    text-align:center;
+    padding:30px 24px 50px;
+    font-size:0.85rem;
+    color:var(--gray-text);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="brand">
+    <span class="brand-name">Firma Pintura</span>
+    <span class="brand-city">Rio Branco</span>
+  </span>
+</header>
+
+<nav class="nav-menu" id="navMenu">
+  <a href="#servicos" class="nav-link">Especialidades</a>
+  <a href="#portfolio" class="nav-link">Portfólio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <h1>Pintura Profissional</h1>
+  <p>Pintura residencial e comercial executada com qualidade, limpeza e compromisso com o prazo.</p>
+
+  <div class="trust-badges">
+    <div class="trust-item">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="trust-text">Segurança<br>Garantida</div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5.5"/><path d="M8.5 12.5L6 21l6-3 6 3-2.5-8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8l1.8 1.8L15 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="trust-text">Qualidade<br>Comprovada</div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="16" rx="2"/><path d="M3.5 9h17M7.5 2.5v4M16.5 2.5v4" stroke-linecap="round"/><path d="M8.5 14l2 2 4.5-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="trust-text">Entrega no<br>Prazo</div>
+    </div>
+  </div>
+
+  <a href="#orcamento" class="btn-primary">Peça seu Orçamento Grátis →</a>
+
+  <div class="hero-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span class="active"></span><span></span><span></span><span></span><span></span>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="section" id="servicos">
+  <div class="eyebrow" style="text-align:center;">Especialidades</div>
+  <h2 style="text-align:center; font-size:2.2rem; font-weight:800; margin-bottom:44px;">Nossos Serviços</h2>
+
+  <div class="services-stack">
+    <div class="service-card light">
+      <div class="service-icon dark-bg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Comercial</h3>
+      <p>Pintura de alta performance para escritórios, lojas e galpões. Foco em durabilidade e agilidade cronometrada.</p>
+      <div class="tag-row">
+        <span class="tag">Epóxi</span>
+        <span class="tag">Fachadas</span>
+      </div>
+    </div>
+
+    <div class="service-card solid-dark">
+      <div class="service-icon orange-bg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F1B2D" stroke-width="1.8"><path d="M3 12l9-9 9 9M5 10v10h14V10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Residencial</h3>
+      <p>Acabamento premium para interiores e exteriores, utilizando as melhores tintas do mercado para sua casa.</p>
+      <div class="tag-row">
+        <span class="tag">Acetinado</span>
+        <span class="tag">Lavável</span>
+      </div>
+    </div>
+
+    <div class="service-card light">
+      <div class="service-icon dark-bg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><path d="M3 3l18 18M9 3h6l6 6v6l-6 6H9l-6-6V9l6-6z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Textura e Efeitos</h3>
+      <p>Grafiato, cimento queimado e acabamentos especiais que dão personalidade e sofisticação ao ambiente.</p>
+      <div class="tag-row">
+        <span class="tag">Grafiato</span>
+        <span class="tag">Cimento Queimado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section" id="portfolio">
+  <div class="eyebrow">Portfolio</div>
+  <div class="section-title-row">
+    <h2>Projetos Recentes</h2>
+    <a href="#" class="ver-todos">Ver Todos ›</a>
+  </div>
+
+  <div class="carousel" id="portfolioCarousel">
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=900&auto=format&fit=crop" alt="Residência Alpha">
+      <div class="portfolio-info">
+        <h3>Residência Alpha</h3>
+        <p>Pintura Interna Premium</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop" alt="Edifício Business">
+      <div class="portfolio-info">
+        <h3>Edifício Business</h3>
+        <p>Revestimento</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=900&auto=format&fit=crop" alt="Residência Bravo">
+      <div class="portfolio-info">
+        <h3>Residência Bravo</h3>
+        <p>Grafiato e Textura</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop" alt="Loja Comercial">
+      <div class="portfolio-info">
+        <h3>Loja Comercial Centro</h3>
+        <p>Pintura Epóxi Industrial</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-dots" id="portfolioDots"></div>
+</section>
+
+<div class="footer-note" id="orcamento">
+  Estrutura inicial — imagens reais e fluxo de orçamento via WhatsApp entram na próxima etapa.
+</div>
+
+<script>
+  // Menu hambúrguer: abre/fecha e rola até a seção
+  const menuBtn = document.getElementById('menuBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  menuBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      navMenu.classList.remove('open');
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  // Gera dots dinamicamente e sincroniza com o scroll de cada carrossel
+  function setupCarouselDots(carouselId, dotsId, cardSelector){
+    const carousel = document.getElementById(carouselId);
+    const dotsContainer = document.getElementById(dotsId);
+    const cards = carousel.querySelectorAll(cardSelector);
+
+    cards.forEach((_, i) => {
+      const dot = document.createElement('span');
+      if(i === 0) dot.classList.add('active');
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('span');
+
+    carousel.addEventListener('scroll', () => {
+      const scrollLeft = carousel.scrollLeft;
+      const cardWidth = cards[0].getBoundingClientRect().width + 16; // gap
+      let activeIndex = Math.round(scrollLeft / cardWidth);
+      activeIndex = Math.min(activeIndex, cards.length - 1);
+
+      dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
+    }, {passive:true});
+  }
+
+  setupCarouselDots('portfolioCarousel', 'portfolioDots', '.portfolio-card');
+</script>
+
+</body>
+</html>
