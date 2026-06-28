@@ -342,35 +342,36 @@
   .section.dark .carousel-dots span{background:rgba(255,255,255,0.2);}
   .section.dark .carousel-dots span.active{background:var(--orange);}
 
+  .carousel-counter{
+    text-align:center;
+    margin-top:18px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:0.9rem;
+    font-weight:600;
+    letter-spacing:0.08em;
+    color:var(--gray-text);
+  }
+
   /* ===== PORTFOLIO CARDS ===== */
   .portfolio-card{
     flex:0 0 78%;
     border-radius:20px;
     overflow:hidden;
     position:relative;
-    box-shadow:0 10px 30px rgba(15,27,45,0.12);
-    height:420px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 20px 45px rgba(15,27,45,0.22), 0 4px 12px rgba(15,27,45,0.10);
+    border:1px solid rgba(255,255,255,0.08);
+    background:var(--navy);
   }
   .portfolio-card img{
     width:100%;
-    height:100%;
+    height:300px;
     object-fit:cover;
     display:block;
   }
-  .portfolio-card::after{
-    content:'';
-    position:absolute;
-    left:0; right:0; bottom:0;
-    height:55%;
-    background:linear-gradient(to top, rgba(10,15,25,0.85), rgba(10,15,25,0));
-    pointer-events:none;
-  }
   .portfolio-info{
-    position:absolute;
-    left:24px;
-    right:24px;
-    bottom:22px;
-    z-index:2;
+    padding:20px 22px 24px;
   }
   .portfolio-info h3{
     font-family:'Barlow Condensed',sans-serif;
@@ -384,6 +385,21 @@
     font-weight:500;
     color:rgba(255,255,255,0.85);
     margin-top:2px;
+  }
+  .portfolio-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 10px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,0.12);
+  }
+  .portfolio-meta span{
+    font-family:'Inter',sans-serif;
+    font-size:0.78rem;
+    font-weight:500;
+    color:rgba(255,255,255,0.75);
+    white-space:nowrap;
   }
 
   /* ===== SERVICE CARDS ===== */
@@ -473,7 +489,7 @@
 
 <nav class="nav-menu" id="navMenu">
   <a href="#servicos" class="nav-link">Especialidades</a>
-  <a href="#portfolio" class="nav-link">Portfólio</a>
+  <a href="#portfolio" class="nav-link">Nossos Trabalhos</a>
 </nav>
 
 <!-- HERO -->
@@ -510,9 +526,9 @@
 
 <!-- PORTFOLIO -->
 <section class="section muted" id="portfolio">
-  <div class="eyebrow portfolio-tag">● Projetos realizados</div>
-  <h2 class="portfolio-title">Ambientes que falam por si.</h2>
-  <p class="portfolio-subtitle">Residências, empresas e fachadas executadas com acabamento profissional.</p>
+  <div class="eyebrow portfolio-tag">● Nossos Trabalhos</div>
+  <h2 class="portfolio-title">Mais que pintura. Transformação.</h2>
+  <p class="portfolio-subtitle">Cada trabalho recebe preparação, acabamento impecável e atenção aos detalhes.</p>
 
   <div class="carousel" id="portfolioCarousel">
     <div class="portfolio-card">
@@ -520,6 +536,11 @@
       <div class="portfolio-info">
         <h3>Residencial</h3>
         <p>Pintura Interna Premium</p>
+        <div class="portfolio-meta">
+          <span>📍 Sobral, Rio Branco</span>
+          <span>📐 300m²</span>
+          <span>🎨 Suvinil</span>
+        </div>
       </div>
     </div>
     <div class="portfolio-card">
@@ -527,6 +548,11 @@
       <div class="portfolio-info">
         <h3>Comercial</h3>
         <p>Revestimento de Fachada</p>
+        <div class="portfolio-meta">
+          <span>📍 Sobral, Rio Branco</span>
+          <span>📐 300m²</span>
+          <span>🎨 Suvinil</span>
+        </div>
       </div>
     </div>
     <div class="portfolio-card">
@@ -534,6 +560,11 @@
       <div class="portfolio-info">
         <h3>Textura</h3>
         <p>Grafiato e Efeitos</p>
+        <div class="portfolio-meta">
+          <span>📍 Sobral, Rio Branco</span>
+          <span>📐 300m²</span>
+          <span>🎨 Suvinil</span>
+        </div>
       </div>
     </div>
     <div class="portfolio-card">
@@ -541,10 +572,15 @@
       <div class="portfolio-info">
         <h3>Industrial</h3>
         <p>Pintura Epóxi</p>
+        <div class="portfolio-meta">
+          <span>📍 Sobral, Rio Branco</span>
+          <span>📐 300m²</span>
+          <span>🎨 Suvinil</span>
+        </div>
       </div>
     </div>
   </div>
-  <div class="carousel-dots" id="portfolioDots"></div>
+  <div class="carousel-counter" id="portfolioCounter">01 / 04</div>
 </section>
 <!-- SERVIÇOS -->
 <section class="section" id="servicos">
@@ -638,7 +674,27 @@
     }, {passive:true});
   }
 
-  setupCarouselDots('portfolioCarousel', 'portfolioDots', '.portfolio-card');
+  // Contador numérico "01 / 04" sincronizado com o scroll do carrossel
+  function setupCarouselCounter(carouselId, counterId, cardSelector){
+    const carousel = document.getElementById(carouselId);
+    const counter = document.getElementById(counterId);
+    const cards = carousel.querySelectorAll(cardSelector);
+    const total = cards.length;
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+    counter.textContent = `${pad(1)} / ${pad(total)}`;
+
+    carousel.addEventListener('scroll', () => {
+      const scrollLeft = carousel.scrollLeft;
+      const cardWidth = cards[0].getBoundingClientRect().width + 16; // gap
+      let activeIndex = Math.round(scrollLeft / cardWidth);
+      activeIndex = Math.min(Math.max(activeIndex, 0), total - 1);
+      counter.textContent = `${pad(activeIndex + 1)} / ${pad(total)}`;
+    }, {passive:true});
+  }
+
+  setupCarouselCounter('portfolioCarousel', 'portfolioCounter', '.portfolio-card');
+
 </script>
 
 </body>
