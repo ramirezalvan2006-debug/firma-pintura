@@ -361,20 +361,27 @@
   /* ===== PORTFOLIO CARDS ===== */
   .portfolio-card{
     flex:0 0 80%;
-    border-radius:20px;
-    overflow:hidden;
+    border-radius:28px;
+    overflow:visible;
     position:relative;
     display:flex;
     flex-direction:column;
-    box-shadow:0 20px 45px rgba(15,27,45,0.22), 0 4px 12px rgba(15,27,45,0.10);
-    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 24px 60px rgba(15,27,45,0.28), 0 6px 16px rgba(15,27,45,0.14);
+    border:1px solid rgba(255,255,255,0.20);
     background:var(--navy);
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1);
+  }
+  .portfolio-card:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 32px 80px rgba(15,27,45,0.32), 0 8px 24px rgba(15,27,45,0.16);
   }
   .portfolio-card img{
-    width:100%;
-    height:300px;
+    width:calc(100% - 16px);
+    height:260px;
     object-fit:cover;
     display:block;
+    margin:8px 8px 0;
+    border-radius:22px;
     transform:scale(1.04);
     opacity:0;
     transition:transform .8s cubic-bezier(.22,1,.36,1), opacity .8s cubic-bezier(.22,1,.36,1);
@@ -408,18 +415,138 @@
   }
   .portfolio-meta{
     display:flex;
-    flex-wrap:wrap;
-    gap:6px 10px;
+    flex-direction:column;
+    gap:7px;
     margin-top:14px;
     padding-top:14px;
     border-top:1px solid rgba(255,255,255,0.12);
   }
   .portfolio-meta span{
     font-family:'Inter',sans-serif;
-    font-size:0.78rem;
+    font-size:0.85rem;
     font-weight:500;
-    color:rgba(255,255,255,0.75);
-    white-space:nowrap;
+    color:rgba(255,255,255,0.85);
+  }
+
+  /* ===== ORÇAMENTO ===== */
+  .orcamento-title{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.8rem;
+    font-weight:800;
+    color:#1A2233;
+    margin-bottom:20px;
+  }
+  .orcamento-options{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:32px;
+  }
+  .orcamento-option{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 18px;
+    border:1.5px solid #E2E5EA;
+    border-radius:14px;
+    background:#fff;
+    cursor:pointer;
+    transition:border-color .2s, background .2s, box-shadow .2s;
+  }
+  .orcamento-option.selected{
+    border-color:var(--orange);
+    background:#FFF8F0;
+    box-shadow:0 0 0 3px rgba(230,126,34,0.12);
+  }
+  .orcamento-option-icon{
+    width:48px;height:48px;
+    background:#F2F3F6;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+    flex-shrink:0;
+  }
+  .orcamento-option-text h4{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.1rem;
+    font-weight:700;
+    color:#1A2233;
+  }
+  .orcamento-option-text p{
+    font-size:0.85rem;
+    color:var(--gray-text);
+    margin-top:2px;
+  }
+  .orcamento-local-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.3rem;
+    font-weight:700;
+    color:#1A2233;
+    margin-bottom:16px;
+  }
+  .orcamento-fields{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .orcamento-field label{
+    display:block;
+    font-size:0.85rem;
+    font-weight:600;
+    color:#1A2233;
+    margin-bottom:6px;
+  }
+  .orcamento-field input{
+    width:100%;
+    padding:14px 16px;
+    border:1.5px solid #E2E5EA;
+    border-radius:12px;
+    font-size:1rem;
+    font-family:'Inter',sans-serif;
+    color:#1A2233;
+    background:#fff;
+    outline:none;
+    transition:border-color .2s;
+    box-sizing:border-box;
+  }
+  .orcamento-field input:focus{
+    border-color:var(--orange);
+  }
+  .orcamento-field .input-wrap{
+    position:relative;
+  }
+  .orcamento-field .input-suffix{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:0.9rem;
+    color:var(--gray-text);
+    pointer-events:none;
+  }
+  .orcamento-submit{
+    width:100%;
+    padding:18px;
+    background:var(--orange);
+    color:var(--navy);
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.1rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .orcamento-submit:active{
+    transform:scale(0.97);
   }
 
   /* ===== SERVICE CARDS ===== */
@@ -544,6 +671,57 @@
 
 </section>
 
+<!-- ORÇAMENTO -->
+<section class="section" id="orcamento">
+  <h2 class="orcamento-title">O que você precisa?</h2>
+
+  <div class="orcamento-options">
+    <div class="orcamento-option selected" onclick="selectOrcamento(this)">
+      <div class="orcamento-option-icon">🏠</div>
+      <div class="orcamento-option-text">
+        <h4>Residencial</h4>
+        <p>Casas e Apartamentos</p>
+      </div>
+    </div>
+    <div class="orcamento-option" onclick="selectOrcamento(this)">
+      <div class="orcamento-option-icon">🏢</div>
+      <div class="orcamento-option-text">
+        <h4>Comercial</h4>
+        <p>Lojas e Escritórios</p>
+      </div>
+    </div>
+    <div class="orcamento-option" onclick="selectOrcamento(this)">
+      <div class="orcamento-option-icon">🎨</div>
+      <div class="orcamento-option-text">
+        <h4>Texturas</h4>
+        <p>Acabamentos Especiais</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="orcamento-local-title">
+    📍 Dados do Local
+  </div>
+
+  <div class="orcamento-fields">
+    <div class="orcamento-field">
+      <label>Bairro em Rio Branco</label>
+      <input type="text" id="orcBairro" placeholder="Ex: Centro, Bosque...">
+    </div>
+    <div class="orcamento-field">
+      <label>Tamanho Aproximado (m²)</label>
+      <div class="input-wrap">
+        <input type="number" id="orcMetros" placeholder="0" min="0">
+        <span class="input-suffix">m²</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="orcamento-submit" onclick="enviarOrcamento()">
+    Solicitar Orçamento Grátis →
+  </button>
+</section>
+
 <!-- PORTFOLIO -->
 <section class="section muted" id="portfolio">
   <div class="eyebrow portfolio-tag">● Nossos Trabalhos</div>
@@ -555,11 +733,12 @@
       <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=900&auto=format&fit=crop" alt="Sala residencial pintada">
       <div class="portfolio-info">
         <h3>Residencial</h3>
-        <p>Pintura Interna Premium</p>
+        <p>Ambientes renovados para quem valoriza acabamento impecável.</p>
         <div class="portfolio-meta">
-          <span>📍 Sobral, Rio Branco</span>
-          <span>📐 300m²</span>
-          <span>🎨 Suvinil</span>
+          <span>✔ Preparação completa</span>
+          <span>✔ Sem sujeira</span>
+          <span>✔ Pintura uniforme</span>
+          <span>✔ Entrega limpa</span>
         </div>
       </div>
     </div>
@@ -567,11 +746,12 @@
       <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop" alt="Fachada comercial pintada">
       <div class="portfolio-info">
         <h3>Comercial</h3>
-        <p>Revestimento de Fachada</p>
+        <p>Fachadas que transmitem credibilidade para o seu negócio.</p>
         <div class="portfolio-meta">
-          <span>📍 Sobral, Rio Branco</span>
-          <span>📐 300m²</span>
-          <span>🎨 Suvinil</span>
+          <span>✔ Sem parar o expediente</span>
+          <span>✔ Acabamento durável</span>
+          <span>✔ Padronização visual</span>
+          <span>✔ Entrega no prazo</span>
         </div>
       </div>
     </div>
@@ -579,11 +759,12 @@
       <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=900&auto=format&fit=crop" alt="Parede com textura grafiato">
       <div class="portfolio-info">
         <h3>Textura</h3>
-        <p>Grafiato e Efeitos</p>
+        <p>Personalidade e sofisticação em cada detalhe do ambiente.</p>
         <div class="portfolio-meta">
-          <span>📍 Sobral, Rio Branco</span>
-          <span>📐 300m²</span>
-          <span>🎨 Suvinil</span>
+          <span>✔ Acabamento exclusivo</span>
+          <span>✔ Mão de obra especializada</span>
+          <span>✔ Efeito uniforme</span>
+          <span>✔ Resultado duradouro</span>
         </div>
       </div>
     </div>
@@ -591,11 +772,12 @@
       <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop" alt="Loja com pintura industrial">
       <div class="portfolio-info">
         <h3>Industrial</h3>
-        <p>Pintura Epóxi</p>
+        <p>Resistência e segurança para operações de alto desempenho.</p>
         <div class="portfolio-meta">
-          <span>📍 Sobral, Rio Branco</span>
-          <span>📐 300m²</span>
-          <span>🎨 Suvinil</span>
+          <span>✔ Alta resistência</span>
+          <span>✔ Proteção antiderrapante</span>
+          <span>✔ Aplicação rápida</span>
+          <span>✔ Baixa manutenção</span>
         </div>
       </div>
     </div>
@@ -713,7 +895,22 @@
     }, {passive:true});
   }
 
-  setupCarouselCounter('portfolioCarousel', 'portfolioCounter', '.portfolio-card');
+  function selectOrcamento(el){
+    document.querySelectorAll('.orcamento-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function enviarOrcamento(){
+    const tipo = document.querySelector('.orcamento-option.selected .orcamento-option-text h4')?.textContent || 'Não informado';
+    const bairro = document.getElementById('orcBairro').value.trim() || 'Não informado';
+    const metros = document.getElementById('orcMetros').value.trim() || 'Não informado';
+
+    const msg = `Olá! Gostaria de solicitar um orçamento:\n\n✅ Tipo: ${tipo}\n📍 Bairro: ${bairro}, Rio Branco\n📐 Tamanho: ${metros}m²\n\nAguardo retorno!`;
+    const url = `https://wa.me/55XXXXXXXXXXX?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+
+
 
   // Anima entrada dos cards de portfólio quando ficam visíveis no carrossel
   (function setupPortfolioCardReveal(){
