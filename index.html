@@ -290,13 +290,13 @@
     font-size:44px;
     font-weight:800;
     line-height:1.15;
-    color:#1A2233;
+    color:#FFFFFF;
     margin-bottom:18px;
   }
   .portfolio-subtitle{
     font-family:'Inter',sans-serif;
     font-size:18px;
-    color:var(--gray-text);
+    color:rgba(255,255,255,0.55);
     max-width:560px;
     margin-bottom:44px;
   }
@@ -355,7 +355,7 @@
     font-size:0.9rem;
     font-weight:600;
     letter-spacing:0.08em;
-    color:var(--gray-text);
+    color:rgba(255,255,255,0.4);
   }
 
   /* ===== PORTFOLIO CARDS ===== */
@@ -377,11 +377,11 @@
   }
   .portfolio-card img{
     width:calc(100% - 16px);
-    height:260px;
+    height:200px;
     object-fit:cover;
     display:block;
     margin:8px 8px 0;
-    border-radius:22px;
+    border-radius:18px;
     transform:scale(1.04);
     opacity:0;
     transition:transform .8s cubic-bezier(.22,1,.36,1), opacity .8s cubic-bezier(.22,1,.36,1);
@@ -433,7 +433,7 @@
     font-family:'Barlow Condensed',sans-serif;
     font-size:1.8rem;
     font-weight:800;
-    color:#1A2233;
+    color:#FFFFFF;
     margin-bottom:20px;
   }
   .orcamento-options{
@@ -447,20 +447,20 @@
     align-items:center;
     gap:16px;
     padding:16px 18px;
-    border:1.5px solid #E2E5EA;
+    border:1.5px solid rgba(255,255,255,0.12);
     border-radius:14px;
-    background:#fff;
+    background:rgba(255,255,255,0.06);
     cursor:pointer;
     transition:border-color .2s, background .2s, box-shadow .2s;
   }
   .orcamento-option.selected{
     border-color:var(--orange);
-    background:#FFF8F0;
-    box-shadow:0 0 0 3px rgba(230,126,34,0.12);
+    background:rgba(232,146,10,0.12);
+    box-shadow:0 0 0 3px rgba(232,146,10,0.15);
   }
   .orcamento-option-icon{
     width:48px;height:48px;
-    background:#F2F3F6;
+    background:rgba(255,255,255,0.08);
     border-radius:10px;
     display:flex;
     align-items:center;
@@ -472,11 +472,11 @@
     font-family:'Barlow Condensed',sans-serif;
     font-size:1.1rem;
     font-weight:700;
-    color:#1A2233;
+    color:#FFFFFF;
   }
   .orcamento-option-text p{
     font-size:0.85rem;
-    color:var(--gray-text);
+    color:rgba(255,255,255,0.55);
     margin-top:2px;
   }
   .orcamento-local-title{
@@ -486,7 +486,7 @@
     font-family:'Barlow Condensed',sans-serif;
     font-size:1.3rem;
     font-weight:700;
-    color:#1A2233;
+    color:#FFFFFF;
     margin-bottom:16px;
   }
   .orcamento-fields{
@@ -499,21 +499,24 @@
     display:block;
     font-size:0.85rem;
     font-weight:600;
-    color:#1A2233;
+    color:rgba(255,255,255,0.75);
     margin-bottom:6px;
   }
   .orcamento-field input{
     width:100%;
     padding:14px 16px;
-    border:1.5px solid #E2E5EA;
+    border:1.5px solid rgba(255,255,255,0.12);
     border-radius:12px;
     font-size:1rem;
     font-family:'Inter',sans-serif;
-    color:#1A2233;
-    background:#fff;
+    color:#FFFFFF;
+    background:rgba(255,255,255,0.06);
     outline:none;
     transition:border-color .2s;
     box-sizing:border-box;
+  }
+  .orcamento-field input::placeholder{
+    color:rgba(255,255,255,0.3);
   }
   .orcamento-field input:focus{
     border-color:var(--orange);
@@ -527,7 +530,7 @@
     top:50%;
     transform:translateY(-50%);
     font-size:0.9rem;
-    color:var(--gray-text);
+    color:rgba(255,255,255,0.4);
     pointer-events:none;
   }
   .orcamento-submit{
@@ -672,7 +675,7 @@
 </section>
 
 <!-- ORÇAMENTO -->
-<section class="section" id="orcamento">
+<section class="section" id="orcamento" style="background:#1C1A17;">
   <h2 class="orcamento-title">O que você precisa?</h2>
 
   <div class="orcamento-options">
@@ -723,7 +726,7 @@
 </section>
 
 <!-- PORTFOLIO -->
-<section class="section muted" id="portfolio">
+<section class="section muted" id="portfolio" style="background:#1C1A17;">
   <div class="eyebrow portfolio-tag">● Nossos Trabalhos</div>
   <h2 class="portfolio-title">Mais que pintura. Transformação.</h2>
   <p class="portfolio-subtitle">Cada trabalho recebe preparação, acabamento impecável e atenção aos detalhes.</p>
