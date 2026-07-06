@@ -315,9 +315,12 @@
   .section.dark .ver-todos{color:var(--white);}
 
   /* ===== CARROSSEL GENÉRICO ===== */
-  .carousel{
+
+  /* ===== PORTFOLIO ESCADA ===== */
+  .portfolio-staircase{
     display:flex;
-    gap:16px;
+    align-items:flex-start;
+    gap:10px;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
     padding-bottom:8px;
@@ -325,89 +328,22 @@
     padding-left:24px;
     padding-right:24px;
   }
-  .carousel.snap{
-    scroll-snap-type:x mandatory;
-  }
-  .carousel::-webkit-scrollbar{display:none;}
+  .portfolio-staircase::-webkit-scrollbar{display:none;}
 
-  .carousel-dots{
-    display:flex;
-    justify-content:center;
-    gap:6px;
-    margin-top:20px;
-  }
-  .carousel-dots span{
-    width:6px;height:6px;border-radius:50%;
-    background:#D8DCE2;
-    transition:all .25s ease;
-  }
-  .carousel-dots span.active{
-    width:18px;border-radius:4px;
-    background:var(--orange);
-  }
-  .section.dark .carousel-dots span{background:rgba(255,255,255,0.2);}
-  .section.dark .carousel-dots span.active{background:var(--orange);}
-
-  /* ===== CARROSSEL FADE (PORTFOLIO) ===== */
-  .fade-carousel{
-    position:relative;
-    width:100%;
-  }
-  .fade-carousel-track{
-    position:relative;
-    width:100%;
-  }
-  .fade-card{
-    position:absolute;
-    top:0; left:0;
-    width:100%;
-    opacity:0;
-    transition:opacity .8s cubic-bezier(.22,1,.36,1);
-    pointer-events:none;
-  }
-  .fade-card.active{
-    position:relative;
-    opacity:1;
-    pointer-events:auto;
-  }
-  .fade-progress{
-    margin-top:20px;
-    height:2px;
-    background:rgba(255,255,255,0.1);
-    border-radius:2px;
-    overflow:hidden;
-  }
-  .fade-progress-bar{
-    height:100%;
-    width:0%;
-    background:var(--orange);
-    border-radius:2px;
-    transition:width linear;
-  }
-
-  .carousel-counter{
-    text-align:center;
-    margin-top:28px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:0.9rem;
-    font-weight:600;
-    letter-spacing:0.08em;
-    color:rgba(255,255,255,0.4);
-  }
-
-  /* ===== PORTFOLIO CARDS ===== */
   .portfolio-card{
-    flex:0 0 80%;
-    border-radius:28px;
+    flex-shrink:0;
+    width:52vw;
+    border-radius:20px;
     overflow:hidden;
-    position:relative;
-    box-shadow:0 24px 60px rgba(0,0,0,0.4), 0 6px 16px rgba(0,0,0,0.2);
+    box-shadow:0 20px 50px rgba(0,0,0,0.45);
     border:1px solid rgba(255,255,255,0.10);
     background:#111;
-    height:360px;
   }
+  .stair-1{ height:320px; }
+  .stair-2{ height:285px; margin-top:18px; }
+  .stair-3{ height:250px; margin-top:36px; }
+  .stair-4{ height:215px; margin-top:54px; }
 
-  /* Coluna interna que desliza verticalmente */
   .before-after{
     display:flex;
     flex-direction:column;
@@ -422,13 +358,17 @@
     90%  { transform:translateY(-50%); }
     100% { transform:translateY(0); }
   }
-
   .before-after-item{
     position:relative;
     width:100%;
     flex-shrink:0;
-    height:360px;
+    height:100%;
   }
+  .stair-1 .before-after-item{ height:320px; }
+  .stair-2 .before-after-item{ height:285px; }
+  .stair-3 .before-after-item{ height:250px; }
+  .stair-4 .before-after-item{ height:215px; }
+
   .before-after-item img{
     width:100%;
     height:100%;
@@ -437,14 +377,14 @@
   }
   .before-after-label{
     position:absolute;
-    top:14px;
-    left:14px;
+    top:10px;
+    left:10px;
     font-family:'Barlow Condensed',sans-serif;
-    font-size:0.75rem;
+    font-size:0.7rem;
     font-weight:700;
     letter-spacing:0.1em;
     text-transform:uppercase;
-    padding:4px 12px;
+    padding:3px 10px;
     border-radius:20px;
     backdrop-filter:blur(6px);
     -webkit-backdrop-filter:blur(6px);
@@ -457,6 +397,7 @@
     background:rgba(232,146,10,0.9);
     color:#1A2233;
   }
+
 
 
   /* ===== SERVICE CARDS ===== */
@@ -764,71 +705,55 @@
   <h2 class="portfolio-title">Mais que pintura. Transformação.</h2>
   <p class="portfolio-subtitle">Cada trabalho recebe preparação, acabamento impecável e atenção aos detalhes.</p>
 
-  <div class="fade-carousel" id="portfolioCarousel">
-    <div class="fade-carousel-track">
-      <div class="fade-card active">
-        <div class="portfolio-card">
-          <div class="before-after">
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-              <span class="before-after-label label-antes">Antes</span>
-            </div>
-            <div class="before-after-divider"></div>
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-              <span class="before-after-label label-depois">Depois</span>
-            </div>
-          </div>
+  <div class="portfolio-staircase" id="portfolioCarousel">
+    <div class="portfolio-card stair-1">
+      <div class="before-after">
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+          <span class="before-after-label label-antes">Antes</span>
         </div>
-      </div>
-      <div class="fade-card">
-        <div class="portfolio-card">
-          <div class="before-after">
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-              <span class="before-after-label label-antes">Antes</span>
-            </div>
-            <div class="before-after-divider"></div>
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-              <span class="before-after-label label-depois">Depois</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="fade-card">
-        <div class="portfolio-card">
-          <div class="before-after">
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-              <span class="before-after-label label-antes">Antes</span>
-            </div>
-            <div class="before-after-divider"></div>
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-              <span class="before-after-label label-depois">Depois</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="fade-card">
-        <div class="portfolio-card">
-          <div class="before-after">
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-              <span class="before-after-label label-antes">Antes</span>
-            </div>
-            <div class="before-after-divider"></div>
-            <div class="before-after-item">
-              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-              <span class="before-after-label label-depois">Depois</span>
-            </div>
-          </div>
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+          <span class="before-after-label label-depois">Depois</span>
         </div>
       </div>
     </div>
-    <div class="fade-progress"><div class="fade-progress-bar" id="portfolioProgress"></div></div>
-    <div class="carousel-counter" id="portfolioCounter">01 / 04</div>
+    <div class="portfolio-card stair-2">
+      <div class="before-after" style="animation-delay:-1.5s;">
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+          <span class="before-after-label label-antes">Antes</span>
+        </div>
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+          <span class="before-after-label label-depois">Depois</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card stair-3">
+      <div class="before-after" style="animation-delay:-3s;">
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+          <span class="before-after-label label-antes">Antes</span>
+        </div>
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+          <span class="before-after-label label-depois">Depois</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card stair-4">
+      <div class="before-after" style="animation-delay:-4.5s;">
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+          <span class="before-after-label label-antes">Antes</span>
+        </div>
+        <div class="before-after-item">
+          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+          <span class="before-after-label label-depois">Depois</span>
+        </div>
+      </div>
+    </div>
   </div>
 <!-- SERVIÇOS -->
 <section class="section" id="servicos">
