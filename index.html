@@ -348,6 +348,43 @@
   .section.dark .carousel-dots span{background:rgba(255,255,255,0.2);}
   .section.dark .carousel-dots span.active{background:var(--orange);}
 
+  /* ===== CARROSSEL FADE (PORTFOLIO) ===== */
+  .fade-carousel{
+    position:relative;
+    width:100%;
+  }
+  .fade-carousel-track{
+    position:relative;
+    width:100%;
+  }
+  .fade-card{
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    opacity:0;
+    transition:opacity .8s cubic-bezier(.22,1,.36,1);
+    pointer-events:none;
+  }
+  .fade-card.active{
+    position:relative;
+    opacity:1;
+    pointer-events:auto;
+  }
+  .fade-progress{
+    margin-top:20px;
+    height:2px;
+    background:rgba(255,255,255,0.1);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .fade-progress-bar{
+    height:100%;
+    width:0%;
+    background:var(--orange);
+    border-radius:2px;
+    transition:width linear;
+  }
+
   .carousel-counter{
     text-align:center;
     margin-top:28px;
@@ -362,71 +399,67 @@
   .portfolio-card{
     flex:0 0 80%;
     border-radius:28px;
-    overflow:visible;
+    overflow:hidden;
     position:relative;
+    box-shadow:0 24px 60px rgba(0,0,0,0.4), 0 6px 16px rgba(0,0,0,0.2);
+    border:1px solid rgba(255,255,255,0.10);
+    background:#111;
+    height:360px;
+  }
+
+  /* Coluna interna que desliza verticalmente */
+  .before-after{
     display:flex;
     flex-direction:column;
-    box-shadow:0 24px 60px rgba(15,27,45,0.28), 0 6px 16px rgba(15,27,45,0.14);
-    border:1px solid rgba(255,255,255,0.20);
-    background:var(--navy);
-    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1);
+    width:100%;
+    animation:scrollBA 6s linear infinite;
+    will-change:transform;
   }
-  .portfolio-card:hover{
-    transform:translateY(-8px) scale(1.02);
-    box-shadow:0 32px 80px rgba(15,27,45,0.32), 0 8px 24px rgba(15,27,45,0.16);
+  @keyframes scrollBA{
+    0%   { transform:translateY(0); }
+    40%  { transform:translateY(0); }
+    50%  { transform:translateY(-50%); }
+    90%  { transform:translateY(-50%); }
+    100% { transform:translateY(0); }
   }
-  .portfolio-card img{
-    width:calc(100% - 16px);
-    height:200px;
+
+  .before-after-item{
+    position:relative;
+    width:100%;
+    flex-shrink:0;
+    height:360px;
+  }
+  .before-after-item img{
+    width:100%;
+    height:100%;
     object-fit:cover;
     display:block;
-    margin:8px 8px 0;
-    border-radius:18px;
-    transform:scale(1.04);
-    opacity:0;
-    transition:transform .8s cubic-bezier(.22,1,.36,1), opacity .8s cubic-bezier(.22,1,.36,1);
   }
-  .portfolio-card.in-view img{
-    transform:scale(1);
-    opacity:1;
-  }
-  .portfolio-info{
-    padding:20px 22px 24px;
-    transform:translateY(40px);
-    opacity:0;
-    transition:transform .8s cubic-bezier(.22,1,.36,1) .1s, opacity .8s cubic-bezier(.22,1,.36,1) .1s;
-  }
-  .portfolio-card.in-view .portfolio-info{
-    transform:translateY(0);
-    opacity:1;
-  }
-  .portfolio-info h3{
+  .before-after-label{
+    position:absolute;
+    top:14px;
+    left:14px;
     font-family:'Barlow Condensed',sans-serif;
-    font-size:34px;
-    font-weight:800;
-    letter-spacing:0.01em;
-    color:#FFFFFF;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 12px;
+    border-radius:20px;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
   }
-  .portfolio-info p{
-    font-size:16px;
-    font-weight:500;
-    color:rgba(255,255,255,0.85);
-    margin-top:2px;
+  .label-antes{
+    background:rgba(0,0,0,0.55);
+    color:rgba(255,255,255,0.9);
   }
-  .portfolio-meta{
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-    margin-top:14px;
-    padding-top:14px;
-    border-top:1px solid rgba(255,255,255,0.12);
+  .label-depois{
+    background:rgba(232,146,10,0.9);
+    color:#1A2233;
   }
-  .portfolio-meta span{
-    font-family:'Inter',sans-serif;
-    font-size:0.85rem;
-    font-weight:500;
-    color:rgba(255,255,255,0.85);
-  }
+
+
+  /* ===== SERVICE CARDS ===== */
 
   /* ===== ORÇAMENTO ===== */
   .orcamento-title{
@@ -731,62 +764,72 @@
   <h2 class="portfolio-title">Mais que pintura. Transformação.</h2>
   <p class="portfolio-subtitle">Cada trabalho recebe preparação, acabamento impecável e atenção aos detalhes.</p>
 
-  <div class="carousel" id="portfolioCarousel">
-    <div class="portfolio-card">
-      <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=900&auto=format&fit=crop" alt="Sala residencial pintada">
-      <div class="portfolio-info">
-        <h3>Residencial</h3>
-        <p>Ambientes renovados para quem valoriza acabamento impecável.</p>
-        <div class="portfolio-meta">
-          <span>✔ Preparação completa</span>
-          <span>✔ Sem sujeira</span>
-          <span>✔ Pintura uniforme</span>
-          <span>✔ Entrega limpa</span>
+  <div class="fade-carousel" id="portfolioCarousel">
+    <div class="fade-carousel-track">
+      <div class="fade-card active">
+        <div class="portfolio-card">
+          <div class="before-after">
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+              <span class="before-after-label label-antes">Antes</span>
+            </div>
+            <div class="before-after-divider"></div>
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+              <span class="before-after-label label-depois">Depois</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-card">
+        <div class="portfolio-card">
+          <div class="before-after">
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+              <span class="before-after-label label-antes">Antes</span>
+            </div>
+            <div class="before-after-divider"></div>
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+              <span class="before-after-label label-depois">Depois</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-card">
+        <div class="portfolio-card">
+          <div class="before-after">
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+              <span class="before-after-label label-antes">Antes</span>
+            </div>
+            <div class="before-after-divider"></div>
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+              <span class="before-after-label label-depois">Depois</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-card">
+        <div class="portfolio-card">
+          <div class="before-after">
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Antes" style="object-position:center top;">
+              <span class="before-after-label label-antes">Antes</span>
+            </div>
+            <div class="before-after-divider"></div>
+            <div class="before-after-item">
+              <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
+              <span class="before-after-label label-depois">Depois</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="portfolio-card">
-      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop" alt="Fachada comercial pintada">
-      <div class="portfolio-info">
-        <h3>Comercial</h3>
-        <p>Fachadas que transmitem credibilidade para o seu negócio.</p>
-        <div class="portfolio-meta">
-          <span>✔ Sem parar o expediente</span>
-          <span>✔ Acabamento durável</span>
-          <span>✔ Padronização visual</span>
-          <span>✔ Entrega no prazo</span>
-        </div>
-      </div>
-    </div>
-    <div class="portfolio-card">
-      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=900&auto=format&fit=crop" alt="Parede com textura grafiato">
-      <div class="portfolio-info">
-        <h3>Textura</h3>
-        <p>Personalidade e sofisticação em cada detalhe do ambiente.</p>
-        <div class="portfolio-meta">
-          <span>✔ Acabamento exclusivo</span>
-          <span>✔ Mão de obra especializada</span>
-          <span>✔ Efeito uniforme</span>
-          <span>✔ Resultado duradouro</span>
-        </div>
-      </div>
-    </div>
-    <div class="portfolio-card">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900&auto=format&fit=crop" alt="Loja com pintura industrial">
-      <div class="portfolio-info">
-        <h3>Industrial</h3>
-        <p>Resistência e segurança para operações de alto desempenho.</p>
-        <div class="portfolio-meta">
-          <span>✔ Alta resistência</span>
-          <span>✔ Proteção antiderrapante</span>
-          <span>✔ Aplicação rápida</span>
-          <span>✔ Baixa manutenção</span>
-        </div>
-      </div>
-    </div>
+    <div class="fade-progress"><div class="fade-progress-bar" id="portfolioProgress"></div></div>
+    <div class="carousel-counter" id="portfolioCounter">01 / 04</div>
   </div>
-  <div class="carousel-counter" id="portfolioCounter">01 / 04</div>
-</section>
 <!-- SERVIÇOS -->
 <section class="section" id="servicos">
   <div class="eyebrow" style="text-align:center;">Especialidades</div>
@@ -855,49 +898,6 @@
     });
   });
 
-  // Gera dots dinamicamente e sincroniza com o scroll de cada carrossel
-  function setupCarouselDots(carouselId, dotsId, cardSelector){
-    const carousel = document.getElementById(carouselId);
-    const dotsContainer = document.getElementById(dotsId);
-    const cards = carousel.querySelectorAll(cardSelector);
-
-    cards.forEach((_, i) => {
-      const dot = document.createElement('span');
-      if(i === 0) dot.classList.add('active');
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = dotsContainer.querySelectorAll('span');
-
-    carousel.addEventListener('scroll', () => {
-      const scrollLeft = carousel.scrollLeft;
-      const cardWidth = cards[0].getBoundingClientRect().width + 16; // gap
-      let activeIndex = Math.round(scrollLeft / cardWidth);
-      activeIndex = Math.min(activeIndex, cards.length - 1);
-
-      dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
-    }, {passive:true});
-  }
-
-  // Contador numérico "01 / 04" sincronizado com o scroll do carrossel
-  function setupCarouselCounter(carouselId, counterId, cardSelector){
-    const carousel = document.getElementById(carouselId);
-    const counter = document.getElementById(counterId);
-    const cards = carousel.querySelectorAll(cardSelector);
-    const total = cards.length;
-
-    function pad(n){ return String(n).padStart(2,'0'); }
-    counter.textContent = `${pad(1)} / ${pad(total)}`;
-
-    carousel.addEventListener('scroll', () => {
-      const scrollLeft = carousel.scrollLeft;
-      const cardWidth = cards[0].getBoundingClientRect().width + 16; // gap
-      let activeIndex = Math.round(scrollLeft / cardWidth);
-      activeIndex = Math.min(Math.max(activeIndex, 0), total - 1);
-      counter.textContent = `${pad(activeIndex + 1)} / ${pad(total)}`;
-    }, {passive:true});
-  }
-
   function selectOrcamento(el){
     document.querySelectorAll('.orcamento-option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
@@ -907,34 +907,63 @@
     const tipo = document.querySelector('.orcamento-option.selected .orcamento-option-text h4')?.textContent || 'Não informado';
     const bairro = document.getElementById('orcBairro').value.trim() || 'Não informado';
     const metros = document.getElementById('orcMetros').value.trim() || 'Não informado';
-
     const msg = `Olá! Gostaria de solicitar um orçamento:\n\n✅ Tipo: ${tipo}\n📍 Bairro: ${bairro}, Rio Branco\n📐 Tamanho: ${metros}m²\n\nAguardo retorno!`;
     const url = `https://wa.me/55XXXXXXXXXXX?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
   }
 
+  // Carrossel fade com loop infinito e barra de progresso
+  (function setupFadeCarousel(){
+    const cards = document.querySelectorAll('#portfolioCarousel .fade-card');
+    const counter = document.getElementById('portfolioCounter');
+    const progressBar = document.getElementById('portfolioProgress');
+    const total = cards.length;
+    const INTERVAL = 4000; // 4 segundos por card
+    let current = 0;
+    let timer = null;
+    let progressTimer = null;
 
+    function pad(n){ return String(n).padStart(2,'0'); }
 
-  // Anima entrada dos cards de portfólio quando ficam visíveis no carrossel
-  (function setupPortfolioCardReveal(){
-    const carousel = document.getElementById('portfolioCarousel');
-    const cards = carousel.querySelectorAll('.portfolio-card');
+    function goTo(index){
+      cards[current].classList.remove('active');
+      current = (index + total) % total;
+      cards[current].classList.add('active');
+      if(counter) counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+      startProgress();
+    }
 
-    if(cards.length) cards[0].classList.add('in-view');
+    function startProgress(){
+      if(progressBar){
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            progressBar.style.transition = `width ${INTERVAL}ms linear`;
+            progressBar.style.width = '100%';
+          });
+        });
+      }
+    }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('in-view');
-        }
-      });
-    }, {
-      root: carousel,
-      threshold: 0.55
+    function startAuto(){
+      if(timer) clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), INTERVAL);
+    }
+
+    // Inicia
+    if(counter) counter.textContent = `${pad(1)} / ${pad(total)}`;
+    startProgress();
+    startAuto();
+
+    // Toque no card avança manualmente
+    document.getElementById('portfolioCarousel').addEventListener('click', () => {
+      clearInterval(timer);
+      goTo(current + 1);
+      startAuto();
     });
-
-    cards.forEach(card => observer.observe(card));
   })();
+
 
 
 </script>
