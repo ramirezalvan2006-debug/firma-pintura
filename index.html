@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Firma Pintura | Rio Branco</title>
+<title>Alvan Pintura e Reforma | Rio Branco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -59,8 +59,21 @@
   }
   .site-header .brand{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
+    align-items:center;
+    gap:10px;
     line-height:1.1;
+  }
+  .site-header .brand-logo{
+    width:38px;
+    height:38px;
+    object-fit:contain;
+    border-radius:6px;
+    flex-shrink:0;
+  }
+  .site-header .brand-text{
+    display:flex;
+    flex-direction:column;
   }
   .site-header .brand-name{
     font-family:'Barlow Condensed',sans-serif;
@@ -606,8 +619,11 @@
     <span></span><span></span><span></span>
   </button>
   <span class="brand">
-    <span class="brand-name">Firma Pintura</span>
-    <span class="brand-city">Rio Branco</span>
+    <img src="logo.jpg" alt="Alvan Logo" class="brand-logo">
+    <span class="brand-text">
+      <span class="brand-name">ALVAN</span>
+      <span class="brand-city">Pintura e Reforma</span>
+    </span>
   </span>
 </header>
 
@@ -644,7 +660,7 @@
     </div>
   </div>
 
-  <a href="#orcamento" class="btn-primary">Fale com Especialista →</a>
+  <a href="#portfolio" class="btn-primary" style="display:block;text-align:center;margin:48px auto 0;width:fit-content;">Ver nossos trabalhos →</a>
 
 </section>
 
