@@ -31,45 +31,61 @@
   }
 
   /* ===== HERO ===== */
+  /* ===== NAVBAR ALVAN ===== */
   .site-header{
     position:fixed;
     top:0;left:0;right:0;
     z-index:30;
-    background:var(--white);
     display:flex;
     align-items:center;
-    gap:14px;
-    padding:14px 20px;
-    box-shadow:0 1px 0 rgba(15,27,45,0.06);
+    justify-content:space-between;
+    padding:20px 24px;
+    background:transparent;
+    transition:background .4s ease, padding .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
   }
-  .menu-btn{
-    background:none;
-    border:none;
-    padding:6px;
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    cursor:pointer;
+
+  /* Estado 2 — após scroll */
+  .site-header.scrolled{
+    background:#0A0C12;
+    padding:14px 24px;
+    border-bottom-color:var(--orange);
   }
-  .menu-btn span{
-    display:block;
-    width:24px;height:2.5px;
-    background:#1A2233;
-    border-radius:2px;
+
+  /* Linha-régua laranja que desliza ao entrar no estado scrolled */
+  .site-header::after{
+    content:'';
+    position:absolute;
+    bottom:-1px;left:0;
+    height:1px;
+    width:0%;
+    background:var(--orange);
+    transition:width .6s cubic-bezier(.22,1,.36,1);
   }
+  .site-header.scrolled::after{
+    width:100%;
+  }
+
+  /* Brand */
   .site-header .brand{
     display:flex;
     flex-direction:row;
     align-items:center;
     gap:10px;
     line-height:1.1;
+    text-decoration:none;
   }
   .site-header .brand-logo{
-    width:38px;
-    height:38px;
+    width:34px;
+    height:34px;
     object-fit:contain;
-    border-radius:6px;
+    border-radius:4px;
     flex-shrink:0;
+    filter:brightness(0) invert(1);
+    transition:filter .4s ease;
+  }
+  .site-header.scrolled .brand-logo{
+    filter:brightness(0) invert(1);
   }
   .site-header .brand-text{
     display:flex;
@@ -78,41 +94,143 @@
   .site-header .brand-name{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800;
-    font-size:1.25rem;
-    color:#1A2233;
-    letter-spacing:0.01em;
+    font-size:1.2rem;
+    color:#FFFFFF;
+    letter-spacing:0.04em;
+    transition:color .4s ease;
   }
   .site-header .brand-city{
     font-family:'Inter',sans-serif;
-    font-weight:500;
-    font-size:0.72rem;
-    color:var(--gray-text);
-    letter-spacing:0.04em;
+    font-weight:400;
+    font-size:0.65rem;
+    color:rgba(255,255,255,0.45);
+    letter-spacing:0.08em;
     text-transform:uppercase;
+    transition:color .4s ease;
   }
 
+  /* Hambúrguer assimétrico da Alvan */
+  .menu-btn{
+    background:none;
+    border:none;
+    padding:6px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+    z-index:40;
+  }
+  .menu-btn span{
+    display:block;
+    height:2px;
+    background:#FFFFFF;
+    border-radius:1px;
+    transition:width .3s ease, transform .3s ease, opacity .3s ease, background .4s ease;
+  }
+  .menu-btn span:nth-child(1){ width:24px; }
+  .menu-btn span:nth-child(2){ width:16px; }
+  .menu-btn span:nth-child(3){ width:20px; }
+
+  /* X quando aberto */
+  .menu-btn.open span:nth-child(1){
+    width:22px;
+    transform:translateY(7px) rotate(45deg);
+  }
+  .menu-btn.open span:nth-child(2){
+    opacity:0;
+    width:0;
+  }
+  .menu-btn.open span:nth-child(3){
+    width:22px;
+    transform:translateY(-7px) rotate(-45deg);
+  }
+
+  /* Menu fullscreen da Alvan */
   .nav-menu{
     position:fixed;
-    top:64px;left:0;right:0;
-    z-index:29;
-    background:var(--white);
-    box-shadow:0 12px 24px rgba(15,27,45,0.1);
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .3s ease;
+    inset:0;
+    z-index:35;
+    background:#0A0C12;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:40px 32px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s cubic-bezier(.22,1,.36,1);
   }
-  .nav-menu.open{max-height:220px;}
+  .nav-menu.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  /* Diagonal decorativa da Alvan no menu */
+  .nav-menu::before{
+    content:'A';
+    position:absolute;
+    bottom:-60px;
+    right:-20px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:320px;
+    color:rgba(255,255,255,0.02);
+    line-height:1;
+    pointer-events:none;
+    user-select:none;
+  }
+
+  .nav-menu-label{
+    font-family:'Inter',sans-serif;
+    font-size:0.7rem;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    margin-bottom:32px;
+  }
+
   .nav-menu a{
     display:block;
-    padding:16px 24px;
-    font-family:'Inter',sans-serif;
-    font-weight:600;
-    font-size:1rem;
-    color:#1A2233;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:clamp(2.4rem, 10vw, 3.5rem);
+    color:rgba(255,255,255,0.85);
     text-decoration:none;
-    border-bottom:1px solid #F0F1F3;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    transition:color .2s ease, padding-left .3s cubic-bezier(.22,1,.36,1);
+    position:relative;
   }
-  .nav-menu a:active{background:var(--gray-bg);}
+  .nav-menu a:last-child{ border-bottom:none; }
+  .nav-menu a:active{
+    color:var(--orange);
+    padding-left:12px;
+  }
+
+  /* Linha-régua laranja no hover dos links */
+  .nav-menu a::before{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:1px;
+    width:0;
+    background:var(--orange);
+    transition:width .3s cubic-bezier(.22,1,.36,1);
+  }
+  .nav-menu a:active::before{ width:100%; }
+
+  /* Info de contato no rodapé do menu */
+  .nav-menu-footer{
+    margin-top:48px;
+    font-family:'Inter',sans-serif;
+    font-size:0.8rem;
+    color:rgba(255,255,255,0.25);
+    letter-spacing:0.04em;
+  }
+
 
   /* ===== HERO ALVAN ===== */
   .hero{
@@ -600,68 +718,168 @@
   }
 
   /* ===== SERVICE CARDS ===== */
-  .services-stack{
-    display:flex;
-    flex-direction:column;
-    gap:28px;
+  /* ===== SERVIÇOS ALVAN ===== */
+  .servicos-section{
+    background:#0F1016;
+    padding:80px 24px;
+    position:relative;
+    overflow:hidden;
   }
-  .service-card{
-    width:100%;
-    border-radius:20px;
-    padding:30px 26px;
-    display:flex;
-    flex-direction:column;
-    min-height:280px;
-  }
-  .service-card.light{
-    background:var(--white);
-    border:1px solid #ECEDF0;
-    box-shadow:0 6px 20px rgba(15,27,45,0.06);
-  }
-  .service-card.solid-dark{
-    background:var(--navy-2);
-    color:var(--white);
-  }
-  .service-icon{
-    width:56px;height:56px;
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:22px;
-  }
-  .service-icon.dark-bg{background:var(--navy);}
-  .service-icon.orange-bg{background:var(--orange);}
-  .service-icon svg{width:26px;height:26px;}
 
-  .service-card h3{
-    font-size:1.7rem;
-    font-weight:700;
-    margin-bottom:12px;
+  /* Textura radial de fundo — parede antes de ser pintada */
+  .servicos-section::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(232,146,10,0.04) 0%, transparent 55%),
+      radial-gradient(ellipse at 10% 80%, rgba(255,255,255,0.02) 0%, transparent 50%);
+    pointer-events:none;
+  }
+
+  .servicos-header{
+    margin-bottom:64px;
+    position:relative;
+  }
+  .servicos-eyebrow{
     font-family:'Inter',sans-serif;
+    font-size:0.7rem;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    margin-bottom:16px;
   }
-  .service-card p{
-    font-size:0.96rem;
-    line-height:1.5;
-    color:var(--gray-text);
-    margin-bottom:22px;
-    flex-grow:1;
+  .servicos-title{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:2.6rem;
+    color:#FFFFFF;
+    line-height:1;
+    letter-spacing:-0.01em;
   }
-  .service-card.solid-dark p{color:rgba(255,255,255,0.75);}
+  .servicos-title span{
+    color:var(--orange);
+  }
 
-  .tag-row{display:flex;gap:8px;flex-wrap:wrap;}
-  .tag{
-    background:var(--gray-bg);
-    color:#1A2233;
-    font-size:0.82rem;
-    font-weight:600;
-    padding:8px 16px;
-    border-radius:999px;
+  /* Lista de serviços */
+  .servico-item{
+    position:relative;
+    padding:32px 0;
+    border-top:1px solid rgba(255,255,255,0.06);
+    opacity:0;
+    transform:translateX(-20px);
+    transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
   }
-  .service-card.solid-dark .tag{
-    background:rgba(255,255,255,0.1);
-    color:var(--white);
+  .servico-item.visible{
+    opacity:1;
+    transform:translateX(0);
   }
+  .servico-item:last-child{
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Número em marca d'água */
+  .servico-num{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:5rem;
+    line-height:1;
+    color:rgba(255,255,255,0.04);
+    position:absolute;
+    top:20px;
+    right:0;
+    letter-spacing:-0.04em;
+    user-select:none;
+    pointer-events:none;
+    transition:color .3s ease;
+  }
+  .servico-item:active .servico-num{
+    color:rgba(232,146,10,0.08);
+  }
+
+  /* Ícone SVG */
+  .servico-icon{
+    width:32px;
+    height:32px;
+    margin-bottom:16px;
+  }
+  .servico-icon svg{
+    width:100%;
+    height:100%;
+    stroke:#FFFFFF;
+    fill:none;
+    stroke-width:1.4;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    transition:stroke .3s ease;
+  }
+  .servico-item:active .servico-icon svg{
+    stroke:var(--orange);
+  }
+
+  /* Nome do serviço */
+  .servico-nome{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:2rem;
+    color:#FFFFFF;
+    letter-spacing:-0.01em;
+    margin-bottom:10px;
+    line-height:1;
+  }
+  /* Itálico exclusivo do serviço de textura */
+  .servico-nome.editorial{
+    font-style:italic;
+  }
+
+  .servico-desc{
+    font-family:'Inter',sans-serif;
+    font-size:0.9rem;
+    color:rgba(255,255,255,0.45);
+    line-height:1.6;
+    max-width:85%;
+    margin-bottom:20px;
+  }
+
+  /* Tags técnicas */
+  .servico-tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .servico-tag{
+    font-family:'Inter',sans-serif;
+    font-size:0.72rem;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:4px 10px;
+    border-radius:3px;
+  }
+
+  /* CTA editorial — sem botão */
+  .servico-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:0.9rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--orange);
+    text-decoration:none;
+    transition:gap .3s ease;
+  }
+  .servico-cta:active{ gap:12px; }
+
+  /* Recuos progressivos — ritmo de estrofe */
+  .servico-item:nth-child(2) .servico-conteudo{ padding-left:20px; }
+  .servico-item:nth-child(3) .servico-conteudo{ padding-left:40px; }
 
   /* ===== FOOTER MINI ===== */
   .footer-note{
@@ -674,10 +892,7 @@
 </head>
 <body>
 
-<header class="site-header">
-  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-    <span></span><span></span><span></span>
-  </button>
+<header class="site-header" id="siteHeader">
   <span class="brand">
     <img src="logo.jpg" alt="Alvan Logo" class="brand-logo">
     <span class="brand-text">
@@ -685,11 +900,17 @@
       <span class="brand-city">Pintura e Reforma</span>
     </span>
   </span>
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
 <nav class="nav-menu" id="navMenu">
-  <a href="#servicos" class="nav-link">Especialidades</a>
+  <p class="nav-menu-label">Navegação</p>
   <a href="#portfolio" class="nav-link">Nossos Trabalhos</a>
+  <a href="#servicos" class="nav-link">Especialidades</a>
+  <a href="#orcamento" class="nav-link">Orçamento</a>
+  <p class="nav-menu-footer">Rio Branco, Acre — Alvan Pintura e Reforma</p>
 </nav>
 
 <!-- HERO -->
@@ -822,45 +1043,63 @@
 </section>
 
 <!-- SERVIÇOS -->
-<section class="section" id="servicos">
-  <div class="eyebrow" style="text-align:center;">Especialidades</div>
-  <h2 style="text-align:center; font-size:2.2rem; font-weight:800; margin-bottom:44px;">Nossos Serviços</h2>
+<section class="servicos-section" id="servicos">
+  <div class="servicos-header">
+    <p class="servicos-eyebrow">● O que fazemos</p>
+    <h2 class="servicos-title">Cada serviço<br>tem um <span>padrão.</span></h2>
+  </div>
 
-  <div class="services-stack">
-    <div class="service-card light">
-      <div class="service-icon dark-bg">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <!-- Serviço 01 — Residencial -->
+  <div class="servico-item">
+    <span class="servico-num">01</span>
+    <div class="servico-conteudo">
+      <div class="servico-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-5h6v5"/></svg>
       </div>
-      <h3>Comercial</h3>
-      <p>Pintura de alta performance para escritórios, lojas e galpões. Foco em durabilidade e agilidade cronometrada.</p>
-      <div class="tag-row">
-        <span class="tag">Epóxi</span>
-        <span class="tag">Fachadas</span>
+      <h3 class="servico-nome">Residencial</h3>
+      <p class="servico-desc">Acabamento premium para interiores e exteriores. Sua casa tratada com o mesmo cuidado que você teria.</p>
+      <div class="servico-tags">
+        <span class="servico-tag">Acetinado</span>
+        <span class="servico-tag">Lavável</span>
+        <span class="servico-tag">Matte</span>
       </div>
+      <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
     </div>
+  </div>
 
-    <div class="service-card solid-dark">
-      <div class="service-icon orange-bg">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#0F1B2D" stroke-width="1.8"><path d="M3 12l9-9 9 9M5 10v10h14V10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <!-- Serviço 02 — Comercial -->
+  <div class="servico-item">
+    <span class="servico-num">02</span>
+    <div class="servico-conteudo">
+      <div class="servico-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
       </div>
-      <h3>Residencial</h3>
-      <p>Acabamento premium para interiores e exteriores, utilizando as melhores tintas do mercado para sua casa.</p>
-      <div class="tag-row">
-        <span class="tag">Acetinado</span>
-        <span class="tag">Lavável</span>
+      <h3 class="servico-nome">Comercial</h3>
+      <p class="servico-desc">Alta performance para escritórios, lojas e galpões. Execução sem interromper sua operação.</p>
+      <div class="servico-tags">
+        <span class="servico-tag">Epóxi</span>
+        <span class="servico-tag">Fachadas</span>
+        <span class="servico-tag">Industrial</span>
       </div>
+      <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
     </div>
+  </div>
 
-    <div class="service-card light">
-      <div class="service-icon dark-bg">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8"><path d="M3 3l18 18M9 3h6l6 6v6l-6 6H9l-6-6V9l6-6z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <!-- Serviço 03 — Texturas -->
+  <div class="servico-item">
+    <span class="servico-num">03</span>
+    <div class="servico-conteudo">
+      <div class="servico-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
       </div>
-      <h3>Textura e Efeitos</h3>
-      <p>Grafiato, cimento queimado e acabamentos especiais que dão personalidade e sofisticação ao ambiente.</p>
-      <div class="tag-row">
-        <span class="tag">Grafiato</span>
-        <span class="tag">Cimento Queimado</span>
+      <h3 class="servico-nome editorial">Texturas e Efeitos</h3>
+      <p class="servico-desc">Grafiato, cimento queimado e acabamentos especiais. Personalidade que nenhuma tinta comum consegue entregar.</p>
+      <div class="servico-tags">
+        <span class="servico-tag">Grafiato</span>
+        <span class="servico-tag">Cimento Queimado</span>
+        <span class="servico-tag">Marmorizado</span>
       </div>
+      <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
     </div>
   </div>
 </section>
@@ -870,21 +1109,53 @@
 </div>
 
 <script>
-  // Menu hambúrguer: abre/fecha e rola até a seção
+  // ===== SERVIÇOS — animação de entrada =====
+  const servicoItems = document.querySelectorAll('.servico-item');
+  const servicoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting){
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 120);
+        servicoObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  servicoItems.forEach(item => servicoObserver.observe(item));
+
+
+  const siteHeader = document.getElementById('siteHeader');
   const menuBtn = document.getElementById('menuBtn');
   const navMenu = document.getElementById('navMenu');
 
+  // Comportamento de scroll — 2 estados da navbar
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 60){
+      siteHeader.classList.add('scrolled');
+    } else {
+      siteHeader.classList.remove('scrolled');
+    }
+  }, {passive:true});
+
+  // Hambúrguer assimétrico — abre menu fullscreen
   menuBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('open');
+    const isOpen = navMenu.classList.toggle('open');
+    menuBtn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
+  // Links do menu — fecha e rola suavemente
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       navMenu.classList.remove('open');
+      menuBtn.classList.remove('open');
+      document.body.style.overflow = '';
       const target = document.querySelector(link.getAttribute('href'));
       if(target){
-        target.scrollIntoView({behavior:'smooth', block:'start'});
+        setTimeout(() => {
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }, 300);
       }
     });
   });
