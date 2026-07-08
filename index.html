@@ -471,125 +471,225 @@
   }
   .section.dark .section-title-row h2{color:var(--white);}
 
-  .portfolio-tag{
-    color:var(--orange);
-    font-size:12px;
-    margin-bottom:16px;
-  }
-  .portfolio-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:44px;
-    font-weight:800;
-    line-height:1.15;
-    color:#FFFFFF;
-    margin-bottom:18px;
-  }
-  .portfolio-subtitle{
-    font-family:'Inter',sans-serif;
-    font-size:18px;
-    color:rgba(255,255,255,0.55);
-    max-width:560px;
-    margin-bottom:44px;
-  }
-
-  .ver-todos{
-    font-family:'Inter',sans-serif;
-    font-weight:600;
-    font-size:0.9rem;
-    color:#1A2233;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    white-space:nowrap;
-  }
-  .section.dark .ver-todos{color:var(--white);}
-
-  /* ===== CARROSSEL GENÉRICO ===== */
-
-  /* ===== PORTFOLIO ESCADA ===== */
-  .portfolio-staircase{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    padding-bottom:8px;
-    margin:0 -24px;
-    padding-left:24px;
-    padding-right:24px;
-  }
-  .portfolio-staircase::-webkit-scrollbar{display:none;}
-
-  .portfolio-card{
-    flex-shrink:0;
-    width:52vw;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 20px 50px rgba(0,0,0,0.45);
-    border:1px solid rgba(255,255,255,0.10);
-    background:#111;
-  }
-  .stair-1{ height:320px; }
-  .stair-2{ height:285px; margin-top:18px; }
-  .stair-3{ height:250px; margin-top:36px; }
-  .stair-4{ height:215px; margin-top:54px; }
-
-  .before-after{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-    animation:scrollBA 6s linear infinite;
-    will-change:transform;
-  }
-  @keyframes scrollBA{
-    0%   { transform:translateY(0); }
-    40%  { transform:translateY(0); }
-    50%  { transform:translateY(-50%); }
-    90%  { transform:translateY(-50%); }
-    100% { transform:translateY(0); }
-  }
-  .before-after-item{
+  /* ===== PORTFOLIO ALVAN ===== */
+  .portfolio-section{
+    background:#0F1016;
+    padding:80px 0 80px;
     position:relative;
-    width:100%;
-    flex-shrink:0;
-    height:100%;
+    overflow:hidden;
   }
-  .stair-1 .before-after-item{ height:320px; }
-  .stair-2 .before-after-item{ height:285px; }
-  .stair-3 .before-after-item{ height:250px; }
-  .stair-4 .before-after-item{ height:215px; }
 
-  .before-after-item img{
+  .portfolio-header{
+    padding:0 24px;
+    margin-bottom:48px;
+  }
+  .portfolio-eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:0.7rem;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    margin-bottom:14px;
+  }
+  .portfolio-headline{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:2.6rem;
+    color:#FFFFFF;
+    line-height:1;
+    letter-spacing:-0.01em;
+  }
+  .portfolio-headline span{ color:var(--orange); }
+
+  /* Navegação editorial */
+  .portfolio-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 24px;
+    margin-top:16px;
+  }
+  .portfolio-nav-btn{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:0.85rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    transition:color .2s ease;
+  }
+  .portfolio-nav-btn:active{ color:var(--orange); }
+  .portfolio-nav-counter{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:0.8rem;
+    font-weight:600;
+    letter-spacing:0.1em;
+    color:rgba(255,255,255,0.2);
+  }
+
+  /* Container do projeto */
+  .portfolio-stage{
+    position:relative;
+    margin-top:32px;
+  }
+
+  /* Foto dominante — 85% da largura, corte diagonal */
+  .portfolio-main-img{
+    position:relative;
+    width:85%;
+    height:58vh;
+    overflow:hidden;
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 8% 100%);
+    margin-left:auto;
+    transition:clip-path .6s cubic-bezier(.22,1,.36,1);
+  }
+  .portfolio-main-img img{
     width:100%;
     height:100%;
     object-fit:cover;
-    display:block;
+    transform:scale(1.03);
+    transition:transform 6s ease, opacity .6s cubic-bezier(.22,1,.36,1);
+    will-change:transform;
   }
-  .before-after-label{
+  .portfolio-main-img.is-before img{
+    filter:grayscale(30%) brightness(0.85);
+  }
+
+  /* Estado ANTES */
+  .portfolio-state-label{
     position:absolute;
-    top:10px;
-    left:10px;
+    top:16px;
+    left:16px;
     font-family:'Barlow Condensed',sans-serif;
-    font-size:0.7rem;
+    font-size:0.72rem;
     font-weight:700;
-    letter-spacing:0.1em;
+    letter-spacing:0.12em;
     text-transform:uppercase;
-    padding:3px 10px;
-    border-radius:20px;
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
+    padding:4px 12px;
+    border-radius:2px;
+    z-index:2;
+    transition:all .4s ease;
   }
-  .label-antes{
-    background:rgba(0,0,0,0.55);
-    color:rgba(255,255,255,0.9);
+  .label-depois-state{
+    background:var(--orange);
+    color:#0F1016;
   }
-  .label-depois{
-    background:rgba(232,146,10,0.9);
-    color:#1A2233;
+  .label-antes-state{
+    background:rgba(255,255,255,0.15);
+    color:#FFFFFF;
+    backdrop-filter:blur(4px);
   }
 
+  /* Detalhe de acabamento — faixa abaixo */
+  .portfolio-detail{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    margin-top:3px;
+    height:100px;
+    width:85%;
+    margin-left:auto;
+    overflow:hidden;
+  }
+  .portfolio-detail-img{
+    flex:0 0 45%;
+    overflow:hidden;
+  }
+  .portfolio-detail-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 70%;
+    transform:scale(1.1);
+    transition:transform 6s ease;
+  }
+  .portfolio-detail-caption{
+    flex:1;
+    background:#1A1C24;
+    display:flex;
+    align-items:center;
+    padding:0 18px;
+  }
+  .portfolio-detail-caption p{
+    font-family:'Inter',sans-serif;
+    font-size:0.72rem;
+    color:rgba(255,255,255,0.3);
+    line-height:1.5;
+    letter-spacing:0.02em;
+  }
+  .portfolio-detail-caption strong{
+    color:rgba(255,255,255,0.6);
+    font-weight:500;
+  }
 
+  /* Ficha do projeto */
+  .portfolio-ficha{
+    padding:28px 24px 0;
+  }
+  .portfolio-ficha-tipo{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:2rem;
+    color:#FFFFFF;
+    letter-spacing:-0.01em;
+    line-height:1;
+    margin-bottom:8px;
+  }
+  .portfolio-ficha-desc{
+    font-family:'Inter',sans-serif;
+    font-size:0.88rem;
+    color:rgba(255,255,255,0.4);
+    line-height:1.6;
+    margin-bottom:16px;
+  }
+  .portfolio-ficha-dado{
+    font-family:'Inter',sans-serif;
+    font-size:0.72rem;
+    color:rgba(255,255,255,0.25);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-bottom:20px;
+  }
+
+  /* Botão antes/depois */
+  .portfolio-toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:0.88rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--orange);
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    transition:gap .3s ease;
+  }
+  .portfolio-toggle:active{ gap:14px; }
+
+  /* Linha-régua laranja abaixo da ficha */
+  .portfolio-ruler{
+    width:40px;
+    height:1.5px;
+    background:var(--orange);
+    margin:24px 24px 0;
+    opacity:0;
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1);
+  }
+  .portfolio-ruler.visible{
+    opacity:1;
+    transform:scaleX(1);
+  }
 
   /* ===== SERVICE CARDS ===== */
 
@@ -985,61 +1085,54 @@
 </section>
 
 <!-- PORTFOLIO -->
-<section class="section muted" id="portfolio" style="background:#1C1A17;">
-  <div class="eyebrow portfolio-tag">● Nossos Trabalhos</div>
-  <h2 class="portfolio-title">Mais que pintura. Transformação.</h2>
-  <p class="portfolio-subtitle">Cada trabalho recebe preparação, acabamento impecável e atenção aos detalhes.</p>
+<section class="portfolio-section" id="portfolio">
 
-  <div class="portfolio-staircase" id="portfolioCarousel">
-    <div class="portfolio-card stair-1">
-      <div class="before-after">
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-          <span class="before-after-label label-antes">Antes</span>
-        </div>
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-          <span class="before-after-label label-depois">Depois</span>
-        </div>
-      </div>
-    </div>
-    <div class="portfolio-card stair-2">
-      <div class="before-after" style="animation-delay:-1.5s;">
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-          <span class="before-after-label label-antes">Antes</span>
-        </div>
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-          <span class="before-after-label label-depois">Depois</span>
-        </div>
-      </div>
-    </div>
-    <div class="portfolio-card stair-3">
-      <div class="before-after" style="animation-delay:-3s;">
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-          <span class="before-after-label label-antes">Antes</span>
-        </div>
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-          <span class="before-after-label label-depois">Depois</span>
-        </div>
-      </div>
-    </div>
-    <div class="portfolio-card stair-4">
-      <div class="before-after" style="animation-delay:-4.5s;">
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Antes" style="object-position:center top;">
-          <span class="before-after-label label-antes">Antes</span>
-        </div>
-        <div class="before-after-item">
-          <img src="1014.jpg" alt="Depois" style="object-position:center bottom;">
-          <span class="before-after-label label-depois">Depois</span>
-        </div>
-      </div>
-    </div>
+  <div class="portfolio-header">
+    <p class="portfolio-eyebrow">● Projetos realizados</p>
+    <h2 class="portfolio-headline">O detalhe é<br>a <span>prova.</span></h2>
   </div>
+
+  <div class="portfolio-stage" id="portfolioStage">
+
+    <!-- Foto dominante -->
+    <div class="portfolio-main-img" id="portfolioMainImg">
+      <span class="portfolio-state-label label-depois-state" id="portfolioStateLabel">Depois</span>
+      <img src="1014.jpg" alt="Resultado do projeto" id="portfolioMainImgEl"
+           style="object-position:center bottom;">
+    </div>
+
+    <!-- Detalhe de acabamento -->
+    <div class="portfolio-detail">
+      <div class="portfolio-detail-img">
+        <img src="1014.jpg" alt="Detalhe do acabamento"
+             style="object-position:center bottom;">
+      </div>
+      <div class="portfolio-detail-caption">
+        <p><strong>Acabamento impecável.</strong><br>Cada detalhe executado com precisão artesanal.</p>
+      </div>
+    </div>
+
+    <!-- Ficha do projeto -->
+    <div class="portfolio-ficha">
+      <h3 class="portfolio-ficha-tipo" id="portfolioTipo">Muro Residencial</h3>
+      <p class="portfolio-ficha-desc" id="portfolioDesc">Recuperação completa de muro com pintura externa de alta durabilidade. Preparação de superfície, selagem e duas demãos de tinta acrílica premium.</p>
+      <p class="portfolio-ficha-dado">Suvinil Premium · Rio Branco, AC</p>
+      <button class="portfolio-toggle" id="portfolioToggle" onclick="toggleAnteDepois()">
+        Ver antes ↗
+      </button>
+    </div>
+
+    <div class="portfolio-ruler" id="portfolioRuler"></div>
+
+  </div>
+
+  <!-- Navegação editorial -->
+  <div class="portfolio-nav">
+    <button class="portfolio-nav-btn" onclick="portfolioNav(-1)">← Anterior</button>
+    <span class="portfolio-nav-counter" id="portfolioNavCounter">01 / 01</span>
+    <button class="portfolio-nav-btn" onclick="portfolioNav(1)">Próximo →</button>
+  </div>
+
 </section>
 
 <!-- SERVIÇOS -->
@@ -1109,7 +1202,89 @@
 </div>
 
 <script>
-  // ===== SERVIÇOS — animação de entrada =====
+  // ===== PORTFOLIO ALVAN =====
+  const projetos = [
+    {
+      tipo: 'Muro Residencial',
+      desc: 'Recuperação completa de muro com pintura externa de alta durabilidade. Preparação de superfície, selagem e duas demãos de tinta acrílica premium.',
+      dado: 'Suvinil Premium · Rio Branco, AC',
+      imgDepois: '1014.jpg',
+      posDepois: 'center bottom',
+      imgAntes: '1014.jpg',
+      posAntes: 'center top',
+    }
+  ];
+
+  let projetoAtual = 0;
+  let mostrandoAntes = false;
+
+  const mainImg = document.getElementById('portfolioMainImgEl');
+  const mainImgContainer = document.getElementById('portfolioMainImg');
+  const stateLabel = document.getElementById('portfolioStateLabel');
+  const toggleBtn = document.getElementById('portfolioToggle');
+  const navCounter = document.getElementById('portfolioNavCounter');
+  const ruler = document.getElementById('portfolioRuler');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function renderProjeto(){
+    const p = projetos[projetoAtual];
+    mostrandoAntes = false;
+    mainImg.src = p.imgDepois;
+    mainImg.style.objectPosition = p.posDepois;
+    mainImgContainer.classList.remove('is-before');
+    stateLabel.textContent = 'Depois';
+    stateLabel.className = 'portfolio-state-label label-depois-state';
+    toggleBtn.textContent = 'Ver antes ↗';
+    document.getElementById('portfolioTipo').textContent = p.tipo;
+    document.getElementById('portfolioDesc').textContent = p.desc;
+    navCounter.textContent = `${pad(projetoAtual + 1)} / ${pad(projetos.length)}`;
+  }
+
+  function toggleAnteDepois(){
+    const p = projetos[projetoAtual];
+    mostrandoAntes = !mostrandoAntes;
+    mainImg.style.opacity = '0';
+    setTimeout(() => {
+      if(mostrandoAntes){
+        mainImg.src = p.imgAntes;
+        mainImg.style.objectPosition = p.posAntes;
+        mainImgContainer.classList.add('is-before');
+        stateLabel.textContent = 'Antes';
+        stateLabel.className = 'portfolio-state-label label-antes-state';
+        toggleBtn.textContent = 'Ver depois ↗';
+      } else {
+        mainImg.src = p.imgDepois;
+        mainImg.style.objectPosition = p.posDepois;
+        mainImgContainer.classList.remove('is-before');
+        stateLabel.textContent = 'Depois';
+        stateLabel.className = 'portfolio-state-label label-depois-state';
+        toggleBtn.textContent = 'Ver antes ↗';
+      }
+      mainImg.style.opacity = '1';
+    }, 300);
+  }
+
+  function portfolioNav(dir){
+    projetoAtual = (projetoAtual + dir + projetos.length) % projetos.length;
+    renderProjeto();
+  }
+
+  // Linha-régua aparece ao entrar no viewport
+  const rulerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setTimeout(() => ruler.classList.add('visible'), 400);
+        rulerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  if(ruler) rulerObserver.observe(ruler);
+
+  // Inicia
+  renderProjeto();
+
+
   const servicoItems = document.querySelectorAll('.servico-item');
   const servicoObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
