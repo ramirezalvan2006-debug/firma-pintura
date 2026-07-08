@@ -114,97 +114,165 @@
   }
   .nav-menu a:active{background:var(--gray-bg);}
 
+  /* ===== HERO ALVAN ===== */
   .hero{
     position:relative;
-    min-height:115vh;
+    min-height:100vh;
     display:flex;
     flex-direction:column;
-    justify-content:center;
-    padding:32px 24px 40px;
-    padding-top:240px;
+    justify-content:flex-end;
+    padding:0 0 56px;
+    padding-top:72px;
     color:var(--white);
+    overflow:hidden;
+  }
+
+  /* Foto ocupa toda a tela */
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    background:url('hero.webp') center center / cover no-repeat;
+    z-index:0;
+  }
+
+  /* Corte diagonal exclusivo da Alvan — vem do "A" do logo */
+  .hero-bg::after{
+    content:'';
+    position:absolute;
+    inset:0;
     background:
-      linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0) 100%),
-      url('hero.webp')
-      center top / cover no-repeat;
+      linear-gradient(165deg,
+        rgba(10,12,18,0.97) 0%,
+        rgba(10,12,18,0.90) 35%,
+        rgba(10,12,18,0.55) 58%,
+        rgba(10,12,18,0.10) 80%,
+        rgba(10,12,18,0.0) 100%
+      );
   }
 
-  .hero-eyebrow{
-    display:inline-block;
-    background:var(--orange);
-    color:var(--navy);
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:700;
-    letter-spacing:0.08em;
-    font-size:13px;
-    padding:9px 18px;
-    border-radius:999px;
-    margin-bottom:18px;
-    width:fit-content;
-    text-transform:uppercase;
-  }
-
-  .hero h1,
-  .hero p{
-    max-width:78%;
-  }
-
-  .hero h1{
-    font-family:'Inter',sans-serif;
-    font-weight:900;
-    font-size:clamp(1.7rem, 6.5vw, 2.5rem);
-    line-height:1.08;
-    margin-bottom:24px;
-    letter-spacing:-0.02em;
-    text-transform:uppercase;
-  }
-
-  .hero p{
-    font-size:1.05rem;
-    color:rgba(255,255,255,0.82);
-    max-width:78%;
-    margin-bottom:30px;
-    line-height:1.5;
-  }
-
-  .trust-badges{
+  /* Conteúdo do hero */
+  .hero-content{
+    position:relative;
+    z-index:2;
+    padding:0 24px;
     display:flex;
     flex-direction:column;
-    margin-bottom:30px;
-    max-width:55%;
   }
-  .trust-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:11px 0;
+
+  /* Linha-régua da Alvan */
+  .hero-ruler{
+    width:40px;
+    height:1.5px;
+    background:var(--orange);
+    margin-bottom:28px;
   }
-  .trust-item .icon-box{
-    flex:0 0 auto;
-    width:32px;
-    height:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .trust-item .icon-box svg{
-    width:27px;
-    height:27px;
-    stroke:var(--white);
-    fill:none;
-    stroke-width:1.6;
-  }
-  .trust-item .trust-text{
+
+  /* Título em dois tempos */
+  .hero-pre{
     font-family:'Inter',sans-serif;
     font-weight:400;
-    font-size:0.85rem;
-    line-height:1.35;
-    color:var(--white);
+    font-size:1rem;
+    color:rgba(255,255,255,0.6);
+    letter-spacing:0.02em;
+    margin-bottom:8px;
   }
-  .trust-divider{
-    height:1px;
-    background:rgba(245,166,35,0.6);
+  .hero-title{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:clamp(3.2rem, 14vw, 5.5rem);
+    line-height:0.92;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+    color:#FFFFFF;
+    margin-bottom:28px;
+  }
+  .hero-title span{
+    color:var(--orange);
+  }
+
+  /* Frase de posicionamento — uma linha, não três ícones */
+  .hero-position{
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    font-size:0.95rem;
+    color:rgba(255,255,255,0.65);
+    line-height:1.55;
+    max-width:72%;
+    margin-bottom:40px;
+  }
+
+  /* Dado concreto — sem card, sem ícone */
+  .hero-stat{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:48px;
+  }
+  .hero-stat-number{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:2.8rem;
+    color:#FFFFFF;
+    line-height:1;
+  }
+  .hero-stat-label{
+    font-family:'Inter',sans-serif;
+    font-size:0.8rem;
+    color:rgba(255,255,255,0.45);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+  .hero-stat-line{
     width:100%;
+    max-width:160px;
+    height:1px;
+    background:rgba(255,255,255,0.12);
+    margin-top:16px;
+  }
+
+  /* CTA editorial — sem botão convencional */
+  .hero-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--orange);
+    transition:gap .3s ease;
+  }
+  .hero-cta:active{ gap:16px; }
+  .hero-cta-arrow{
+    font-size:1.2rem;
+    transform:rotate(-45deg);
+    display:inline-block;
+    transition:transform .3s ease;
+  }
+  .hero-cta:active .hero-cta-arrow{
+    transform:rotate(-45deg) translateX(4px);
+  }
+
+  /* Animações de entrada */
+  .hero-ruler,
+  .hero-pre,
+  .hero-title,
+  .hero-position,
+  .hero-stat,
+  .hero-cta{
+    opacity:0;
+    transform:translateY(24px);
+    animation:heroIn .8s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .hero-pre       { animation-delay:.1s; }
+  .hero-title     { animation-delay:.2s; }
+  .hero-position  { animation-delay:.35s; }
+  .hero-stat      { animation-delay:.5s; }
+  .hero-cta       { animation-delay:.65s; }
+  @keyframes heroIn{
+    to{ opacity:1; transform:translateY(0); }
   }
 
   .btn-primary{
@@ -220,7 +288,7 @@
     letter-spacing:0.04em;
     text-transform:uppercase;
     padding:18px 28px;
-    border-radius:14px;
+    border-radius:8px;
     border:none;
     text-decoration:none;
     width:fit-content;
@@ -230,14 +298,6 @@
   }
   .btn-primary:active{transform:scale(0.97);}
 
-  .btn-ghost{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.25);
-    color:var(--white);
     font-family:'Barlow Condensed',sans-serif;
     font-weight:600;
     font-size:0.95rem;
@@ -634,34 +694,22 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <h1>Pintura Profissional</h1>
-  <p>Pintura residencial e comercial executada com qualidade, limpeza e compromisso com o prazo.</p>
-
-  <div class="trust-badges">
-    <div class="trust-item">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="trust-text">Segurança<br>Garantida</div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-ruler"></div>
+    <p class="hero-pre">Sua parede merece</p>
+    <h1 class="hero-title">ALVAN<span>.</span></h1>
+    <p class="hero-position">Pintura e reforma executada com precisão artesanal em Rio Branco, AC.</p>
+    <div class="hero-stat">
+      <span class="hero-stat-number">+200</span>
+      <span class="hero-stat-label">Ambientes transformados</span>
+      <div class="hero-stat-line"></div>
     </div>
-    <div class="trust-divider"></div>
-    <div class="trust-item">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5.5"/><path d="M8.5 12.5L6 21l6-3 6 3-2.5-8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8l1.8 1.8L15 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="trust-text">Qualidade<br>Comprovada</div>
-    </div>
-    <div class="trust-divider"></div>
-    <div class="trust-item">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="16" rx="2"/><path d="M3.5 9h17M7.5 2.5v4M16.5 2.5v4" stroke-linecap="round"/><path d="M8.5 14l2 2 4.5-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="trust-text">Entrega no<br>Prazo</div>
-    </div>
+    <a href="#portfolio" class="hero-cta">
+      Ver os resultados
+      <span class="hero-cta-arrow">↗</span>
+    </a>
   </div>
-
-  <a href="#portfolio" class="btn-primary" style="display:block;text-align:center;margin:48px auto 0;width:fit-content;">Ver nossos trabalhos →</a>
-
 </section>
 
 <!-- ORÇAMENTO -->
@@ -771,6 +819,8 @@
       </div>
     </div>
   </div>
+</section>
+
 <!-- SERVIÇOS -->
 <section class="section" id="servicos">
   <div class="eyebrow" style="text-align:center;">Especialidades</div>
