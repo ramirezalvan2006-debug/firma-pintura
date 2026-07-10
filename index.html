@@ -694,127 +694,256 @@
   /* ===== SERVICE CARDS ===== */
 
   /* ===== ORÇAMENTO ===== */
-  .orcamento-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1.8rem;
-    font-weight:800;
-    color:#FFFFFF;
-    margin-bottom:20px;
-  }
-  .orcamento-options{
+  /* ===== FORMULÁRIO ALVAN — UMA CONVERSA EM 3 MOMENTOS ===== */
+  .consulta-section{
+    background:#0F1016;
+    padding:80px 24px;
+    position:relative;
+    min-height:100vh;
     display:flex;
     flex-direction:column;
-    gap:12px;
+    justify-content:center;
+  }
+
+  /* Indicador de progresso — linha fina em 3 segmentos */
+  .consulta-progress{
+    display:flex;
+    gap:4px;
+    margin-bottom:56px;
+  }
+  .consulta-progress-seg{
+    flex:1;
+    height:1.5px;
+    background:rgba(255,255,255,0.1);
+    position:relative;
+    overflow:hidden;
+  }
+  .consulta-progress-seg::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:var(--orange);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .5s cubic-bezier(.22,1,.36,1);
+  }
+  .consulta-progress-seg.done::after{ transform:scaleX(1); }
+  .consulta-progress-seg.active::after{
+    transform:scaleX(0.5);
+    background:rgba(232,146,10,0.5);
+  }
+
+  /* Etapa — container */
+  .consulta-etapa{
+    display:none;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
+  }
+  .consulta-etapa.ativa{
+    display:block;
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* Pergunta da etapa */
+  .consulta-pergunta{
+    font-family:'Inter',sans-serif;
+    font-size:0.72rem;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    margin-bottom:12px;
+  }
+  .consulta-titulo{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:2.4rem;
+    color:#FFFFFF;
+    line-height:1;
+    letter-spacing:-0.01em;
+    margin-bottom:40px;
+  }
+  .consulta-titulo span{ color:var(--orange); }
+
+  /* Opções — linhas com número de ordem */
+  .consulta-opcoes{
+    display:flex;
+    flex-direction:column;
+  }
+  .consulta-opcao{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:20px 0;
+    border-top:1px solid rgba(255,255,255,0.06);
+    cursor:pointer;
+    transition:opacity .3s ease;
+  }
+  .consulta-opcao:last-child{ border-bottom:1px solid rgba(255,255,255,0.06); }
+
+  /* Número de ordem */
+  .consulta-opcao-num{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:0.85rem;
+    color:rgba(255,255,255,0.2);
+    letter-spacing:0.06em;
+    min-width:24px;
+    transition:color .3s ease;
+  }
+
+  /* Nome da opção */
+  .consulta-opcao-nome{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.8rem;
+    color:rgba(255,255,255,0.75);
+    letter-spacing:-0.01em;
+    line-height:1;
+    transition:color .3s ease;
+    flex:1;
+  }
+
+  /* Linha-régua que preenche ao selecionar */
+  .consulta-opcao-linha{
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:1px;
+    background:var(--orange);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .4s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* Estado selecionado */
+  .consulta-opcao.selecionada .consulta-opcao-nome{ color:#FFFFFF; }
+  .consulta-opcao.selecionada .consulta-opcao-num{ color:var(--orange); }
+  .consulta-opcao.selecionada .consulta-opcao-linha{ transform:scaleX(1); }
+  .consulta-opcao.selecionada{ transform:scale(1.01); }
+
+  /* Opções não selecionadas desvanecem */
+  .consulta-opcoes.tem-selecao .consulta-opcao:not(.selecionada){
+    opacity:0.3;
+  }
+
+  /* Campo de texto — só borda inferior */
+  .consulta-input-wrap{
+    position:relative;
     margin-bottom:32px;
   }
-  .orcamento-option{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding:16px 18px;
-    border:1.5px solid rgba(255,255,255,0.12);
-    border-radius:14px;
-    background:rgba(255,255,255,0.06);
-    cursor:pointer;
-    transition:border-color .2s, background .2s, box-shadow .2s;
-  }
-  .orcamento-option.selected{
-    border-color:var(--orange);
-    background:rgba(232,146,10,0.12);
-    box-shadow:0 0 0 3px rgba(232,146,10,0.15);
-  }
-  .orcamento-option-icon{
-    width:48px;height:48px;
-    background:rgba(255,255,255,0.08);
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:1.4rem;
-    flex-shrink:0;
-  }
-  .orcamento-option-text h4{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1.1rem;
-    font-weight:700;
-    color:#FFFFFF;
-  }
-  .orcamento-option-text p{
-    font-size:0.85rem;
-    color:rgba(255,255,255,0.55);
-    margin-top:2px;
-  }
-  .orcamento-local-title{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1.3rem;
-    font-weight:700;
-    color:#FFFFFF;
-    margin-bottom:16px;
-  }
-  .orcamento-fields{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-    margin-bottom:28px;
-  }
-  .orcamento-field label{
-    display:block;
-    font-size:0.85rem;
-    font-weight:600;
-    color:rgba(255,255,255,0.75);
-    margin-bottom:6px;
-  }
-  .orcamento-field input{
+  .consulta-input{
     width:100%;
-    padding:14px 16px;
-    border:1.5px solid rgba(255,255,255,0.12);
-    border-radius:12px;
-    font-size:1rem;
-    font-family:'Inter',sans-serif;
+    background:none;
+    border:none;
+    border-bottom:1.5px solid rgba(255,255,255,0.15);
+    padding:16px 0;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.8rem;
+    font-weight:700;
     color:#FFFFFF;
-    background:rgba(255,255,255,0.06);
     outline:none;
-    transition:border-color .2s;
+    transition:border-color .3s ease;
     box-sizing:border-box;
+    letter-spacing:-0.01em;
   }
-  .orcamento-field input::placeholder{
-    color:rgba(255,255,255,0.3);
+  .consulta-input::placeholder{
+    color:rgba(255,255,255,0.2);
+    font-weight:400;
+    font-size:1.4rem;
   }
-  .orcamento-field input:focus{
-    border-color:var(--orange);
+  .consulta-input:focus{
+    border-bottom-color:var(--orange);
   }
-  .orcamento-field .input-wrap{
-    position:relative;
-  }
-  .orcamento-field .input-suffix{
+  .consulta-input-suffix{
     position:absolute;
-    right:16px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:0.9rem;
-    color:rgba(255,255,255,0.4);
+    right:0;
+    bottom:18px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.4rem;
+    font-weight:700;
+    color:var(--orange);
     pointer-events:none;
   }
-  .orcamento-submit{
-    width:100%;
-    padding:18px;
-    background:var(--orange);
-    color:var(--navy);
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1.1rem;
-    font-weight:700;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    transition:transform .15s, box-shadow .15s;
+
+  /* Chips de sugestão rápida */
+  .consulta-chips{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
   }
-  .orcamento-submit:active{
-    transform:scale(0.97);
+  .consulta-chip{
+    font-family:'Inter',sans-serif;
+    font-size:0.75rem;
+    font-weight:500;
+    color:rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:6px 14px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:color .2s ease, border-color .2s ease;
+    background:none;
+    letter-spacing:0.04em;
+  }
+  .consulta-chip:active{
+    color:var(--orange);
+    border-color:var(--orange);
+  }
+
+  /* Botão continuar — aparece condicionalmente */
+  .consulta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#0F1016;
+    background:var(--orange);
+    border:none;
+    padding:16px 28px;
+    border-radius:4px;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1), gap .3s ease;
+    pointer-events:none;
+  }
+  .consulta-btn.visivel{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .consulta-btn:active{ gap:16px; }
+
+  /* Confirmação final */
+  .consulta-confirmacao{
+    display:none;
+    text-align:center;
+    padding:40px 0;
+  }
+  .consulta-confirmacao.ativa{ display:block; }
+  .consulta-check{
+    font-size:2.5rem;
+    margin-bottom:16px;
+    display:block;
+  }
+  .consulta-confirmacao h3{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:2rem;
+    font-weight:800;
+    color:#FFFFFF;
+    margin-bottom:8px;
+  }
+  .consulta-confirmacao p{
+    font-family:'Inter',sans-serif;
+    font-size:0.9rem;
+    color:rgba(255,255,255,0.4);
   }
 
   /* ===== SERVICE CARDS ===== */
@@ -981,12 +1110,120 @@
   .servico-item:nth-child(2) .servico-conteudo{ padding-left:20px; }
   .servico-item:nth-child(3) .servico-conteudo{ padding-left:40px; }
 
-  /* ===== FOOTER MINI ===== */
-  .footer-note{
-    text-align:center;
-    padding:30px 24px 50px;
-    font-size:0.85rem;
-    color:var(--gray-text);
+  /* ===== FOOTER ALVAN — ENCERRAMENTO ===== */
+  .alvan-footer{
+    background:#070809;
+    padding:80px 24px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* "A" como marca d'água — identidade presente até o fim */
+  .alvan-footer::before{
+    content:'A';
+    position:absolute;
+    bottom:-60px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:420px;
+    color:rgba(255,255,255,0.015);
+    line-height:1;
+    pointer-events:none;
+    user-select:none;
+    letter-spacing:-0.04em;
+  }
+
+  /* Frase de encerramento */
+  .footer-frase{
+    position:relative;
+    z-index:2;
+    margin-bottom:48px;
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+  }
+  .footer-frase.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .footer-frase h2{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:clamp(2.4rem, 11vw, 4.5rem);
+    line-height:0.95;
+    letter-spacing:-0.02em;
+    color:#FFFFFF;
+    margin-bottom:24px;
+  }
+  .footer-frase h2 span{
+    color:var(--orange);
+  }
+
+  /* Linha-régua — elemento proprietário da Alvan */
+  .footer-ruler{
+    width:0px;
+    height:1.5px;
+    background:var(--orange);
+    transition:width .7s cubic-bezier(.22,1,.36,1) .3s;
+  }
+  .footer-frase.visible .footer-ruler{
+    width:40px;
+  }
+
+  /* CTA único */
+  .footer-cta{
+    position:relative;
+    z-index:2;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--orange);
+    text-decoration:none;
+    margin-bottom:64px;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease .4s, transform .6s cubic-bezier(.22,1,.36,1) .4s, gap .3s ease;
+  }
+  .footer-cta.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .footer-cta:active{ gap:16px; }
+
+  /* Assinatura */
+  .footer-assinatura{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top:1px solid rgba(255,255,255,0.05);
+    padding-top:24px;
+    opacity:0;
+    transition:opacity .6s ease .6s;
+  }
+  .footer-assinatura.visible{ opacity:1; }
+
+  .footer-local{
+    font-family:'Inter',sans-serif;
+    font-size:0.72rem;
+    color:rgba(255,255,255,0.18);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    line-height:1.6;
+  }
+  .footer-copy{
+    font-family:'Inter',sans-serif;
+    font-size:0.7rem;
+    color:rgba(255,255,255,0.12);
+    letter-spacing:0.04em;
   }
 </style>
 </head>
@@ -1031,108 +1268,6 @@
       <span class="hero-cta-arrow">↗</span>
     </a>
   </div>
-</section>
-
-<!-- ORÇAMENTO -->
-<section class="section" id="orcamento" style="background:#1C1A17;">
-  <h2 class="orcamento-title">O que você precisa?</h2>
-
-  <div class="orcamento-options">
-    <div class="orcamento-option selected" onclick="selectOrcamento(this)">
-      <div class="orcamento-option-icon">🏠</div>
-      <div class="orcamento-option-text">
-        <h4>Residencial</h4>
-        <p>Casas e Apartamentos</p>
-      </div>
-    </div>
-    <div class="orcamento-option" onclick="selectOrcamento(this)">
-      <div class="orcamento-option-icon">🏢</div>
-      <div class="orcamento-option-text">
-        <h4>Comercial</h4>
-        <p>Lojas e Escritórios</p>
-      </div>
-    </div>
-    <div class="orcamento-option" onclick="selectOrcamento(this)">
-      <div class="orcamento-option-icon">🎨</div>
-      <div class="orcamento-option-text">
-        <h4>Texturas</h4>
-        <p>Acabamentos Especiais</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="orcamento-local-title">
-    📍 Dados do Local
-  </div>
-
-  <div class="orcamento-fields">
-    <div class="orcamento-field">
-      <label>Bairro em Rio Branco</label>
-      <input type="text" id="orcBairro" placeholder="Ex: Centro, Bosque...">
-    </div>
-    <div class="orcamento-field">
-      <label>Tamanho Aproximado (m²)</label>
-      <div class="input-wrap">
-        <input type="number" id="orcMetros" placeholder="0" min="0">
-        <span class="input-suffix">m²</span>
-      </div>
-    </div>
-  </div>
-
-  <button class="orcamento-submit" onclick="enviarOrcamento()">
-    Solicitar Orçamento Grátis →
-  </button>
-</section>
-
-<!-- PORTFOLIO -->
-<section class="portfolio-section" id="portfolio">
-
-  <div class="portfolio-header">
-    <p class="portfolio-eyebrow">● Projetos realizados</p>
-    <h2 class="portfolio-headline">O detalhe é<br>a <span>prova.</span></h2>
-  </div>
-
-  <div class="portfolio-stage" id="portfolioStage">
-
-    <!-- Foto dominante -->
-    <div class="portfolio-main-img" id="portfolioMainImg">
-      <span class="portfolio-state-label label-depois-state" id="portfolioStateLabel">Depois</span>
-      <img src="1014.jpg" alt="Resultado do projeto" id="portfolioMainImgEl"
-           style="object-position:center bottom;">
-    </div>
-
-    <!-- Detalhe de acabamento -->
-    <div class="portfolio-detail">
-      <div class="portfolio-detail-img">
-        <img src="1014.jpg" alt="Detalhe do acabamento"
-             style="object-position:center bottom;">
-      </div>
-      <div class="portfolio-detail-caption">
-        <p><strong>Acabamento impecável.</strong><br>Cada detalhe executado com precisão artesanal.</p>
-      </div>
-    </div>
-
-    <!-- Ficha do projeto -->
-    <div class="portfolio-ficha">
-      <h3 class="portfolio-ficha-tipo" id="portfolioTipo">Muro Residencial</h3>
-      <p class="portfolio-ficha-desc" id="portfolioDesc">Recuperação completa de muro com pintura externa de alta durabilidade. Preparação de superfície, selagem e duas demãos de tinta acrílica premium.</p>
-      <p class="portfolio-ficha-dado">Suvinil Premium · Rio Branco, AC</p>
-      <button class="portfolio-toggle" id="portfolioToggle" onclick="toggleAnteDepois()">
-        Ver antes ↗
-      </button>
-    </div>
-
-    <div class="portfolio-ruler" id="portfolioRuler"></div>
-
-  </div>
-
-  <!-- Navegação editorial -->
-  <div class="portfolio-nav">
-    <button class="portfolio-nav-btn" onclick="portfolioNav(-1)">← Anterior</button>
-    <span class="portfolio-nav-counter" id="portfolioNavCounter">01 / 01</span>
-    <button class="portfolio-nav-btn" onclick="portfolioNav(1)">Próximo →</button>
-  </div>
-
 </section>
 
 <!-- SERVIÇOS -->
@@ -1197,9 +1332,160 @@
   </div>
 </section>
 
-<div class="footer-note" id="orcamento">
-  Estrutura inicial — imagens reais e fluxo de orçamento via WhatsApp entram na próxima etapa.
-</div>
+<!-- ORÇAMENTO -->
+<section class="consulta-section" id="orcamento">
+
+  <!-- Indicador de progresso -->
+  <div class="consulta-progress">
+    <div class="consulta-progress-seg active" id="seg1"></div>
+    <div class="consulta-progress-seg" id="seg2"></div>
+    <div class="consulta-progress-seg" id="seg3"></div>
+  </div>
+
+  <!-- Etapa 1 — O que vamos transformar? -->
+  <div class="consulta-etapa ativa" id="etapa1">
+    <p class="consulta-pergunta">Etapa 01 de 03</p>
+    <h2 class="consulta-titulo">O que vamos<br><span>transformar?</span></h2>
+    <div class="consulta-opcoes" id="opcoesTipo">
+      <div class="consulta-opcao" onclick="selecionarTipo(this, 'Residencial')">
+        <span class="consulta-opcao-num">01</span>
+        <span class="consulta-opcao-nome">Residencial</span>
+        <div class="consulta-opcao-linha"></div>
+      </div>
+      <div class="consulta-opcao" onclick="selecionarTipo(this, 'Comercial')">
+        <span class="consulta-opcao-num">02</span>
+        <span class="consulta-opcao-nome">Comercial</span>
+        <div class="consulta-opcao-linha"></div>
+      </div>
+      <div class="consulta-opcao" onclick="selecionarTipo(this, 'Textura e Efeitos')">
+        <span class="consulta-opcao-num">03</span>
+        <span class="consulta-opcao-nome">Textura e Efeitos</span>
+        <div class="consulta-opcao-linha"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Etapa 2 — Onde fica? -->
+  <div class="consulta-etapa" id="etapa2">
+    <p class="consulta-pergunta">Etapa 02 de 03</p>
+    <h2 class="consulta-titulo">Onde<br><span>fica?</span></h2>
+    <div class="consulta-input-wrap">
+      <input class="consulta-input" type="text" id="inputBairro"
+             placeholder="Qual bairro em Rio Branco?"
+             oninput="verificarBairro()">
+    </div>
+    <button class="consulta-btn" id="btnEtapa2" onclick="irParaEtapa(3)">
+      Continuar →
+    </button>
+  </div>
+
+  <!-- Etapa 3 — Qual o tamanho? -->
+  <div class="consulta-etapa" id="etapa3">
+    <p class="consulta-pergunta">Etapa 03 de 03</p>
+    <h2 class="consulta-titulo">Qual o<br><span>tamanho?</span></h2>
+    <div class="consulta-input-wrap">
+      <input class="consulta-input" type="number" id="inputMetros"
+             placeholder="0" min="0"
+             oninput="verificarMetros()" style="padding-right:48px;">
+      <span class="consulta-input-suffix">m²</span>
+    </div>
+    <div class="consulta-chips">
+      <button class="consulta-chip" onclick="preencherMetros('40')">Até 50m²</button>
+      <button class="consulta-chip" onclick="preencherMetros('100')">50–150m²</button>
+      <button class="consulta-chip" onclick="preencherMetros('200')">+150m²</button>
+    </div>
+    <button class="consulta-btn" id="btnFinal" onclick="enviarConsulta()">
+      Iniciar meu projeto →
+    </button>
+  </div>
+
+  <!-- Confirmação -->
+  <div class="consulta-confirmacao" id="consultaConfirmacao">
+    <span class="consulta-check">✓</span>
+    <h3>Projeto iniciado.</h3>
+    <p>Redirecionando para o WhatsApp da Alvan…</p>
+  </div>
+
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+
+  <div class="portfolio-header">
+    <p class="portfolio-eyebrow">● Projetos realizados</p>
+    <h2 class="portfolio-headline">O detalhe é<br>a <span>prova.</span></h2>
+  </div>
+
+  <div class="portfolio-stage" id="portfolioStage">
+
+    <!-- Foto dominante -->
+    <div class="portfolio-main-img" id="portfolioMainImg">
+      <span class="portfolio-state-label label-depois-state" id="portfolioStateLabel">Depois</span>
+      <img src="1014.jpg" alt="Resultado do projeto" id="portfolioMainImgEl"
+           style="object-position:center bottom;">
+    </div>
+
+    <!-- Detalhe de acabamento -->
+    <div class="portfolio-detail">
+      <div class="portfolio-detail-img">
+        <img src="1014.jpg" alt="Detalhe do acabamento"
+             style="object-position:center bottom;">
+      </div>
+      <div class="portfolio-detail-caption">
+        <p><strong>Acabamento impecável.</strong><br>Cada detalhe executado com precisão artesanal.</p>
+      </div>
+    </div>
+
+    <!-- Ficha do projeto -->
+    <div class="portfolio-ficha">
+      <h3 class="portfolio-ficha-tipo" id="portfolioTipo">Muro Residencial</h3>
+      <p class="portfolio-ficha-desc" id="portfolioDesc">Recuperação completa de muro com pintura externa de alta durabilidade. Preparação de superfície, selagem e duas demãos de tinta acrílica premium.</p>
+      <p class="portfolio-ficha-dado">Suvinil Premium · Rio Branco, AC</p>
+      <button class="portfolio-toggle" id="portfolioToggle" onclick="toggleAnteDepois()">
+        Ver antes ↗
+      </button>
+    </div>
+
+    <div class="portfolio-ruler" id="portfolioRuler"></div>
+
+  </div>
+
+  <!-- Navegação editorial -->
+  <div class="portfolio-nav">
+    <button class="portfolio-nav-btn" onclick="portfolioNav(-1)">← Anterior</button>
+    <span class="portfolio-nav-counter" id="portfolioNavCounter">01 / 01</span>
+    <button class="portfolio-nav-btn" onclick="portfolioNav(1)">Próximo →</button>
+  </div>
+
+</section>
+
+
+<footer class="alvan-footer" id="alvanFooter">
+
+  <!-- Frase de encerramento -->
+  <div class="footer-frase" id="footerFrase">
+    <h2>
+      Cada demão é uma<br>
+      decisão de <span>qualidade.</span>
+    </h2>
+    <div class="footer-ruler"></div>
+  </div>
+
+  <!-- CTA único -->
+  <a href="#orcamento" class="footer-cta" id="footerCta">
+    Iniciar meu projeto →
+  </a>
+
+  <!-- Assinatura -->
+  <div class="footer-assinatura" id="footerAssinatura">
+    <p class="footer-local">
+      Rio Branco, Acre<br>
+      Alvan Pintura e Reforma
+    </p>
+    <p class="footer-copy">© 2025 Alvan</p>
+  </div>
+
+</footer>
 
 <script>
   // ===== PORTFOLIO ALVAN =====
@@ -1335,19 +1621,125 @@
     });
   });
 
-  function selectOrcamento(el){
-    document.querySelectorAll('.orcamento-option').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
+  // ===== FOOTER ALVAN =====
+  (function setupFooter(){
+    const els = [
+      {id:'footerFrase',delay:0},
+      {id:'footerCta',delay:100},
+      {id:'footerAssinatura',delay:200},
+    ];
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const found = els.find(e => e.id === entry.target.id);
+          setTimeout(() => entry.target.classList.add('visible'), found?.delay || 0);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.2});
+    els.forEach(e => { const el = document.getElementById(e.id); if(el) obs.observe(el); });
+  })();
+
+  // ===== CONSULTA ALVAN — 3 ETAPAS =====
+  let consultaTipo = '';
+  let consultaEtapaAtual = 1;
+
+  function irParaEtapa(num){
+    // Esconde etapa atual
+    const atual = document.getElementById('etapa' + consultaEtapaAtual);
+    if(atual){
+      atual.style.opacity = '0';
+      atual.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        atual.classList.remove('ativa');
+        atual.style.opacity = '';
+        atual.style.transform = '';
+        mostrarEtapa(num);
+      }, 300);
+    } else {
+      mostrarEtapa(num);
+    }
   }
 
-  function enviarOrcamento(){
-    const tipo = document.querySelector('.orcamento-option.selected .orcamento-option-text h4')?.textContent || 'Não informado';
-    const bairro = document.getElementById('orcBairro').value.trim() || 'Não informado';
-    const metros = document.getElementById('orcMetros').value.trim() || 'Não informado';
-    const msg = `Olá! Gostaria de solicitar um orçamento:\n\n✅ Tipo: ${tipo}\n📍 Bairro: ${bairro}, Rio Branco\n📐 Tamanho: ${metros}m²\n\nAguardo retorno!`;
-    const url = `https://wa.me/55XXXXXXXXXXX?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+  function mostrarEtapa(num){
+    consultaEtapaAtual = num;
+    // Atualiza progresso
+    for(let i = 1; i <= 3; i++){
+      const seg = document.getElementById('seg' + i);
+      seg.classList.remove('done','active');
+      if(i < num) seg.classList.add('done');
+      if(i === num) seg.classList.add('active');
+    }
+    // Mostra nova etapa
+    const nova = document.getElementById('etapa' + num);
+    if(nova){
+      nova.classList.add('ativa');
+      setTimeout(() => {
+        nova.style.opacity = '1';
+        nova.style.transform = 'translateY(0)';
+      }, 50);
+    }
   }
+
+  function selecionarTipo(el, tipo){
+    consultaTipo = tipo;
+    const opcoes = document.getElementById('opcoesTipo');
+    opcoes.classList.add('tem-selecao');
+    document.querySelectorAll('.consulta-opcao').forEach(o => o.classList.remove('selecionada'));
+    el.classList.add('selecionada');
+    // Avança automaticamente após 700ms
+    setTimeout(() => irParaEtapa(2), 700);
+  }
+
+  function verificarBairro(){
+    const val = document.getElementById('inputBairro').value.trim();
+    const btn = document.getElementById('btnEtapa2');
+    if(val.length >= 3){
+      btn.classList.add('visivel');
+    } else {
+      btn.classList.remove('visivel');
+    }
+  }
+
+  function verificarMetros(){
+    const val = document.getElementById('inputMetros').value.trim();
+    const btn = document.getElementById('btnFinal');
+    if(val && parseInt(val) > 0){
+      btn.classList.add('visivel');
+    } else {
+      btn.classList.remove('visivel');
+    }
+  }
+
+  function preencherMetros(val){
+    document.getElementById('inputMetros').value = val;
+    verificarMetros();
+  }
+
+  function enviarConsulta(){
+    const bairro = document.getElementById('inputBairro').value.trim() || 'Não informado';
+    const metros = document.getElementById('inputMetros').value.trim() || 'Não informado';
+
+    // Mostra confirmação
+    document.getElementById('etapa3').classList.remove('ativa');
+    const conf = document.getElementById('consultaConfirmacao');
+    conf.classList.add('ativa');
+
+    // Marca todos os segmentos como done
+    for(let i = 1; i <= 3; i++){
+      const seg = document.getElementById('seg' + i);
+      seg.classList.remove('active');
+      seg.classList.add('done');
+    }
+
+    // Abre WhatsApp após 1.2s
+    setTimeout(() => {
+      const msg = `Olá! Quero iniciar um projeto com a Alvan.\n\n✅ Tipo: ${consultaTipo}\n📍 Bairro: ${bairro}, Rio Branco\n📐 Tamanho: ${metros}m²\n\nAguardo contato!`;
+      window.open(`https://wa.me/55XXXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
+    }, 1200);
+  }
+
+
 
   // Carrossel fade com loop infinito e barra de progresso
   (function setupFadeCarousel(){
