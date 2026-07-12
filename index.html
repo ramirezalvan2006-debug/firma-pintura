@@ -972,8 +972,8 @@
   /* ===== SERVICE CARDS ===== */
   /* ===== SERVIÇOS ALVAN ===== */
   .servicos-section{
-    background:#0F1016;
-    padding:80px 24px;
+    background:#0A0C12;
+    padding:80px 24px 40px;
     position:relative;
     overflow:hidden;
   }
@@ -1014,108 +1014,90 @@
     color:var(--orange);
   }
 
-  /* Lista de serviços — Media Object */
+  /* Lista de serviços — Media Object exato da referência */
   .servico-item{
     position:relative;
     display:flex;
     flex-direction:row;
     align-items:stretch;
-    gap:0;
-    border-top:1px solid rgba(255,255,255,0.06);
+    gap:24px;
+    padding:0 0 48px;
     opacity:0;
     transform:translateX(-20px);
     transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
-    min-width:0;
   }
   .servico-item.visible{
     opacity:1;
     transform:translateX(0);
   }
-  .servico-item:last-child{
-    border-bottom:1px solid rgba(255,255,255,0.06);
-  }
 
-  /* Fotografia — 37% da largura, fixa ao lado */
+  /* Fotografia — ~55% da largura, cantos arredondados */
   .servico-foto{
-    flex:0 0 37%;
+    flex:0 0 55%;
     min-width:0;
     overflow:hidden;
+    border-radius:14px;
     position:relative;
+    min-height:220px;
   }
   .servico-foto img{
     width:100%;
     height:100%;
     object-fit:cover;
     display:block;
-    filter:brightness(0.75) saturate(0.85);
-    transition:filter .5s cubic-bezier(.22,1,.36,1), transform 6s linear;
+    transition:transform 6s linear;
     transform:scale(1.04);
   }
   .servico-item.visible .servico-foto img{
     transform:scale(1);
-  }
-  .servico-item:active .servico-foto img{
-    filter:brightness(0.85) saturate(1);
   }
 
   /* Conteúdo — lado direito */
   .servico-conteudo{
     flex:1;
     min-width:0;
-    padding:24px 20px 24px 20px;
-    position:relative;
     display:flex;
     flex-direction:column;
     justify-content:center;
+    padding:0;
+    position:relative;
   }
 
-  /* Número em marca d'água */
+  /* Número no canto inferior direito */
   .servico-num{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800;
-    font-size:4rem;
+    font-size:4.5rem;
     line-height:1;
-    color:rgba(255,255,255,0.04);
+    color:rgba(255,255,255,0.06);
     position:absolute;
-    bottom:8px;
-    right:12px;
+    bottom:0;
+    right:0;
     letter-spacing:-0.04em;
     user-select:none;
     pointer-events:none;
-    transition:color .3s ease;
-  }
-  .servico-item:active .servico-num{
-    color:rgba(232,146,10,0.08);
   }
 
   /* Ícone SVG */
   .servico-icon{
-    width:26px;
-    height:26px;
+    width:32px;
+    height:32px;
     margin-bottom:12px;
   }
   .servico-icon svg{
     width:100%;
     height:100%;
-    stroke:#FFFFFF;
-    fill:none;
-    stroke-width:1.4;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    transition:stroke .25s cubic-bezier(.22,1,.36,1);
-  }
-  .servico-item:active .servico-icon svg{
-    stroke:var(--orange);
+    display:block;
   }
 
   /* Nome do serviço */
   .servico-nome{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800;
-    font-size:1.6rem;
+    font-size:1.9rem;
     color:#FFFFFF;
     letter-spacing:-0.01em;
-    margin-bottom:8px;
+    margin-bottom:10px;
     line-height:1;
   }
   .servico-nome.editorial{
@@ -1124,9 +1106,9 @@
 
   .servico-desc{
     font-family:'Inter',sans-serif;
-    font-size:0.8rem;
-    color:rgba(255,255,255,0.45);
-    line-height:1.6;
+    font-size:0.82rem;
+    color:rgba(255,255,255,0.5);
+    line-height:1.65;
     margin-bottom:14px;
   }
 
@@ -1135,18 +1117,19 @@
     display:flex;
     gap:6px;
     flex-wrap:wrap;
-    margin-bottom:14px;
+    margin-bottom:16px;
   }
   .servico-tag{
     font-family:'Inter',sans-serif;
     font-size:0.65rem;
     font-weight:500;
-    letter-spacing:0.06em;
+    letter-spacing:0.07em;
     text-transform:uppercase;
-    color:rgba(255,255,255,0.35);
-    border:1px solid rgba(255,255,255,0.1);
-    padding:3px 8px;
-    border-radius:3px;
+    color:rgba(255,255,255,0.45);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:4px 10px;
+    border-radius:4px;
+    background:none;
   }
 
   /* CTA editorial */
@@ -1155,7 +1138,7 @@
     align-items:center;
     gap:6px;
     font-family:'Barlow Condensed',sans-serif;
-    font-size:0.82rem;
+    font-size:0.85rem;
     font-weight:700;
     letter-spacing:0.08em;
     text-transform:uppercase;
@@ -1165,14 +1148,10 @@
   }
   .servico-cta:active{ gap:12px; }
 
-  /* Recuos progressivos só no conteúdo — foto permanece na borda */
-  .servico-item:nth-child(2) .servico-conteudo{ padding-left:24px; }
-  .servico-item:nth-child(3) .servico-conteudo{ padding-left:28px; }
-
   /* Empilha somente abaixo de 320px */
   @media(max-width:319px){
     .servico-item{ flex-direction:column; }
-    .servico-foto{ flex:0 0 auto; height:140px; width:100%; }
+    .servico-foto{ flex:0 0 auto; height:160px; width:100%; }
   }
 
   /* ===== PROCESSO ALVAN ===== */
@@ -1461,10 +1440,22 @@
     <div class="servico-foto">
       <img src="1014.jpg" alt="Pintura residencial" style="object-position:center bottom;">
     </div>
-    <span class="servico-num">01</span>
     <div class="servico-conteudo">
       <div class="servico-icon">
-        <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-5h6v5"/></svg>
+        <!-- Residencial: parede com rodapé perfeito — corte entre parede e piso -->
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Parede: dois planos verticais -->
+          <line x1="6" y1="4" x2="6" y2="24" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="26" y1="4" x2="26" y2="24" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Superfície da parede -->
+          <line x1="6" y1="4" x2="26" y2="4" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Linha do rodapé — detalhe laranja -->
+          <line x1="4" y1="24" x2="28" y2="24" stroke="#E8920A" stroke-width="1.6" stroke-linecap="round"/>
+          <!-- Piso -->
+          <line x1="4" y1="28" x2="28" y2="28" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-opacity="0.35"/>
+          <!-- Detalhe de acabamento: pequena marca de pincel na parede -->
+          <line x1="13" y1="12" x2="19" y2="12" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-opacity="0.4"/>
+        </svg>
       </div>
       <h3 class="servico-nome">Residencial</h3>
       <p class="servico-desc">Acabamento premium para interiores e exteriores. Sua casa tratada com o mesmo cuidado que você teria.</p>
@@ -1474,6 +1465,7 @@
         <span class="servico-tag">Matte</span>
       </div>
       <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
+      <span class="servico-num">01</span>
     </div>
   </div>
 
@@ -1482,40 +1474,61 @@
     <div class="servico-foto">
       <img src="1014.jpg" alt="Pintura comercial" style="object-position:center 30%;">
     </div>
-    <span class="servico-num">02</span>
     <div class="servico-conteudo">
       <div class="servico-icon">
-        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        <!-- Comercial: fachada arquitetônica em perspectiva — 3 planos geométricos -->
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Plano frontal da fachada -->
+          <rect x="10" y="8" width="12" height="16" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+          <!-- Plano lateral esquerdo em perspectiva -->
+          <path d="M10 8 L5 11 L5 27 L10 24" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+          <!-- Linha de cobertura -->
+          <path d="M5 11 L10 8 L22 8 L27 11" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+          <!-- Topo do plano lateral -->
+          <line x1="27" y1="11" x2="22" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.4"/>
+          <!-- Detalhe laranja: friso horizontal na fachada -->
+          <line x1="10" y1="17" x2="22" y2="17" stroke="#E8920A" stroke-width="1.4" stroke-linecap="round"/>
+          <!-- Janela/abertura abstrata -->
+          <rect x="14" y="11" width="4" height="4" stroke="white" stroke-width="0.9" stroke-opacity="0.45"/>
+        </svg>
       </div>
       <h3 class="servico-nome">Comercial</h3>
       <p class="servico-desc">Alta performance para escritórios, lojas e galpões. Execução sem interromper sua operação.</p>
       <div class="servico-tags">
         <span class="servico-tag">Epóxi</span>
         <span class="servico-tag">Fachadas</span>
-        <span class="servico-tag">Industrial</span>
+        <span class="servico-tag">Alta Durabilidade</span>
       </div>
       <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
+      <span class="servico-num">02</span>
     </div>
   </div>
 
   <!-- Serviço 03 — Texturas -->
   <div class="servico-item">
     <div class="servico-foto">
-      <img src="1014.jpg" alt="Texturas e efeitos" style="object-position:center top;">
+      <img src="1014.jpg" alt="Textura e efeitos" style="object-position:center top;">
     </div>
-    <span class="servico-num">03</span>
     <div class="servico-conteudo">
       <div class="servico-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <!-- Textura: linha ondulada que se resolve em linha reta — gesto do pincel -->
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="4" y1="24" x2="28" y2="24" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.3"/>
+          <path d="M4 18 C8 14 10 22 14 18 C18 14 20 20 28 18" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 13 C7 10 11 16 15 13 C19 10 23 14 28 13" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-opacity="0.35"/>
+          <circle cx="21" cy="18" r="1.5" fill="#E8920A"/>
+          <line x1="21" y1="18" x2="28" y2="18" stroke="#E8920A" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
       </div>
-      <h3 class="servico-nome editorial">Texturas e Efeitos</h3>
-      <p class="servico-desc">Grafiato, cimento queimado e acabamentos especiais. Personalidade que nenhuma tinta comum consegue entregar.</p>
+      <h3 class="servico-nome">Textura e Efeitos</h3>
+      <p class="servico-desc">Efeitos decorativos que valorizam e transformam ambientes com sofisticação e personalidade.</p>
       <div class="servico-tags">
-        <span class="servico-tag">Grafiato</span>
         <span class="servico-tag">Cimento Queimado</span>
-        <span class="servico-tag">Marmorizado</span>
+        <span class="servico-tag">Grafiato</span>
+        <span class="servico-tag">Marmorato</span>
       </div>
       <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
+      <span class="servico-num">03</span>
     </div>
   </div>
 </section>
