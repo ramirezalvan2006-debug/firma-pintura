@@ -1014,14 +1014,14 @@
     color:var(--orange);
   }
 
-  /* Lista de serviços — Media Object exato da referência */
+  /* Lista de serviços — Media Object */
   .servico-item{
     position:relative;
     display:flex;
     flex-direction:row;
     align-items:stretch;
-    gap:24px;
-    padding:0 0 48px;
+    gap:28px;
+    padding:0 0 88px;
     opacity:0;
     transform:translateX(-20px);
     transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
@@ -1031,14 +1031,15 @@
     transform:translateX(0);
   }
 
-  /* Fotografia — ~55% da largura, cantos arredondados */
+  /* Fotografia — 55%, proporção 16:10, bordas 20px, nunca vertical */
   .servico-foto{
     flex:0 0 55%;
     min-width:0;
     overflow:hidden;
-    border-radius:14px;
+    border-radius:20px;
     position:relative;
-    min-height:220px;
+    aspect-ratio:16/10;
+    align-self:flex-start;
   }
   .servico-foto img{
     width:100%;
@@ -1052,24 +1053,24 @@
     transform:scale(1);
   }
 
-  /* Conteúdo — lado direito */
+  /* Conteúdo — 45%, padding interno generoso */
   .servico-conteudo{
     flex:1;
     min-width:0;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    padding:0;
+    padding:8px 4px 8px 4px;
     position:relative;
   }
 
-  /* Número no canto inferior direito */
+  /* Número — mais transparente, nunca compete */
   .servico-num{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800;
-    font-size:4.5rem;
+    font-size:5rem;
     line-height:1;
-    color:rgba(255,255,255,0.06);
+    color:rgba(255,255,255,0.05);
     position:absolute;
     bottom:0;
     right:0;
@@ -1078,11 +1079,11 @@
     pointer-events:none;
   }
 
-  /* Ícone SVG */
+  /* Ícone — 26px, exclusivo da marca */
   .servico-icon{
-    width:32px;
-    height:32px;
-    margin-bottom:12px;
+    width:26px;
+    height:26px;
+    margin-bottom:16px;
   }
   .servico-icon svg{
     width:100%;
@@ -1090,49 +1091,50 @@
     display:block;
   }
 
-  /* Nome do serviço */
+  /* Título — 10% menor, mais elegante */
   .servico-nome{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800;
-    font-size:1.9rem;
+    font-size:1.7rem;
     color:#FFFFFF;
     letter-spacing:-0.01em;
     margin-bottom:10px;
-    line-height:1;
+    line-height:1.05;
   }
   .servico-nome.editorial{
     font-style:italic;
   }
 
+  /* Descrição — line-height 1.7, respira */
   .servico-desc{
     font-family:'Inter',sans-serif;
     font-size:0.82rem;
     color:rgba(255,255,255,0.5);
-    line-height:1.65;
-    margin-bottom:14px;
+    line-height:1.7;
+    margin-bottom:16px;
   }
 
-  /* Tags técnicas */
+  /* Tags — mais respiro, padding maior */
   .servico-tags{
     display:flex;
-    gap:6px;
+    gap:10px;
     flex-wrap:wrap;
-    margin-bottom:16px;
+    margin-bottom:20px;
   }
   .servico-tag{
     font-family:'Inter',sans-serif;
-    font-size:0.65rem;
+    font-size:0.62rem;
     font-weight:500;
     letter-spacing:0.07em;
     text-transform:uppercase;
-    color:rgba(255,255,255,0.45);
-    border:1px solid rgba(255,255,255,0.15);
-    padding:4px 10px;
-    border-radius:4px;
+    color:rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:5px 12px;
+    border-radius:3px;
     background:none;
   }
 
-  /* CTA editorial */
+  /* CTA — espaço maior acima, igual ao anterior */
   .servico-cta{
     display:inline-flex;
     align-items:center;
@@ -1144,6 +1146,7 @@
     text-transform:uppercase;
     color:var(--orange);
     text-decoration:none;
+    margin-top:4px;
     transition:gap .25s cubic-bezier(.22,1,.36,1);
   }
   .servico-cta:active{ gap:12px; }
@@ -1151,7 +1154,7 @@
   /* Empilha somente abaixo de 320px */
   @media(max-width:319px){
     .servico-item{ flex-direction:column; }
-    .servico-foto{ flex:0 0 auto; height:160px; width:100%; }
+    .servico-foto{ flex:0 0 auto; aspect-ratio:16/10; width:100%; }
   }
 
   /* ===== PROCESSO ALVAN ===== */
@@ -1442,19 +1445,12 @@
     </div>
     <div class="servico-conteudo">
       <div class="servico-icon">
-        <!-- Residencial: parede com rodapé perfeito — corte entre parede e piso -->
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Parede: dois planos verticais -->
-          <line x1="6" y1="4" x2="6" y2="24" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="26" y1="4" x2="26" y2="24" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-          <!-- Superfície da parede -->
-          <line x1="6" y1="4" x2="26" y2="4" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-          <!-- Linha do rodapé — detalhe laranja -->
-          <line x1="4" y1="24" x2="28" y2="24" stroke="#E8920A" stroke-width="1.6" stroke-linecap="round"/>
-          <!-- Piso -->
-          <line x1="4" y1="28" x2="28" y2="28" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-opacity="0.35"/>
-          <!-- Detalhe de acabamento: pequena marca de pincel na parede -->
-          <line x1="13" y1="12" x2="19" y2="12" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-opacity="0.4"/>
+        <!-- Residencial: plano de parede com acabamento — três linhas retas de espessura decrescente -->
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="3" y1="6" x2="21" y2="6" stroke="white" stroke-width="1" stroke-linecap="round"/>
+          <line x1="3" y1="12" x2="21" y2="12" stroke="white" stroke-width="1" stroke-linecap="round" stroke-opacity="0.5"/>
+          <line x1="3" y1="18" x2="14" y2="18" stroke="#E8920A" stroke-width="1" stroke-linecap="round"/>
+          <line x1="3" y1="21" x2="21" y2="21" stroke="white" stroke-width="0.6" stroke-linecap="round" stroke-opacity="0.25"/>
         </svg>
       </div>
       <h3 class="servico-nome">Residencial</h3>
@@ -1476,20 +1472,12 @@
     </div>
     <div class="servico-conteudo">
       <div class="servico-icon">
-        <!-- Comercial: fachada arquitetônica em perspectiva — 3 planos geométricos -->
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Plano frontal da fachada -->
-          <rect x="10" y="8" width="12" height="16" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
-          <!-- Plano lateral esquerdo em perspectiva -->
-          <path d="M10 8 L5 11 L5 27 L10 24" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
-          <!-- Linha de cobertura -->
-          <path d="M5 11 L10 8 L22 8 L27 11" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
-          <!-- Topo do plano lateral -->
-          <line x1="27" y1="11" x2="22" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.4"/>
-          <!-- Detalhe laranja: friso horizontal na fachada -->
-          <line x1="10" y1="17" x2="22" y2="17" stroke="#E8920A" stroke-width="1.4" stroke-linecap="round"/>
-          <!-- Janela/abertura abstrata -->
-          <rect x="14" y="11" width="4" height="4" stroke="white" stroke-width="0.9" stroke-opacity="0.45"/>
+        <!-- Comercial: fachada arquitetônica — dois volumes retangulares com abertura -->
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="8" width="8" height="13" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+          <rect x="13" y="4" width="8" height="17" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+          <line x1="13" y1="13" x2="21" y2="13" stroke="#E8920A" stroke-width="1" stroke-linecap="round"/>
+          <line x1="3" y1="21" x2="21" y2="21" stroke="white" stroke-width="0.6" stroke-linecap="round" stroke-opacity="0.3"/>
         </svg>
       </div>
       <h3 class="servico-nome">Comercial</h3>
@@ -1511,13 +1499,12 @@
     </div>
     <div class="servico-conteudo">
       <div class="servico-icon">
-        <!-- Textura: linha ondulada que se resolve em linha reta — gesto do pincel -->
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="4" y1="24" x2="28" y2="24" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.3"/>
-          <path d="M4 18 C8 14 10 22 14 18 C18 14 20 20 28 18" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M4 13 C7 10 11 16 15 13 C19 10 23 14 28 13" stroke="white" stroke-width="0.8" stroke-linecap="round" stroke-opacity="0.35"/>
-          <circle cx="21" cy="18" r="1.5" fill="#E8920A"/>
-          <line x1="21" y1="18" x2="28" y2="18" stroke="#E8920A" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- Textura: três camadas horizontais de espessura decrescente — matéria aplicada -->
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8 Q7 5 12 8 Q17 11 21 8" stroke="white" stroke-width="1" stroke-linecap="round"/>
+          <path d="M3 13 Q7 10 12 13 Q17 16 21 13" stroke="white" stroke-width="1" stroke-linecap="round" stroke-opacity="0.55"/>
+          <line x1="3" y1="18" x2="21" y2="18" stroke="#E8920A" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="12" cy="18" r="1.2" fill="#E8920A"/>
         </svg>
       </div>
       <h3 class="servico-nome">Textura e Efeitos</h3>
