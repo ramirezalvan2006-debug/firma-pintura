@@ -3,2074 +3,683 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alvan Pintura e Reforma | Rio Branco</title>
+<title>Alvan Pintura e Reforma — Rio Branco, AC</title>
+<meta name="description" content="Pintura e reforma de alto padrão em Rio Branco, Acre. Acabamentos preparados para o clima amazônico, do orçamento à última demão.">
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --navy:#0F1B2D;
-    --navy-2:#16263E;
-    --orange:#F5A623;
-    --white:#FFFFFF;
-    --gray-text:#5B6472;
-    --gray-bg:#F4F5F7;
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-
-  body{
-    font-family:'Inter',sans-serif;
-    color:#1A2233;
-    background:var(--white);
-    overflow-x:hidden;
-  }
-
-  h1,h2,h3{
-    font-family:'Barlow Condensed',sans-serif;
-    line-height:1.05;
-  }
-
-  /* ===== HERO ===== */
-  /* ===== NAVBAR ALVAN ===== */
-  .site-header{
-    position:fixed;
-    top:0;left:0;right:0;
-    z-index:30;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 24px;
-    background:transparent;
-    transition:background .5s cubic-bezier(.22,1,.36,1), padding .5s cubic-bezier(.22,1,.36,1), border-color .5s cubic-bezier(.22,1,.36,1);
-    border-bottom:1px solid transparent;
-  }
-
-  /* Estado 2 — após scroll */
-  .site-header.scrolled{
-    background:#0A0C12;
-    padding:14px 24px;
-    border-bottom-color:var(--orange);
-  }
-
-  /* Linha-régua laranja que desliza ao entrar no estado scrolled */
-  .site-header::after{
-    content:'';
-    position:absolute;
-    bottom:-1px;left:0;
-    height:1px;
-    width:0%;
-    background:var(--orange);
-    transition:width .6s cubic-bezier(.22,1,.36,1);
-  }
-  .site-header.scrolled::after{
-    width:100%;
-  }
-
-  /* Brand */
-  .site-header .brand{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    gap:10px;
-    line-height:1.1;
-    text-decoration:none;
-  }
-  .site-header .brand-logo{
-    width:34px;
-    height:34px;
-    object-fit:contain;
-    border-radius:4px;
-    flex-shrink:0;
-    filter:brightness(0) invert(1);
-    transition:filter .5s cubic-bezier(.22,1,.36,1);
-  }
-  .site-header.scrolled .brand-logo{
-    filter:brightness(0) invert(1);
-  }
-  .site-header .brand-text{
-    display:flex;
-    flex-direction:column;
-  }
-  .site-header .brand-name{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:1.2rem;
-    color:#FFFFFF;
-    letter-spacing:0.04em;
-    transition:color .4s ease;
-  }
-  .site-header .brand-city{
-    font-family:'Inter',sans-serif;
-    font-weight:400;
-    font-size:0.65rem;
-    color:rgba(255,255,255,0.45);
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    transition:color .4s ease;
-  }
-
-  /* Hambúrguer assimétrico da Alvan */
-  .menu-btn{
-    background:none;
-    border:none;
-    padding:6px;
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    cursor:pointer;
-    z-index:40;
-  }
-  .menu-btn span{
-    display:block;
-    height:2px;
-    background:#FFFFFF;
-    border-radius:1px;
-    transition:width .35s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease, background .5s cubic-bezier(.22,1,.36,1);
-  }
-  .menu-btn span:nth-child(1){ width:24px; transition-delay:0ms, 0ms, 0ms, 0ms; }
-  .menu-btn span:nth-child(2){ width:16px; transition-delay:0ms, 0ms, 0ms, 0ms; }
-  .menu-btn span:nth-child(3){ width:20px; transition-delay:60ms, 60ms, 60ms, 0ms; }
-
-  /* X quando aberto — delay assimétrico */
-  .menu-btn.open span:nth-child(1){
-    width:22px;
-    transform:translateY(7px) rotate(45deg);
-    transition-delay:0ms;
-  }
-  .menu-btn.open span:nth-child(2){
-    opacity:0;
-    width:0;
-    transition-delay:0ms;
-  }
-  .menu-btn.open span:nth-child(3){
-    width:22px;
-    transform:translateY(-7px) rotate(-45deg);
-    transition-delay:60ms;
-  }
-
-  /* Menu fullscreen da Alvan */
-  .nav-menu{
-    position:fixed;
-    inset:0;
-    z-index:35;
-    background:#0A0C12;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:40px 32px;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .35s cubic-bezier(.22,1,.36,1);
-  }
-  .nav-menu.open{
-    opacity:1;
-    pointer-events:auto;
-  }
-
-  /* Diagonal decorativa da Alvan no menu */
-  .nav-menu::before{
-    content:'A';
-    position:absolute;
-    bottom:-60px;
-    right:-20px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:320px;
-    color:rgba(255,255,255,0.02);
-    line-height:1;
-    pointer-events:none;
-    user-select:none;
-  }
-
-  .nav-menu-label{
-    font-family:'Inter',sans-serif;
-    font-size:0.7rem;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.3);
-    margin-bottom:32px;
-  }
-
-  .nav-menu a{
-    display:block;
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:clamp(2.4rem, 10vw, 3.5rem);
-    color:rgba(255,255,255,0.85);
-    text-decoration:none;
-    letter-spacing:-0.01em;
-    line-height:1.1;
-    padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,0.06);
-    transition:color .2s ease, padding-left .3s cubic-bezier(.22,1,.36,1), opacity .4s ease, transform .5s cubic-bezier(.22,1,.36,1);
-    position:relative;
-    opacity:0;
-    transform:translateY(20px);
-  }
-  .nav-menu.open a{
-    opacity:1;
-    transform:translateY(0);
-  }
-  .nav-menu.open a:nth-child(2){ transition-delay:80ms; }
-  .nav-menu.open a:nth-child(3){ transition-delay:160ms; }
-  .nav-menu.open a:nth-child(4){ transition-delay:240ms; }
-  .nav-menu.open a:nth-child(5){ transition-delay:320ms; }
-  .nav-menu a:last-child{ border-bottom:none; }
-  .nav-menu a:active{
-    color:var(--orange);
-    padding-left:12px;
-  }
-
-  /* Linha-régua laranja no hover dos links */
-  .nav-menu a::before{
-    content:'';
-    position:absolute;
-    left:0;
-    bottom:0;
-    height:1px;
-    width:0;
-    background:var(--orange);
-    transition:width .3s cubic-bezier(.22,1,.36,1);
-  }
-  .nav-menu a:active::before{ width:100%; }
-
-  /* Info de contato no rodapé do menu */
-  .nav-menu-footer{
-    margin-top:48px;
-    font-family:'Inter',sans-serif;
-    font-size:0.8rem;
-    color:rgba(255,255,255,0.25);
-    letter-spacing:0.04em;
-  }
-
-
-  /* ===== HERO ALVAN ===== */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    padding:0 0 56px;
-    padding-top:72px;
-    color:var(--white);
-    overflow:hidden;
-  }
-
-  /* Foto ocupa toda a tela */
-  .hero-bg{
-    position:absolute;
-    inset:0;
-    background:url('hero.webp') center center / cover no-repeat;
-    z-index:0;
-  }
-
-  /* Corte diagonal exclusivo da Alvan — vem do "A" do logo */
-  .hero-bg::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(165deg,
-        rgba(10,12,18,0.97) 0%,
-        rgba(10,12,18,0.90) 35%,
-        rgba(10,12,18,0.55) 58%,
-        rgba(10,12,18,0.10) 80%,
-        rgba(10,12,18,0.0) 100%
-      );
-  }
-
-  /* Conteúdo do hero */
-  .hero-content{
-    position:relative;
-    z-index:2;
-    padding:0 24px;
-    display:flex;
-    flex-direction:column;
-  }
-
-  /* Linha-régua da Alvan */
-  .hero-ruler{
-    width:40px;
-    height:1.5px;
-    background:var(--orange);
-    margin-bottom:28px;
-  }
-
-  /* Título em dois tempos */
-  .hero-pre{
-    font-family:'Inter',sans-serif;
-    font-weight:400;
-    font-size:1rem;
-    color:rgba(255,255,255,0.6);
-    letter-spacing:0.02em;
-    margin-bottom:8px;
-  }
-  .hero-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:clamp(3.2rem, 14vw, 5.5rem);
-    line-height:0.92;
-    letter-spacing:-0.01em;
-    text-transform:uppercase;
-    color:#FFFFFF;
-    margin-bottom:28px;
-  }
-  .hero-title span{
-    color:var(--orange);
-  }
-
-  /* Frase de posicionamento — uma linha, não três ícones */
-  .hero-position{
-    font-family:'Inter',sans-serif;
-    font-weight:400;
-    font-size:0.95rem;
-    color:rgba(255,255,255,0.65);
-    line-height:1.55;
-    max-width:72%;
-    margin-bottom:40px;
-  }
-
-  /* Dado concreto — sem card, sem ícone */
-  .hero-stat{
-    display:flex;
-    flex-direction:column;
-    margin-bottom:48px;
-  }
-  .hero-stat-number{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:2.8rem;
-    color:#FFFFFF;
-    line-height:1;
-  }
-  .hero-stat-label{
-    font-family:'Inter',sans-serif;
-    font-size:0.8rem;
-    color:rgba(255,255,255,0.45);
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    margin-top:4px;
-  }
-  .hero-stat-line{
-    width:100%;
-    max-width:160px;
-    height:1px;
-    background:rgba(255,255,255,0.12);
-    margin-top:16px;
-  }
-
-  /* CTA editorial — sem botão convencional */
-  .hero-cta{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:700;
-    font-size:1rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--orange);
-    transition:gap .2s ease-out;
-  }
-  .hero-cta:active{ gap:18px; }
-  .hero-cta-arrow{
-    font-size:1.2rem;
-    transform:rotate(-45deg);
-    display:inline-block;
-    transition:transform .2s ease-out;
-  }
-  .hero-cta:active .hero-cta-arrow{
-    transform:rotate(-45deg) translateX(6px);
-  }
-
-  /* Animações de entrada */
-  .hero-ruler{
-    opacity:0;
-    transform:scaleX(0);
-    transform-origin:left;
-    animation:heroRuler .6s cubic-bezier(.22,1,.36,1) forwards;
-    animation-delay:0s;
-  }
-  @keyframes heroRuler{
-    to{ opacity:1; transform:scaleX(1); }
-  }
-  .hero-pre,
-  .hero-title,
-  .hero-position,
-  .hero-stat,
-  .hero-cta{
-    opacity:0;
-    transform:translateY(24px);
-    animation:heroIn .8s cubic-bezier(.22,1,.36,1) forwards;
-  }
-  .hero-pre       { animation-delay:.2s; }
-  .hero-title     { animation-delay:.35s; }
-  .hero-position  { animation-delay:.5s; }
-  .hero-stat      { animation-delay:.65s; }
-  .hero-cta       { animation-delay:.8s; }
-  @keyframes heroIn{
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  .btn-primary{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    background:var(--orange);
-    color:var(--navy);
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:700;
-    font-size:1.05rem;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    padding:18px 28px;
-    border-radius:8px;
-    border:none;
-    text-decoration:none;
-    width:fit-content;
-    white-space:nowrap;
-    cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .btn-primary:active{transform:scale(0.97);}
-
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:600;
-    font-size:0.95rem;
-    letter-spacing:0.05em;
-    text-transform:uppercase;
-    padding:16px 24px;
-    border-radius:14px;
-    width:100%;
-    margin-top:12px;
-    cursor:pointer;
-    backdrop-filter:blur(6px);
-  }
-
-  /* ===== SECTION HEADERS ===== */
-  .section{
-    padding:56px 24px 48px;
-  }
-  .section.dark{
-    background:var(--navy);
-    color:var(--white);
-  }
-  .section.muted{
-    background-color:#FAFAFA;
-    background-image:radial-gradient(circle at 25% 15%, rgba(15,27,45,0.05) 0%, rgba(15,27,45,0) 45%),
-                      radial-gradient(circle at 80% 85%, rgba(15,27,45,0.05) 0%, rgba(15,27,45,0) 45%);
-    padding-top:80px;
-    padding-bottom:80px;
-  }
-
-  .eyebrow{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:700;
-    font-size:0.8rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:#C0552A;
-    margin-bottom:6px;
-  }
-  .section.dark .eyebrow{color:var(--orange);}
-
-  .section-title-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    margin-bottom:26px;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  .section-title-row h2{
-    font-size:2.2rem;
-    font-weight:800;
-    color:#1A2233;
-  }
-  .section.dark .section-title-row h2{color:var(--white);}
-
-  /* ===== PORTFOLIO ALVAN ===== */
-  .portfolio-section{
-    background:#0F1016;
-    padding:80px 0 80px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .portfolio-header{
-    padding:0 24px;
-    margin-bottom:48px;
-  }
-  .portfolio-eyebrow{
-    font-family:'Inter',sans-serif;
-    font-size:0.7rem;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.3);
-    margin-bottom:14px;
-  }
-  .portfolio-headline{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:2.6rem;
-    color:#FFFFFF;
-    line-height:1;
-    letter-spacing:-0.01em;
-  }
-  .portfolio-headline span{ color:var(--orange); }
-
-  /* Navegação editorial */
-  .portfolio-nav{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 24px;
-    margin-top:16px;
-  }
-  .portfolio-nav-btn{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:0.85rem;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.35);
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:0;
-    transition:color .2s ease;
-  }
-  .portfolio-nav-btn:active{ color:var(--orange); }
-  .portfolio-nav-counter{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:0.8rem;
-    font-weight:600;
-    letter-spacing:0.1em;
-    color:rgba(255,255,255,0.2);
-  }
-
-  /* Container do projeto */
-  .portfolio-stage{
-    position:relative;
-    margin-top:32px;
-  }
-
-  /* Foto dominante — 85% da largura, corte diagonal */
-  .portfolio-main-img{
-    position:relative;
-    width:85%;
-    height:58vh;
-    overflow:hidden;
-    clip-path:polygon(0 0, 100% 0, 100% 100%, 8% 100%);
-    margin-left:auto;
-    transition:clip-path .6s cubic-bezier(.22,1,.36,1);
-  }
-  .portfolio-main-img img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transform:scale(1.04);
-    transition:transform 8s linear, opacity .6s cubic-bezier(.22,1,.36,1);
-    will-change:transform;
-  }
-  .portfolio-main-img.is-before img{
-    filter:grayscale(30%) brightness(0.85);
-  }
-
-  /* Estado ANTES */
-  .portfolio-state-label{
-    position:absolute;
-    top:16px;
-    left:16px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:0.72rem;
-    font-weight:700;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    padding:4px 12px;
-    border-radius:2px;
-    z-index:2;
-    transition:opacity .3s cubic-bezier(.22,1,.36,1) .2s, transform .3s cubic-bezier(.22,1,.36,1) .2s, background .3s ease, color .3s ease;
-  }
-  .label-depois-state{
-    background:var(--orange);
-    color:#0F1016;
-  }
-  .label-antes-state{
-    background:rgba(255,255,255,0.15);
-    color:#FFFFFF;
-    backdrop-filter:blur(4px);
-  }
-
-  /* Detalhe de acabamento — faixa abaixo */
-  .portfolio-detail{
-    display:flex;
-    align-items:stretch;
-    gap:0;
-    margin-top:3px;
-    height:100px;
-    width:85%;
-    margin-left:auto;
-    overflow:hidden;
-  }
-  .portfolio-detail-img{
-    flex:0 0 45%;
-    overflow:hidden;
-  }
-  .portfolio-detail-img img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center 70%;
-    transform:scale(1.1);
-    transition:transform 8s linear;
-  }
-  .portfolio-detail-caption{
-    flex:1;
-    background:#1A1C24;
-    display:flex;
-    align-items:center;
-    padding:0 18px;
-  }
-  .portfolio-detail-caption p{
-    font-family:'Inter',sans-serif;
-    font-size:0.72rem;
-    color:rgba(255,255,255,0.3);
-    line-height:1.5;
-    letter-spacing:0.02em;
-  }
-  .portfolio-detail-caption strong{
-    color:rgba(255,255,255,0.6);
-    font-weight:500;
-  }
-
-  /* Ficha do projeto */
-  .portfolio-ficha{
-    padding:28px 24px 0;
-  }
-  .portfolio-ficha-tipo{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:2rem;
-    color:#FFFFFF;
-    letter-spacing:-0.01em;
-    line-height:1;
-    margin-bottom:8px;
-  }
-  .portfolio-ficha-desc{
-    font-family:'Inter',sans-serif;
-    font-size:0.88rem;
-    color:rgba(255,255,255,0.4);
-    line-height:1.6;
-    margin-bottom:16px;
-  }
-  .portfolio-ficha-dado{
-    font-family:'Inter',sans-serif;
-    font-size:0.72rem;
-    color:rgba(255,255,255,0.25);
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    margin-bottom:20px;
-  }
-
-  /* Botão antes/depois */
-  .portfolio-toggle{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:0.88rem;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--orange);
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:0;
-    transition:gap .3s ease;
-  }
-  .portfolio-toggle:active{ gap:14px; }
-
-  /* Linha-régua laranja abaixo da ficha */
-  .portfolio-ruler{
-    width:40px;
-    height:1.5px;
-    background:var(--orange);
-    margin:24px 24px 0;
-    opacity:0;
-    transform:scaleX(0);
-    transform-origin:left;
-    transition:opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1);
-  }
-  .portfolio-ruler.visible{
-    opacity:1;
-    transform:scaleX(1);
-  }
-
-  /* ===== SERVICE CARDS ===== */
-
-  /* ===== ORÇAMENTO ===== */
-  /* ===== FORMULÁRIO ALVAN — UMA CONVERSA EM 3 MOMENTOS ===== */
-  .consulta-section{
-    background:#0F1016;
-    padding:80px 24px;
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-  }
-
-  /* Indicador de progresso — linha fina em 3 segmentos */
-  .consulta-progress{
-    display:flex;
-    gap:4px;
-    margin-bottom:56px;
-  }
-  .consulta-progress-seg{
-    flex:1;
-    height:1.5px;
-    background:rgba(255,255,255,0.1);
-    position:relative;
-    overflow:hidden;
-  }
-  .consulta-progress-seg::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:var(--orange);
-    transform:scaleX(0);
-    transform-origin:left;
-    transition:transform .5s cubic-bezier(.22,1,.36,1);
-  }
-  .consulta-progress-seg.done::after{ transform:scaleX(1); }
-  .consulta-progress-seg.active::after{
-    transform:scaleX(0.5);
-    background:rgba(232,146,10,0.5);
-  }
-
-  /* Etapa — container */
-  .consulta-etapa{
-    display:none;
-    opacity:0;
-    transform:translateY(20px);
-    transition:opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
-  }
-  .consulta-etapa.ativa{
-    display:block;
-    opacity:1;
-    transform:translateY(0);
-  }
-
-  /* Pergunta da etapa */
-  .consulta-pergunta{
-    font-family:'Inter',sans-serif;
-    font-size:0.72rem;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.3);
-    margin-bottom:12px;
-  }
-  .consulta-titulo{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:2.4rem;
-    color:#FFFFFF;
-    line-height:1;
-    letter-spacing:-0.01em;
-    margin-bottom:40px;
-  }
-  .consulta-titulo span{ color:var(--orange); }
-
-  /* Opções — linhas com número de ordem */
-  .consulta-opcoes{
-    display:flex;
-    flex-direction:column;
-  }
-  .consulta-opcao{
-    position:relative;
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding:20px 0;
-    border-top:1px solid rgba(255,255,255,0.06);
-    cursor:pointer;
-    transition:opacity .3s ease;
-  }
-  .consulta-opcao:last-child{ border-bottom:1px solid rgba(255,255,255,0.06); }
-
-  /* Número de ordem */
-  .consulta-opcao-num{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:0.85rem;
-    color:rgba(255,255,255,0.2);
-    letter-spacing:0.06em;
-    min-width:24px;
-    transition:color .3s ease;
-  }
-
-  /* Nome da opção */
-  .consulta-opcao-nome{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:1.8rem;
-    color:rgba(255,255,255,0.75);
-    letter-spacing:-0.01em;
-    line-height:1;
-    transition:color .3s ease;
-    flex:1;
-  }
-
-  /* Linha-régua que preenche ao selecionar */
-  .consulta-opcao-linha{
-    position:absolute;
-    bottom:0;left:0;right:0;
-    height:1px;
-    background:var(--orange);
-    transform:scaleX(0);
-    transform-origin:left;
-    transition:transform .4s cubic-bezier(.22,1,.36,1);
-  }
-
-  /* Estado selecionado */
-  .consulta-opcao.selecionada .consulta-opcao-nome{ color:#FFFFFF; }
-  .consulta-opcao.selecionada .consulta-opcao-num{ color:var(--orange); }
-  .consulta-opcao.selecionada .consulta-opcao-linha{ transform:scaleX(1); }
-  .consulta-opcao.selecionada{ transform:scale(1.01); }
-
-  /* Opções não selecionadas desvanecem com transição */
-  .consulta-opcoes.tem-selecao .consulta-opcao:not(.selecionada){
-    opacity:0.3;
-    transition:opacity .3s ease-out;
-  }
-
-  /* Campo de texto — só borda inferior */
-  .consulta-input-wrap{
-    position:relative;
-    margin-bottom:32px;
-  }
-  .consulta-input{
-    width:100%;
-    background:none;
-    border:none;
-    border-bottom:1.5px solid rgba(255,255,255,0.15);
-    padding:16px 0;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1.8rem;
-    font-weight:700;
-    color:#FFFFFF;
-    outline:none;
-    transition:border-color .3s ease;
-    box-sizing:border-box;
-    letter-spacing:-0.01em;
-  }
-  .consulta-input::placeholder{
-    color:rgba(255,255,255,0.2);
-    font-weight:400;
-    font-size:1.4rem;
-  }
-  .consulta-input:focus{
-    border-bottom-color:var(--orange);
-  }
-  .consulta-input-suffix{
-    position:absolute;
-    right:0;
-    bottom:18px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1.4rem;
-    font-weight:700;
-    color:var(--orange);
-    pointer-events:none;
-  }
-
-  /* Chips de sugestão rápida */
-  .consulta-chips{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-bottom:40px;
-  }
-  .consulta-chip{
-    font-family:'Inter',sans-serif;
-    font-size:0.75rem;
-    font-weight:500;
-    color:rgba(255,255,255,0.4);
-    border:1px solid rgba(255,255,255,0.1);
-    padding:6px 14px;
-    border-radius:2px;
-    cursor:pointer;
-    transition:color .2s ease, border-color .2s ease;
-    background:none;
-    letter-spacing:0.04em;
-  }
-  .consulta-chip:active{
-    color:var(--orange);
-    border-color:var(--orange);
-  }
-
-  /* Botão continuar — aparece condicionalmente */
-  .consulta-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1rem;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:#0F1016;
-    background:var(--orange);
-    border:none;
-    padding:16px 28px;
-    border-radius:4px;
-    cursor:pointer;
-    opacity:0;
-    transform:translateY(8px);
-    transition:opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1), gap .3s ease;
-    pointer-events:none;
-  }
-  .consulta-btn.visivel{
-    opacity:1;
-    transform:translateY(0);
-    pointer-events:auto;
-  }
-  .consulta-btn:active{ gap:16px; }
-
-  /* Confirmação final */
-  .consulta-confirmacao{
-    display:none;
-    text-align:center;
-    padding:40px 0;
-  }
-  .consulta-confirmacao.ativa{ display:block; }
-  .consulta-check{
-    font-size:2.5rem;
-    margin-bottom:16px;
-    display:block;
-  }
-  .consulta-confirmacao h3{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:2rem;
-    font-weight:800;
-    color:#FFFFFF;
-    margin-bottom:8px;
-  }
-  .consulta-confirmacao p{
-    font-family:'Inter',sans-serif;
-    font-size:0.9rem;
-    color:rgba(255,255,255,0.4);
-  }
-
-  /* ===== SERVICE CARDS ===== */
-  /* ===== SERVIÇOS ALVAN ===== */
-  .servicos-section{
-    background:#0A0C12;
-    padding:80px 24px 40px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  /* Textura radial de fundo — parede antes de ser pintada */
-  .servicos-section::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(ellipse at 80% 20%, rgba(232,146,10,0.04) 0%, transparent 55%),
-      radial-gradient(ellipse at 10% 80%, rgba(255,255,255,0.02) 0%, transparent 50%);
-    pointer-events:none;
-  }
-
-  .servicos-header{
-    margin-bottom:64px;
-    position:relative;
-  }
-  .servicos-eyebrow{
-    font-family:'Inter',sans-serif;
-    font-size:0.7rem;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.3);
-    margin-bottom:16px;
-  }
-  .servicos-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:2.6rem;
-    color:#FFFFFF;
-    line-height:1;
-    letter-spacing:-0.01em;
-  }
-  .servicos-title span{
-    color:var(--orange);
-  }
-
-  /* Lista de serviços — Media Object */
-  .servico-item{
-    position:relative;
-    display:flex;
-    flex-direction:row;
-    align-items:stretch;
-    gap:28px;
-    padding:0 0 88px;
-    opacity:0;
-    transform:translateX(-20px);
-    transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
-  }
-  .servico-item.visible{
-    opacity:1;
-    transform:translateX(0);
-  }
-
-  /* Fotografia — 55%, proporção 16:10, bordas 20px, nunca vertical */
-  .servico-foto{
-    flex:0 0 55%;
-    min-width:0;
-    overflow:hidden;
-    border-radius:20px;
-    position:relative;
-    aspect-ratio:16/10;
-    align-self:flex-start;
-  }
-  .servico-foto img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    transition:transform 6s linear;
-    transform:scale(1.04);
-  }
-  .servico-item.visible .servico-foto img{
-    transform:scale(1);
-  }
-
-  /* Conteúdo — 45%, padding interno generoso */
-  .servico-conteudo{
-    flex:1;
-    min-width:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:8px 4px 8px 4px;
-    position:relative;
-  }
-
-  /* Número — mais transparente, nunca compete */
-  .servico-num{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:5rem;
-    line-height:1;
-    color:rgba(255,255,255,0.05);
-    position:absolute;
-    bottom:0;
-    right:0;
-    letter-spacing:-0.04em;
-    user-select:none;
-    pointer-events:none;
-  }
-
-  /* Ícone — 26px, exclusivo da marca */
-  .servico-icon{
-    width:26px;
-    height:26px;
-    margin-bottom:16px;
-  }
-  .servico-icon svg{
-    width:100%;
-    height:100%;
-    display:block;
-  }
-
-  /* Título — 10% menor, mais elegante */
-  .servico-nome{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:1.7rem;
-    color:#FFFFFF;
-    letter-spacing:-0.01em;
-    margin-bottom:10px;
-    line-height:1.05;
-  }
-  .servico-nome.editorial{
-    font-style:italic;
-  }
-
-  /* Descrição — line-height 1.7, respira */
-  .servico-desc{
-    font-family:'Inter',sans-serif;
-    font-size:0.82rem;
-    color:rgba(255,255,255,0.5);
-    line-height:1.7;
-    margin-bottom:16px;
-  }
-
-  /* Tags — mais respiro, padding maior */
-  .servico-tags{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:20px;
-  }
-  .servico-tag{
-    font-family:'Inter',sans-serif;
-    font-size:0.62rem;
-    font-weight:500;
-    letter-spacing:0.07em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.4);
-    border:1px solid rgba(255,255,255,0.12);
-    padding:5px 12px;
-    border-radius:3px;
-    background:none;
-  }
-
-  /* CTA — espaço maior acima, igual ao anterior */
-  .servico-cta{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:0.85rem;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--orange);
-    text-decoration:none;
-    margin-top:4px;
-    transition:gap .25s cubic-bezier(.22,1,.36,1);
-  }
-  .servico-cta:active{ gap:12px; }
-
-  /* Empilha somente abaixo de 320px */
-  @media(max-width:319px){
-    .servico-item{ flex-direction:column; }
-    .servico-foto{ flex:0 0 auto; aspect-ratio:16/10; width:100%; }
-  }
-
-  /* ===== PROCESSO ALVAN ===== */
-  .processo-section{
-    background:#0A0C12;
-    padding:80px 24px;
-    position:relative;
-    overflow:hidden;
-  }
-  .processo-section::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:radial-gradient(ellipse at 90% 10%, rgba(232,146,10,0.03) 0%, transparent 60%);
-    pointer-events:none;
-  }
-  .processo-header{
-    margin-bottom:56px;
-  }
-  .processo-eyebrow{
-    font-family:'Inter',sans-serif;
-    font-size:0.7rem;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.3);
-    margin-bottom:14px;
-  }
-  .processo-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:2.6rem;
-    color:#FFFFFF;
-    line-height:1;
-    letter-spacing:-0.01em;
-  }
-  .processo-title span{ color:var(--orange); }
-
-  /* Cada etapa */
-  .processo-item{
-    position:relative;
-    padding:32px 0;
-    border-top:1px solid rgba(255,255,255,0.06);
-    opacity:0;
-    transform:translateY(-16px);
-    transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
-  }
-  .processo-item.visible{
-    opacity:1;
-    transform:translateY(0);
-  }
-  .processo-item:last-child{
-    border-bottom:1px solid rgba(255,255,255,0.06);
-  }
-
-  /* Número marca d'água */
-  .processo-num{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:5rem;
-    line-height:1;
-    color:rgba(255,255,255,0.03);
-    position:absolute;
-    top:16px;
-    right:0;
-    letter-spacing:-0.04em;
-    user-select:none;
-    pointer-events:none;
-  }
-
-  /* Conteúdo */
-  .processo-conteudo{ position:relative; }
-
-  .processo-titulo{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:1.7rem;
-    color:#FFFFFF;
-    letter-spacing:-0.01em;
-    line-height:1;
-    margin-bottom:12px;
-  }
-  .processo-desc{
-    font-family:'Inter',sans-serif;
-    font-size:0.9rem;
-    color:rgba(255,255,255,0.45);
-    line-height:1.7;
-    max-width:88%;
-    margin-bottom:16px;
-  }
-
-  /* Detalhe exclusivo da Alvan */
-  .processo-detalhe{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'Inter',sans-serif;
-    font-size:0.75rem;
-    font-weight:600;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--orange);
-  }
-  .processo-detalhe::before{
-    content:'';
-    display:block;
-    width:16px;
-    height:1.5px;
-    background:var(--orange);
-    flex-shrink:0;
-  }
-
-  /* ===== FOOTER ALVAN — ENCERRAMENTO ===== */
-  .alvan-footer{
-    background:#070809;
-    padding:80px 24px 48px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  /* "A" como marca d'água — identidade presente até o fim */
-  .alvan-footer::before{
-    content:'A';
-    position:absolute;
-    bottom:-60px;
-    left:50%;
-    transform:translateX(-50%);
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:420px;
-    color:rgba(255,255,255,0.015);
-    line-height:1;
-    pointer-events:none;
-    user-select:none;
-    letter-spacing:-0.04em;
-  }
-
-  /* Frase de encerramento */
-  .footer-frase{
-    position:relative;
-    z-index:2;
-    margin-bottom:48px;
-    opacity:0;
-    transform:translateY(30px);
-    transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
-  }
-  .footer-frase.visible{
-    opacity:1;
-    transform:translateY(0);
-  }
-  .footer-frase h2{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:clamp(2.4rem, 11vw, 4.5rem);
-    line-height:0.95;
-    letter-spacing:-0.02em;
-    color:#FFFFFF;
-    margin-bottom:24px;
-  }
-  .footer-frase h2 span{
-    color:var(--orange);
-  }
-
-  /* Linha-régua — elemento proprietário da Alvan */
-  .footer-ruler{
-    width:0px;
-    height:1.5px;
-    background:var(--orange);
-    transform:scaleX(0);
-    transform-origin:left;
-    transition:transform .6s cubic-bezier(.22,1,.36,1) .8s;
-  }
-  .footer-frase.visible .footer-ruler{
-    transform:scaleX(1);
-    width:40px;
-  }
-
-  /* CTA único */
-  .footer-cta{
-    position:relative;
-    z-index:2;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:1rem;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--orange);
-    text-decoration:none;
-    margin-bottom:64px;
-    opacity:0;
-    transform:translateY(16px);
-    transition:opacity .6s ease .4s, transform .6s cubic-bezier(.22,1,.36,1) .4s, gap .3s ease;
-  }
-  .footer-cta.visible{
-    opacity:1;
-    transform:translateY(0);
-  }
-  .footer-cta:active{ gap:16px; }
-
-  /* Assinatura */
-  .footer-assinatura{
-    position:relative;
-    z-index:2;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    border-top:1px solid rgba(255,255,255,0.05);
-    padding-top:24px;
-    opacity:0;
-    transition:opacity .6s ease .6s;
-  }
-  .footer-assinatura.visible{ opacity:1; }
-
-  .footer-local{
-    font-family:'Inter',sans-serif;
-    font-size:0.72rem;
-    color:rgba(255,255,255,0.18);
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    line-height:1.6;
-  }
-  .footer-copy{
-    font-family:'Inter',sans-serif;
-    font-size:0.7rem;
-    color:rgba(255,255,255,0.12);
-    letter-spacing:0.04em;
-  }
+/* ============ TOKENS ============ */
+:root{
+  --navy-950:#060D16;
+  --navy-900:#0B1A2B;
+  --navy-800:#16293E;
+  --navy-700:#203a55;
+  --orange-500:#E8792E;
+  --orange-400:#F2934E;
+  --cream-100:#F5F1E8;
+  --cream-300:#D9D2C4;
+  --graphite-500:#8A93A0;
+  --gold-500:#C9A227;
+  --display:'Barlow Condensed',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--navy-950);}
+body{
+  font-family:var(--body);
+  background:var(--navy-950);
+  color:var(--cream-100);
+  overflow-x:hidden;
+  line-height:1.5;
+}
+img,canvas{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+::selection{background:var(--orange-500);color:var(--navy-950);}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--orange-400);
+  display:flex;align-items:center;gap:.6em;
+}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--orange-500);}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.005em;line-height:1.02;text-transform:uppercase;}
+
+.wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+.btn{
+  display:inline-flex;align-items:center;gap:.6em;
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:1rem 1.7rem;border-radius:2px;transition:transform .5s var(--ease),background .3s,color .3s;
+}
+.btn-primary{background:var(--orange-500);color:var(--navy-950);}
+.btn-primary:hover{background:var(--orange-400);transform:translateY(-2px);}
+.btn-ghost{border:1px solid rgba(245,241,232,.25);color:var(--cream-100);}
+.btn-ghost:hover{border-color:var(--orange-400);color:var(--orange-400);transform:translateY(-2px);}
+
+section{position:relative;}
+/* .reveal fica visível por padrão; só é escondido se o GSAP carregar (ver script no fim do arquivo) */
+.reveal{opacity:1;}
+html.gsap-ready .reveal{opacity:0;transform:translateY(34px);}
+
+/* ============ HEADER ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px clamp(20px,5vw,64px);
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s;
+  border-bottom:1px solid transparent;
+}
+header.scrolled{background:rgba(6,13,22,.92);backdrop-filter:blur(6px);padding-top:14px;padding-bottom:14px;border-color:rgba(245,241,232,.08);}
+.logo{font-family:var(--display);font-size:1.5rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;}
+.logo span{color:var(--orange-500);}
+nav{display:flex;gap:2.4rem;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;}
+nav a{position:relative;color:var(--cream-300);transition:color .3s;}
+nav a::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:1px;background:var(--orange-500);transition:width .35s var(--ease);}
+nav a:hover{color:var(--cream-100);}
+nav a:hover::after{width:100%;}
+.nav-toggle{display:none;}
+
+/* ============ HERO ============ */
+.hero{height:100svh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:radial-gradient(120% 90% at 30% 20%,var(--navy-800) 0%,var(--navy-900) 45%,var(--navy-950) 100%);}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,13,22,.15) 0%,rgba(6,13,22,.55) 68%,var(--navy-950) 100%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;padding:0 clamp(20px,5vw,64px) 5.5rem;}
+.hero h1{font-size:clamp(2.6rem,7.4vw,6rem);max-width:14ch;margin:1.1rem 0 1.6rem;}
+.hero h1 em{font-style:normal;color:var(--orange-500);}
+.hero p{max-width:46ch;font-size:1.05rem;color:var(--cream-300);margin-bottom:2.2rem;}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-scroll{position:absolute;bottom:2rem;right:clamp(20px,5vw,64px);z-index:2;display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-300);}
+.hero-scroll .line{width:1px;height:34px;background:linear-gradient(var(--orange-500),transparent);animation:scrolldrop 1.8s ease-in-out infinite;}
+@keyframes scrolldrop{0%{opacity:0;transform:scaleY(0);transform-origin:top;}50%{opacity:1;transform:scaleY(1);transform-origin:top;}100%{opacity:0;transform:scaleY(1);transform-origin:bottom;}}
+
+/* ============ SPECIALTY (grid) ============ */
+.specialty{padding:9rem 0 8rem;background:var(--navy-900);border-top:1px solid rgba(245,241,232,.06);}
+.specialty-head{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;margin-bottom:5rem;align-items:end;}
+.specialty-head h2{font-size:clamp(2.1rem,4.4vw,3.4rem);}
+.specialty-head p{color:var(--cream-300);font-size:1rem;max-width:42ch;}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,241,232,.08);}
+.spec-card{background:var(--navy-900);padding:2.6rem 2rem;transition:background .4s;}
+.spec-card:hover{background:var(--navy-800);}
+.spec-num{font-family:var(--mono);font-size:.72rem;color:var(--orange-500);letter-spacing:.1em;margin-bottom:1.4rem;display:block;}
+.spec-card h3{font-size:1.5rem;margin-bottom:.8rem;text-transform:none;}
+.spec-card p{color:var(--cream-300);font-size:.92rem;}
+
+/* ============ SERVICES ============ */
+.services{padding:8rem 0;background:var(--navy-950);}
+.services-top{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap;}
+.services-top h2{font-size:clamp(2.1rem,4.4vw,3.4rem);max-width:12ch;}
+.service-list{border-top:1px solid rgba(245,241,232,.14);}
+.service-row{
+  display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:2rem;
+  padding:1.8rem 0;border-bottom:1px solid rgba(245,241,232,.14);
+  transition:padding-left .4s var(--ease);
+}
+.service-row:hover{padding-left:1rem;}
+.service-row .idx{font-family:var(--mono);font-size:.78rem;color:var(--graphite-500);}
+.service-row h3{font-size:clamp(1.5rem,3vw,2.1rem);text-transform:none;font-weight:600;transition:color .3s;}
+.service-row:hover h3{color:var(--orange-400);}
+.service-row .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-300);border:1px solid rgba(245,241,232,.2);padding:.5rem .9rem;border-radius:2px;white-space:nowrap;}
+
+/* ============ PORTFOLIO ============ */
+.portfolio{padding:8rem 0 6rem;background:var(--navy-900);overflow:hidden;}
+.portfolio-top{margin-bottom:3rem;}
+.portfolio-top h2{font-size:clamp(2.1rem,4.4vw,3.4rem);max-width:14ch;}
+.swiper{width:100%;padding-bottom:1rem;}
+.swiper-slide{width:min(78vw,440px);}
+.pf-card{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;isolation:isolate;}
+.pf-swatch{position:absolute;inset:0;}
+.pf-card:nth-child(6n+1) .pf-swatch{background:linear-gradient(145deg,#1c3550,#0b1a2b 60%,var(--orange-500));}
+.pf-card:nth-child(6n+2) .pf-swatch{background:linear-gradient(145deg,#0b1a2b,#16293e 55%,var(--gold-500));}
+.pf-card:nth-child(6n+3) .pf-swatch{background:linear-gradient(160deg,var(--orange-500),#16293e 60%,#060d16);}
+.pf-card:nth-child(6n+4) .pf-swatch{background:linear-gradient(145deg,#203a55,#0b1a2b 50%,#F2934E);}
+.pf-card:nth-child(6n+5) .pf-swatch{background:linear-gradient(160deg,#060d16,#16293e 55%,#C9A227);}
+.pf-card:nth-child(6n+6) .pf-swatch{background:linear-gradient(150deg,#0b1a2b,var(--orange-500) 70%,#060d16);}
+.pf-swatch::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),transparent 60%);mix-blend-mode:overlay;}
+.pf-info{position:absolute;left:0;right:0;bottom:0;padding:1.5rem;background:linear-gradient(0deg,rgba(6,13,22,.92),transparent);z-index:2;}
+.pf-info .eyebrow{margin-bottom:.4rem;}
+.pf-info h3{font-size:1.5rem;text-transform:none;font-weight:600;}
+.swiper-pagination{position:static !important;margin-top:2rem;display:flex;justify-content:center;gap:.5rem;}
+.swiper-pagination-bullet{width:26px;height:2px;border-radius:0;background:rgba(245,241,232,.25);opacity:1;transition:background .3s;}
+.swiper-pagination-bullet-active{background:var(--orange-500);}
+
+/* ============ WHY US ============ */
+.why{padding:8rem 0;background:var(--navy-950);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.why-grid h2{font-size:clamp(2.1rem,4.4vw,3.2rem);margin-bottom:1.4rem;max-width:11ch;}
+.why-grid > div:first-child p{color:var(--cream-300);max-width:40ch;margin-bottom:2rem;}
+.stat-row{display:flex;gap:2.5rem;flex-wrap:wrap;}
+.stat b{font-family:var(--display);font-size:2.6rem;color:var(--orange-500);display:block;line-height:1;}
+.stat span{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite-500);}
+.why-list{display:flex;flex-direction:column;gap:0;}
+.why-item{display:flex;gap:1.4rem;padding:1.6rem 0;border-top:1px solid rgba(245,241,232,.12);}
+.why-item:last-child{border-bottom:1px solid rgba(245,241,232,.12);}
+.why-item .ico{font-family:var(--mono);color:var(--orange-500);font-size:.9rem;padding-top:.15rem;}
+.why-item h3{font-size:1.25rem;text-transform:none;margin-bottom:.35rem;}
+.why-item p{color:var(--cream-300);font-size:.9rem;}
+
+/* ============ FORM ============ */
+.quote{padding:8rem 0;background:var(--navy-900);}
+.quote-box{background:var(--navy-950);border:1px solid rgba(245,241,232,.1);border-radius:6px;padding:clamp(2rem,5vw,4rem);position:relative;overflow:hidden;}
+.quote-head{display:flex;justify-content:space-between;align-items:start;gap:2rem;margin-bottom:3rem;flex-wrap:wrap;}
+.quote-head h2{font-size:clamp(2rem,4vw,2.8rem);max-width:12ch;}
+.steps-track{display:flex;gap:.5rem;margin-bottom:2.5rem;}
+.steps-track span{height:2px;flex:1;background:rgba(245,241,232,.16);transition:background .4s;}
+.steps-track span.done{background:var(--orange-500);}
+.step{display:none;}
+.step.active{display:block;animation:fadein .5s var(--ease);}
+@keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.step-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-400);margin-bottom:1.4rem;}
+.step h3{text-transform:none;font-size:1.6rem;margin-bottom:1.8rem;font-weight:600;}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-bottom:2rem;}
+.opt{border:1px solid rgba(245,241,232,.18);padding:1.1rem 1rem;border-radius:4px;font-size:.9rem;transition:border-color .3s,background .3s;text-align:left;}
+.opt:hover{border-color:var(--orange-400);}
+.opt.selected{border-color:var(--orange-500);background:rgba(232,121,46,.1);color:var(--orange-400);}
+.field{margin-bottom:1.4rem;}
+.field label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite-500);margin-bottom:.6rem;}
+.field input,.field textarea{
+  width:100%;background:transparent;border:1px solid rgba(245,241,232,.2);border-radius:4px;
+  padding:.9rem 1rem;color:var(--cream-100);font-family:var(--body);font-size:.95rem;transition:border-color .3s;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--orange-500);}
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;gap:1rem;}
+.summary{background:var(--navy-800);border-radius:4px;padding:1.4rem 1.6rem;margin-bottom:1.8rem;font-size:.9rem;color:var(--cream-300);}
+.summary b{color:var(--cream-100);}
+
+/* ============ FOOTER ============ */
+footer{padding:4rem 0 2.5rem;background:var(--navy-950);border-top:1px solid rgba(245,241,232,.08);}
+.footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;}
+.footer-top h3{font-family:var(--display);font-size:1.7rem;text-transform:uppercase;margin-bottom:.9rem;}
+.footer-top p{color:var(--cream-300);font-size:.9rem;max-width:34ch;}
+.footer-col .eyebrow{margin-bottom:1rem;}
+.footer-col a{display:block;color:var(--cream-300);font-size:.92rem;padding:.35rem 0;transition:color .3s;}
+.footer-col a:hover{color:var(--orange-400);}
+.footer-bottom{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--graphite-500);border-top:1px solid rgba(245,241,232,.08);padding-top:1.6rem;flex-wrap:wrap;gap:1rem;}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:860px){
+  nav{position:fixed;top:0;right:0;height:100vh;width:min(78vw,320px);background:var(--navy-900);flex-direction:column;justify-content:center;align-items:flex-start;padding:0 2.5rem;gap:1.6rem;transform:translateX(100%);transition:transform .5s var(--ease);border-left:1px solid rgba(245,241,232,.1);}
+  nav.open{transform:translateX(0);}
+  .nav-toggle{display:flex;flex-direction:column;gap:5px;width:26px;z-index:110;}
+  .nav-toggle span{height:2px;background:var(--cream-100);transition:transform .3s,opacity .3s;}
+  .specialty-head,.why-grid,.footer-top{grid-template-columns:1fr;}
+  .spec-grid{grid-template-columns:1fr;}
+  .service-row{grid-template-columns:40px 1fr;}
+  .service-row .tag{display:none;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+}
+
+/* Keyboard focus visibility */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--orange-500);outline-offset:3px;}
 </style>
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
-  <span class="brand">
-    <img src="logo.jpg" alt="Alvan Logo" class="brand-logo">
-    <span class="brand-text">
-      <span class="brand-name">ALVAN</span>
-      <span class="brand-city">Pintura e Reforma</span>
-    </span>
-  </span>
-  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-    <span></span><span></span><span></span>
-  </button>
+<!-- ============ HEADER ============ -->
+<header id="site-header">
+  <a href="#top" class="logo">ALVAN<span>.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="#especialidade">Especialidade</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#portfolio">Portfólio</a>
+    <a href="#porque-nos">Por que nós</a>
+    <a href="#orcamento" class="btn btn-primary" style="padding:.6rem 1.1rem;">Orçamento</a>
+  </nav>
 </header>
 
-<nav class="nav-menu" id="navMenu">
-  <p class="nav-menu-label">Navegação</p>
-  <a href="#portfolio" class="nav-link">Nossos Trabalhos</a>
-  <a href="#processo" class="nav-link">Como Trabalhamos</a>
-  <a href="#servicos" class="nav-link">Especialidades</a>
-  <a href="#orcamento" class="nav-link">Orçamento</a>
-  <p class="nav-menu-footer">Rio Branco, Acre — Alvan Pintura e Reforma</p>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-ruler"></div>
-    <p class="hero-pre">Antes de uma única pincelada,</p>
-    <h1 class="hero-title">ALVAN<span>.</span></h1>
-    <p class="hero-position">Protegemos seus móveis, cobrimos seus pisos e entregamos o ambiente limpo no prazo combinado.</p>
-    <div class="hero-stat">
-      <span class="hero-stat-number">+200</span>
-      <span class="hero-stat-label">Ambientes entregues em Rio Branco</span>
-      <div class="hero-stat-line"></div>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <span class="eyebrow reveal">Pintura & reforma premium — Rio Branco, AC</span>
+    <h1 class="reveal">Reformas que parecem ter <em>nascido</em> com a casa.</h1>
+    <p class="reveal">A Alvan projeta e executa acabamentos de alto padrão preparados para o clima amazônico — do primeiro orçamento à última demão.</p>
+    <div class="hero-ctas reveal">
+      <a href="#orcamento" class="btn btn-primary">Solicitar orçamento</a>
+      <a href="#portfolio" class="btn btn-ghost">Ver portfólio</a>
     </div>
-    <a href="#portfolio" class="hero-cta">
-      Ver como ficou o muro do seu vizinho
-      <span class="hero-cta-arrow">↗</span>
-    </a>
   </div>
+  <div class="hero-scroll"><span class="line"></span> Role para explorar</div>
 </section>
 
-<!-- SERVIÇOS -->
-<section class="servicos-section" id="servicos">
-  <div class="servicos-header">
-    <p class="servicos-eyebrow">● O que fazemos</p>
-    <h2 class="servicos-title">Cada serviço<br>tem um <span>padrão.</span></h2>
-  </div>
-
-  <!-- Serviço 01 — Residencial -->
-  <div class="servico-item">
-    <div class="servico-foto">
-      <img src="1014.jpg" alt="Pintura residencial" style="object-position:center bottom;">
+<!-- ============ ESPECIALIDADE ============ -->
+<section class="specialty" id="especialidade">
+  <div class="wrap">
+    <div class="specialty-head">
+      <div>
+        <span class="eyebrow reveal">Especialidade</span>
+        <h2 class="reveal">Pintura pensada para o clima que Rio Branco realmente tem.</h2>
+      </div>
+      <p class="reveal">Umidade alta, chuva frequente e sol direto castigam tinta comum em poucos meses. Cada etapa da Alvan é escolhida para durar nesse clima — não no clima de catálogo.</p>
     </div>
-    <div class="servico-conteudo">
-      <div class="servico-icon">
-        <!-- Residencial: plano de parede com acabamento — três linhas retas de espessura decrescente -->
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="3" y1="6" x2="21" y2="6" stroke="white" stroke-width="1" stroke-linecap="round"/>
-          <line x1="3" y1="12" x2="21" y2="12" stroke="white" stroke-width="1" stroke-linecap="round" stroke-opacity="0.5"/>
-          <line x1="3" y1="18" x2="14" y2="18" stroke="#E8920A" stroke-width="1" stroke-linecap="round"/>
-          <line x1="3" y1="21" x2="21" y2="21" stroke="white" stroke-width="0.6" stroke-linecap="round" stroke-opacity="0.25"/>
-        </svg>
+    <div class="spec-grid">
+      <div class="spec-card reveal">
+        <span class="spec-num">01 / Preparo</span>
+        <h3>Superfície antes da cor</h3>
+        <p>Tratamento de fungos, correção de trincas e selagem antes da primeira demão — a etapa que a maioria pula e a Amazônia sempre cobra de volta.</p>
       </div>
-      <h3 class="servico-nome">Residencial</h3>
-      <p class="servico-desc">Acabamento premium para interiores e exteriores. Sua casa tratada com o mesmo cuidado que você teria.</p>
-      <div class="servico-tags">
-        <span class="servico-tag">Acetinado</span>
-        <span class="servico-tag">Lavável</span>
-        <span class="servico-tag">Matte</span>
+      <div class="spec-card reveal">
+        <span class="spec-num">02 / Tinta</span>
+        <h3>Linhas antimofo e fosco lavável</h3>
+        <p>Especificação de tinta por ambiente: fachada com proteção UV e antimofo, áreas internas com fosco lavável de alto tráfego.</p>
       </div>
-      <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
-      <span class="servico-num">01</span>
-    </div>
-  </div>
-
-  <!-- Serviço 02 — Comercial -->
-  <div class="servico-item">
-    <div class="servico-foto">
-      <img src="1014.jpg" alt="Pintura comercial" style="object-position:center 30%;">
-    </div>
-    <div class="servico-conteudo">
-      <div class="servico-icon">
-        <!-- Comercial: fachada arquitetônica — dois volumes retangulares com abertura -->
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="8" width="8" height="13" stroke="white" stroke-width="1" stroke-linejoin="round"/>
-          <rect x="13" y="4" width="8" height="17" stroke="white" stroke-width="1" stroke-linejoin="round"/>
-          <line x1="13" y1="13" x2="21" y2="13" stroke="#E8920A" stroke-width="1" stroke-linecap="round"/>
-          <line x1="3" y1="21" x2="21" y2="21" stroke="white" stroke-width="0.6" stroke-linecap="round" stroke-opacity="0.3"/>
-        </svg>
+      <div class="spec-card reveal">
+        <span class="spec-num">03 / Acabamento</span>
+        <h3>Texturas e efeitos sob medida</h3>
+        <p>Grafiato, cimento queimado, laca em portas e marcenaria, e efeitos decorativos aplicados por equipe própria, não terceirizada.</p>
       </div>
-      <h3 class="servico-nome">Comercial</h3>
-      <p class="servico-desc">Alta performance para escritórios, lojas e galpões. Execução sem interromper sua operação.</p>
-      <div class="servico-tags">
-        <span class="servico-tag">Epóxi</span>
-        <span class="servico-tag">Fachadas</span>
-        <span class="servico-tag">Alta Durabilidade</span>
-      </div>
-      <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
-      <span class="servico-num">02</span>
-    </div>
-  </div>
-
-  <!-- Serviço 03 — Texturas -->
-  <div class="servico-item">
-    <div class="servico-foto">
-      <img src="1014.jpg" alt="Textura e efeitos" style="object-position:center top;">
-    </div>
-    <div class="servico-conteudo">
-      <div class="servico-icon">
-        <!-- Textura: três camadas horizontais de espessura decrescente — matéria aplicada -->
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 8 Q7 5 12 8 Q17 11 21 8" stroke="white" stroke-width="1" stroke-linecap="round"/>
-          <path d="M3 13 Q7 10 12 13 Q17 16 21 13" stroke="white" stroke-width="1" stroke-linecap="round" stroke-opacity="0.55"/>
-          <line x1="3" y1="18" x2="21" y2="18" stroke="#E8920A" stroke-width="1" stroke-linecap="round"/>
-          <circle cx="12" cy="18" r="1.2" fill="#E8920A"/>
-        </svg>
-      </div>
-      <h3 class="servico-nome">Textura e Efeitos</h3>
-      <p class="servico-desc">Efeitos decorativos que valorizam e transformam ambientes com sofisticação e personalidade.</p>
-      <div class="servico-tags">
-        <span class="servico-tag">Cimento Queimado</span>
-        <span class="servico-tag">Grafiato</span>
-        <span class="servico-tag">Marmorato</span>
-      </div>
-      <a href="#orcamento" class="servico-cta">Peça seu orçamento →</a>
-      <span class="servico-num">03</span>
     </div>
   </div>
 </section>
 
-<!-- PROCESSO -->
-<section class="processo-section" id="processo">
-  <div class="processo-header">
-    <p class="processo-eyebrow">● Como trabalhamos</p>
-    <h2 class="processo-title">Você nunca viu uma empresa<br>de pintura trabalhar <span>assim.</span></h2>
-  </div>
-
-  <div class="processo-item">
-    <span class="processo-num">01</span>
-    <div class="processo-conteudo">
-      <h3 class="processo-titulo">Visita técnica gratuita</h3>
-      <p class="processo-desc">Antes de qualquer orçamento, um técnico vai até o local. Medimos tudo, avaliamos a superfície e identificamos problemas que pintura sozinha não resolve — infiltração, mofo, reboco solto. Você recebe um diagnóstico honesto, não uma estimativa no escuro.</p>
-      <span class="processo-detalhe">Diagnóstico antes do orçamento</span>
+<!-- ============ SERVIÇOS ============ -->
+<section class="services" id="servicos">
+  <div class="wrap">
+    <div class="services-top">
+      <h2 class="reveal">Serviços</h2>
+      <p class="reveal" style="color:var(--cream-300);max-width:36ch;">Do reparo pontual à reforma completa — um único time do orçamento à entrega.</p>
     </div>
-  </div>
-
-  <div class="processo-item">
-    <span class="processo-num">02</span>
-    <div class="processo-conteudo">
-      <h3 class="processo-titulo">Orçamento detalhado em 24h</h3>
-      <p class="processo-desc">Nada de "depende" ou "vou ver". Você recebe um orçamento escrito com quantidade de tinta, número de demãos, prazo de execução e valor total. Sem surpresa no final.</p>
-      <span class="processo-detalhe">Tudo por escrito antes de começar</span>
-    </div>
-  </div>
-
-  <div class="processo-item">
-    <span class="processo-num">03</span>
-    <div class="processo-conteudo">
-      <h3 class="processo-titulo">Preparação do ambiente</h3>
-      <p class="processo-desc">No primeiro dia de obra, antes de abrirmos qualquer lata, cobrimos pisos com lonas, protegemos móveis com plástico e selamos tomadas e interruptores. A sujeira de obra fica do lado de fora.</p>
-      <span class="processo-detalhe">A obra não entra na sua casa</span>
-    </div>
-  </div>
-
-  <div class="processo-item">
-    <span class="processo-num">04</span>
-    <div class="processo-conteudo">
-      <h3 class="processo-titulo">Execução com prazo combinado</h3>
-      <p class="processo-desc">Trabalhamos com cronograma definido. Se o prazo foi segunda, entregamos na segunda. Se algo imprevisto acontecer, você é o primeiro a saber — não o último.</p>
-      <span class="processo-detalhe">Prazo cumprido ou você é avisado antes</span>
-    </div>
-  </div>
-
-  <div class="processo-item">
-    <span class="processo-num">05</span>
-    <div class="processo-conteudo">
-      <h3 class="processo-titulo">Entrega e revisão com você</h3>
-      <p class="processo-desc">Antes de sair, percorremos cada canto com você. Qualquer imperfeição — bolha, mancha, toque — é corrigida na hora. Só encerramos quando você estiver satisfeito.</p>
-      <span class="processo-detalhe">Revisão com o cliente antes de fechar</span>
+    <div class="service-list">
+      <div class="service-row reveal"><span class="idx">01</span><h3>Pintura residencial</h3><span class="tag">Interno / Externo</span></div>
+      <div class="service-row reveal"><span class="idx">02</span><h3>Pintura comercial e predial</h3><span class="tag">Fachadas</span></div>
+      <div class="service-row reveal"><span class="idx">03</span><h3>Textura e efeitos especiais</h3><span class="tag">Grafiato · Cimento queimado</span></div>
+      <div class="service-row reveal"><span class="idx">04</span><h3>Reforma completa</h3><span class="tag">Alvenaria · Elétrica · Hidráulica</span></div>
+      <div class="service-row reveal"><span class="idx">05</span><h3>Impermeabilização</h3><span class="tag">Lajes · Caixas d'água</span></div>
+      <div class="service-row reveal"><span class="idx">06</span><h3>Reparos e massa corrida</h3><span class="tag">Trincas · Infiltrações</span></div>
     </div>
   </div>
 </section>
 
-<!-- ORÇAMENTO -->
-<section class="consulta-section" id="orcamento">
-
-  <!-- Indicador de progresso -->
-  <div class="consulta-progress">
-    <div class="consulta-progress-seg active" id="seg1"></div>
-    <div class="consulta-progress-seg" id="seg2"></div>
-    <div class="consulta-progress-seg" id="seg3"></div>
-  </div>
-
-  <!-- Etapa 1 — O que vamos transformar? -->
-  <div class="consulta-etapa ativa" id="etapa1">
-    <p class="consulta-pergunta">Etapa 01 de 03</p>
-    <h2 class="consulta-titulo">O que você quer<br><span>renovar?</span></h2>
-    <div class="consulta-opcoes" id="opcoesTipo">
-      <div class="consulta-opcao" onclick="selecionarTipo(this, 'Residencial')">
-        <span class="consulta-opcao-num">01</span>
-        <span class="consulta-opcao-nome">Residencial</span>
-        <div class="consulta-opcao-linha"></div>
-      </div>
-      <div class="consulta-opcao" onclick="selecionarTipo(this, 'Comercial')">
-        <span class="consulta-opcao-num">02</span>
-        <span class="consulta-opcao-nome">Comercial</span>
-        <div class="consulta-opcao-linha"></div>
-      </div>
-      <div class="consulta-opcao" onclick="selecionarTipo(this, 'Textura e Efeitos')">
-        <span class="consulta-opcao-num">03</span>
-        <span class="consulta-opcao-nome">Textura e Efeitos</span>
-        <div class="consulta-opcao-linha"></div>
-      </div>
+<!-- ============ PORTFÓLIO ============ -->
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="portfolio-top">
+      <span class="eyebrow reveal">Portfólio</span>
+      <h2 class="reveal">Obras entregues em Rio Branco.</h2>
     </div>
   </div>
-
-  <!-- Etapa 2 — Onde fica? -->
-  <div class="consulta-etapa" id="etapa2">
-    <p class="consulta-pergunta">Etapa 02 de 03</p>
-    <h2 class="consulta-titulo">Qual bairro<br><span>em Rio Branco?</span></h2>
-    <div class="consulta-input-wrap">
-      <input class="consulta-input" type="text" id="inputBairro"
-             placeholder="Ex: Bosque, Centro, Sobral..."
-             oninput="verificarBairro()">
+  <div class="swiper pf-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Residencial</span><h3>Residência Bosque</h3></div></div></div>
+      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Fachada</span><h3>Edifício Amazônia</h3></div></div></div>
+      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Comercial</span><h3>Loja Centro</h3></div></div></div>
+      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Textura</span><h3>Cobertura Duplex</h3></div></div></div>
+      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Reforma</span><h3>Casa Vista Alegre</h3></div></div></div>
+      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Impermeabilização</span><h3>Condomínio Rio Verde</h3></div></div></div>
     </div>
-    <button class="consulta-btn" id="btnEtapa2" onclick="irParaEtapa(3)">
-      Continuar →
-    </button>
+    <div class="swiper-pagination"></div>
   </div>
-
-  <!-- Etapa 3 — Qual o tamanho? -->
-  <div class="consulta-etapa" id="etapa3">
-    <p class="consulta-pergunta">Etapa 03 de 03</p>
-    <h2 class="consulta-titulo">Quanto espaço<br><span>vamos cuidar?</span></h2>
-    <div class="consulta-input-wrap">
-      <input class="consulta-input" type="number" id="inputMetros"
-             placeholder="0" min="0"
-             oninput="verificarMetros()" style="padding-right:48px;">
-      <span class="consulta-input-suffix">m²</span>
-    </div>
-    <div class="consulta-chips">
-      <button class="consulta-chip" onclick="preencherMetros('40')">Até 50m²</button>
-      <button class="consulta-chip" onclick="preencherMetros('100')">50–150m²</button>
-      <button class="consulta-chip" onclick="preencherMetros('200')">+150m²</button>
-    </div>
-    <button class="consulta-btn" id="btnFinal" onclick="enviarConsulta()">
-      Falar com a Alvan →
-    </button>
-  </div>
-
-  <!-- Confirmação -->
-  <div class="consulta-confirmacao" id="consultaConfirmacao">
-    <span class="consulta-check">✓</span>
-    <h3>Perfeito. A Alvan já vai te responder.</h3>
-    <p>Abrindo o WhatsApp agora…</p>
-  </div>
-
 </section>
 
-<!-- PORTFOLIO -->
-<section class="portfolio-section" id="portfolio">
-
-  <div class="portfolio-header">
-    <p class="portfolio-eyebrow">● Projetos realizados</p>
-    <h2 class="portfolio-headline">Isso foi feito aqui<br>em <span>Rio Branco.</span></h2>
-  </div>
-
-  <div class="portfolio-stage" id="portfolioStage">
-
-    <!-- Foto dominante -->
-    <div class="portfolio-main-img" id="portfolioMainImg">
-      <span class="portfolio-state-label label-depois-state" id="portfolioStateLabel">Depois</span>
-      <img src="1014.jpg" alt="Resultado do projeto" id="portfolioMainImgEl"
-           style="object-position:center bottom;">
-    </div>
-
-    <!-- Detalhe de acabamento -->
-    <div class="portfolio-detail">
-      <div class="portfolio-detail-img">
-        <img src="1014.jpg" alt="Detalhe do acabamento"
-             style="object-position:center bottom;">
-      </div>
-      <div class="portfolio-detail-caption">
-        <p><strong>Acabamento impecável.</strong><br>Cada detalhe executado com precisão artesanal.</p>
+<!-- ============ PORQUE NÓS ============ -->
+<section class="why" id="porque-nos">
+  <div class="wrap why-grid">
+    <div>
+      <span class="eyebrow reveal">Por que nós</span>
+      <h2 class="reveal">Confiança que se mede em obra entregue.</h2>
+      <p class="reveal">Equipe própria, prazo definido em contrato e orçamento detalhado antes do primeiro tambor de tinta aberto.</p>
+      <div class="stat-row reveal">
+        <div class="stat"><b>120+</b><span>Obras entregues</span></div>
+        <div class="stat"><b>6</b><span>Anos em Rio Branco</span></div>
+        <div class="stat"><b>98%</b><span>Prazo cumprido</span></div>
       </div>
     </div>
-
-    <!-- Ficha do projeto -->
-    <div class="portfolio-ficha">
-      <h3 class="portfolio-ficha-tipo" id="portfolioTipo">Muro Residencial</h3>
-      <p class="portfolio-ficha-desc" id="portfolioDesc">O muro tinha mofo, infiltração e tinta descascada. Lixamos, selamos e aplicamos duas demãos de Suvinil Acrílico Externo. Ficou assim.</p>
-      <p class="portfolio-ficha-dado">Suvinil Acrílico Externo · Sobral, Rio Branco</p>
-      <button class="portfolio-toggle" id="portfolioToggle" onclick="toggleAnteDepois()">
-        Ver como estava antes ↗
-      </button>
+    <div class="why-list">
+      <div class="why-item reveal"><span class="ico">→</span><div><h3>Equipe própria</h3><p>Sem terceirização — a mesma equipe do orçamento assina a entrega.</p></div></div>
+      <div class="why-item reveal"><span class="ico">→</span><div><h3>Orçamento detalhado</h3><p>Material, etapas e prazo descritos antes de qualquer sinal.</p></div></div>
+      <div class="why-item reveal"><span class="ico">→</span><div><h3>Garantia de obra</h3><p>Cobertura pós-entrega para reparo de qualquer inconformidade.</p></div></div>
+      <div class="why-item reveal"><span class="ico">→</span><div><h3>Atendimento direto</h3><p>Acompanhamento da obra por WhatsApp, do orçamento à última demão.</p></div></div>
     </div>
-
-    <div class="portfolio-ruler" id="portfolioRuler"></div>
-
   </div>
-
-  <!-- Navegação editorial -->
-  <div class="portfolio-nav">
-    <button class="portfolio-nav-btn" onclick="portfolioNav(-1)">← Anterior</button>
-    <span class="portfolio-nav-counter" id="portfolioNavCounter">01 / 01</span>
-    <button class="portfolio-nav-btn" onclick="portfolioNav(1)">Próximo →</button>
-  </div>
-
 </section>
 
+<!-- ============ FORMULÁRIO ============ -->
+<section class="quote" id="orcamento">
+  <div class="wrap">
+    <div class="quote-box">
+      <div class="quote-head">
+        <div>
+          <span class="eyebrow reveal">Orçamento</span>
+          <h2 class="reveal">Conte sobre a sua obra.</h2>
+        </div>
+        <p style="color:var(--cream-300);max-width:30ch;font-size:.92rem;">Três perguntas rápidas e enviamos direto para o WhatsApp da Alvan.</p>
+      </div>
 
-<footer class="alvan-footer" id="alvanFooter">
+      <div class="steps-track">
+        <span class="s-bar done" data-step="1"></span>
+        <span class="s-bar" data-step="2"></span>
+        <span class="s-bar" data-step="3"></span>
+        <span class="s-bar" data-step="4"></span>
+      </div>
 
-  <!-- Frase de encerramento -->
-  <div class="footer-frase" id="footerFrase">
-    <h2>
-      Você vai mostrar<br>
-      esse <span>resultado</span><br>
-      pra visita.
-    </h2>
-    <div class="footer-ruler"></div>
+      <form id="quoteForm">
+        <!-- STEP 1 -->
+        <div class="step active" data-step="1">
+          <span class="step-label">Etapa 1 de 4</span>
+          <h3>Qual serviço você precisa?</h3>
+          <div class="opt-grid" data-group="servico">
+            <button type="button" class="opt">Pintura residencial</button>
+            <button type="button" class="opt">Pintura comercial</button>
+            <button type="button" class="opt">Textura e efeitos</button>
+            <button type="button" class="opt">Reforma completa</button>
+            <button type="button" class="opt">Impermeabilização</button>
+            <button type="button" class="opt">Reparos</button>
+          </div>
+          <div class="step-nav"><span></span><button type="button" class="btn btn-primary next-step">Continuar</button></div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" data-step="2">
+          <span class="step-label">Etapa 2 de 4</span>
+          <h3>Qual o tamanho aproximado do ambiente?</h3>
+          <div class="opt-grid" data-group="tamanho">
+            <button type="button" class="opt">Até 50 m²</button>
+            <button type="button" class="opt">50 – 120 m²</button>
+            <button type="button" class="opt">120 – 300 m²</button>
+            <button type="button" class="opt">Acima de 300 m²</button>
+          </div>
+          <div class="step-nav"><button type="button" class="btn btn-ghost prev-step">Voltar</button><button type="button" class="btn btn-primary next-step">Continuar</button></div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" data-step="3">
+          <span class="step-label">Etapa 3 de 4</span>
+          <h3>Mais detalhes (opcional)</h3>
+          <div class="field">
+            <label for="detalhes">Descreva o que você tem em mente</label>
+            <textarea id="detalhes" rows="4" placeholder="Ex: fachada com infiltração, quero cor nova na sala..."></textarea>
+          </div>
+          <div class="step-nav"><button type="button" class="btn btn-ghost prev-step">Voltar</button><button type="button" class="btn btn-primary next-step">Continuar</button></div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" data-step="4">
+          <span class="step-label">Etapa 4 de 4</span>
+          <h3>Seus dados de contato</h3>
+          <div class="field"><label for="nome">Nome</label><input id="nome" type="text" required placeholder="Seu nome"></div>
+          <div class="field"><label for="telefone">WhatsApp</label><input id="telefone" type="tel" required placeholder="(68) 9xxxx-xxxx"></div>
+          <div class="step-nav"><button type="button" class="btn btn-ghost prev-step">Voltar</button><button type="submit" class="btn btn-primary">Enviar via WhatsApp</button></div>
+        </div>
+      </form>
+    </div>
   </div>
+</section>
 
-  <!-- CTA único -->
-  <a href="#orcamento" class="footer-cta" id="footerCta">
-    Falar com a Alvan agora →
-  </a>
-
-  <!-- Assinatura -->
-  <div class="footer-assinatura" id="footerAssinatura">
-    <p class="footer-local">
-      Rio Branco, Acre<br>
-      Alvan Pintura e Reforma
-    </p>
-    <p class="footer-copy">© 2025 Alvan</p>
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <h3>ALVAN<span style="color:var(--orange-500);">.</span></h3>
+        <p>Pintura e reforma de alto padrão em Rio Branco, Acre — preparada para durar no clima amazônico.</p>
+      </div>
+      <div class="footer-col">
+        <span class="eyebrow">Navegação</span>
+        <a href="#especialidade">Especialidade</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#porque-nos">Por que nós</a>
+      </div>
+      <div class="footer-col">
+        <span class="eyebrow">Contato</span>
+        <a href="#orcamento">Solicitar orçamento</a>
+        <a href="tel:+55689999999">+55 (68) 9999-9999</a>
+        <a href="#">Rio Branco, AC</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Alvan Pintura e Reforma</span>
+      <span>Feito em Rio Branco, AC</span>
+    </div>
   </div>
-
 </footer>
 
+<!-- ============ SCRIPTS (CDN, sem build) ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 <script>
-  // ===== PORTFOLIO ALVAN =====
-  const projetos = [
-    {
-      tipo: 'Muro Residencial',
-      desc: 'Recuperação completa de muro com pintura externa de alta durabilidade. Preparação de superfície, selagem e duas demãos de tinta acrílica premium.',
-      dado: 'Suvinil Premium · Rio Branco, AC',
-      imgDepois: '1014.jpg',
-      posDepois: 'center bottom',
-      imgAntes: '1014.jpg',
-      posAntes: 'center top',
+/* ============ HEADER STATE + MOBILE NAV (sem dependência externa) ============ */
+const header = document.getElementById('site-header');
+const nav = document.getElementById('mainNav');
+const navToggle = document.getElementById('navToggle');
+window.addEventListener('scroll', ()=>{ header.classList.toggle('scrolled', window.scrollY > 40); });
+navToggle.addEventListener('click', ()=>{ nav.classList.toggle('open'); });
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>nav.classList.remove('open')));
+
+/* ============ SMOOTH SCROLL (Lenis) — opcional ============ */
+let lenisInstance = null;
+try{
+  if(typeof Lenis !== 'undefined'){
+    lenisInstance = new Lenis({ duration: 1.1, smoothWheel: true });
+    function raf(time){ lenisInstance.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+}catch(e){ console.warn('Lenis não carregou, usando scroll nativo.', e); }
+
+/* ============ GSAP REVEALS — opcional ============ */
+try{
+  if(typeof gsap !== 'undefined'){
+    document.documentElement.classList.add('gsap-ready');
+    if(typeof ScrollTrigger !== 'undefined'){
+      gsap.registerPlugin(ScrollTrigger);
+      if(lenisInstance){
+        lenisInstance.on('scroll', ScrollTrigger.update);
+        gsap.ticker.lagSmoothing(0);
+      }
     }
-  ];
-
-  let projetoAtual = 0;
-  let mostrandoAntes = false;
-
-  const mainImg = document.getElementById('portfolioMainImgEl');
-  const mainImgContainer = document.getElementById('portfolioMainImg');
-  const stateLabel = document.getElementById('portfolioStateLabel');
-  const toggleBtn = document.getElementById('portfolioToggle');
-  const navCounter = document.getElementById('portfolioNavCounter');
-  const ruler = document.getElementById('portfolioRuler');
-
-  function pad(n){ return String(n).padStart(2,'0'); }
-
-  function renderProjeto(){
-    const p = projetos[projetoAtual];
-    mostrandoAntes = false;
-    mainImg.src = p.imgDepois;
-    mainImg.style.objectPosition = p.posDepois;
-    mainImgContainer.classList.remove('is-before');
-    stateLabel.textContent = 'Depois';
-    stateLabel.className = 'portfolio-state-label label-depois-state';
-    toggleBtn.textContent = 'Ver antes ↗';
-    document.getElementById('portfolioTipo').textContent = p.tipo;
-    document.getElementById('portfolioDesc').textContent = p.desc;
-    navCounter.textContent = `${pad(projetoAtual + 1)} / ${pad(projetos.length)}`;
-  }
-
-  function toggleAnteDepois(){
-    const p = projetos[projetoAtual];
-    mostrandoAntes = !mostrandoAntes;
-
-    // Etiqueta sai primeiro
-    stateLabel.style.opacity = '0';
-    stateLabel.style.transform = 'translateY(-4px)';
-    stateLabel.style.transition = 'opacity .2s ease-in, transform .2s ease-in';
-
-    // Foto faz fade
-    mainImg.style.opacity = '0';
-    mainImg.style.transition = 'opacity .4s cubic-bezier(.22,1,.36,1)';
-
-    setTimeout(() => {
-      if(mostrandoAntes){
-        mainImg.src = p.imgAntes;
-        mainImg.style.objectPosition = p.posAntes;
-        mainImgContainer.classList.add('is-before');
-        stateLabel.textContent = 'Antes';
-        stateLabel.className = 'portfolio-state-label label-antes-state';
-        toggleBtn.textContent = 'Ver depois ↗';
-      } else {
-        mainImg.src = p.imgDepois;
-        mainImg.style.objectPosition = p.posDepois;
-        mainImgContainer.classList.remove('is-before');
-        stateLabel.textContent = 'Depois';
-        stateLabel.className = 'portfolio-state-label label-depois-state';
-        toggleBtn.textContent = 'Ver como estava antes ↗';
-      }
-      // Foto entra
-      mainImg.style.opacity = '1';
-
-      // Etiqueta entra depois da foto, com delay
-      setTimeout(() => {
-        stateLabel.style.transition = 'opacity .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1)';
-        stateLabel.style.opacity = '1';
-        stateLabel.style.transform = 'translateY(0)';
-      }, 200);
-    }, 280);
-  }
-
-  function portfolioNav(dir){
-    projetoAtual = (projetoAtual + dir + projetos.length) % projetos.length;
-    renderProjeto();
-  }
-
-  // Linha-régua aparece ao entrar no viewport
-  const rulerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        setTimeout(() => ruler.classList.add('visible'), 400);
-        rulerObserver.unobserve(entry.target);
-      }
+    document.querySelectorAll('.hero .reveal').forEach((el,i)=>{
+      gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',delay:.25+i*.12});
     });
-  }, { threshold: 0.3 });
-  if(ruler) rulerObserver.observe(ruler);
-
-  // Inicia
-  renderProjeto();
-
-
-  const servicoItems = document.querySelectorAll('.servico-item');
-  const servicoObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if(entry.isIntersecting){
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, i * 150);
-        servicoObserver.unobserve(entry.target);
-      }
+    document.querySelectorAll('section:not(.hero) .reveal').forEach(el=>{
+      gsap.to(el,{
+        opacity:1,y:0,duration:.9,ease:'power3.out',
+        scrollTrigger: typeof ScrollTrigger!=='undefined' ? { trigger:el, start:'top 88%' } : undefined
+      });
     });
-  }, { threshold: 0.2 });
-  servicoItems.forEach(item => servicoObserver.observe(item));
+  }
+}catch(e){ console.warn('GSAP não carregou, conteúdo segue visível sem animação.', e); }
 
+/* ============ SWIPER (Portfólio) — opcional ============ */
+try{
+  if(typeof Swiper !== 'undefined'){
+    new Swiper('.pf-swiper',{
+      slidesPerView:'auto',
+      spaceBetween:20,
+      freeMode:true,
+      grabCursor:true,
+      pagination:{ el:'.swiper-pagination', clickable:true }
+    });
+  } else {
+    document.querySelector('.pf-swiper .swiper-wrapper').style.cssText = 'display:flex;gap:20px;overflow-x:auto;padding:0 20px;';
+  }
+}catch(e){ console.warn('Swiper não carregou, usando scroll horizontal simples.', e); }
 
-  const siteHeader = document.getElementById('siteHeader');
-  const menuBtn = document.getElementById('menuBtn');
-  const navMenu = document.getElementById('navMenu');
+/* ============ MULTI-STEP FORM ============ */
+(function(){
+  const form = document.getElementById('quoteForm');
+  const steps = [...form.querySelectorAll('.step')];
+  const bars = [...document.querySelectorAll('.s-bar')];
+  let current = 1;
+  const state = { servico:'', tamanho:'', detalhes:'' };
 
-  // Comportamento de scroll — 2 estados da navbar
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 60){
-      siteHeader.classList.add('scrolled');
-    } else {
-      siteHeader.classList.remove('scrolled');
-    }
-  }, {passive:true});
+  function goTo(n){
+    steps.forEach(s=>s.classList.toggle('active', +s.dataset.step===n));
+    bars.forEach(b=>b.classList.toggle('done', +b.dataset.step<=n));
+    current = n;
+  }
+  form.querySelectorAll('.next-step').forEach(btn=>btn.addEventListener('click',()=>{ if(current<4) goTo(current+1); }));
+  form.querySelectorAll('.prev-step').forEach(btn=>btn.addEventListener('click',()=>{ if(current>1) goTo(current-1); }));
 
-  // Hambúrguer assimétrico — abre menu fullscreen
-  menuBtn.addEventListener('click', () => {
-    const isOpen = navMenu.classList.toggle('open');
-    menuBtn.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  // Links do menu — fecha e rola suavemente
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      navMenu.classList.remove('open');
-      menuBtn.classList.remove('open');
-      document.body.style.overflow = '';
-      const target = document.querySelector(link.getAttribute('href'));
-      if(target){
-        setTimeout(() => {
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-        }, 300);
-      }
+  form.querySelectorAll('.opt-grid').forEach(group=>{
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+        state[group.dataset.group] = opt.textContent;
+      });
     });
   });
 
-  // ===== PROCESSO ALVAN =====
-  (function setupProcesso(){
-    const items = document.querySelectorAll('.processo-item');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if(entry.isIntersecting){
-          setTimeout(() => entry.target.classList.add('visible'), i * 140);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.15});
-    items.forEach(item => obs.observe(item));
-  })();
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const nome = document.getElementById('nome').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const detalhes = document.getElementById('detalhes').value.trim();
+    if(!nome || !telefone){ return; }
+    const msg = `Olá! Meu nome é ${nome}.%0AServiço: ${state.servico || '—'}%0ATamanho do ambiente: ${state.tamanho || '—'}%0ADetalhes: ${detalhes || '—'}%0AMeu WhatsApp: ${telefone}`;
+    window.open(`https://wa.me/5568999999999?text=${msg}`, '_blank');
+  });
+})();
 
-  // ===== FOOTER ALVAN =====
-  (function setupFooter(){
-    const els = [
-      {id:'footerFrase',delay:0},
-      {id:'footerCta',delay:100},
-      {id:'footerAssinatura',delay:200},
-    ];
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          const found = els.find(e => e.id === entry.target.id);
-          setTimeout(() => entry.target.classList.add('visible'), found?.delay || 0);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.2});
-    els.forEach(e => { const el = document.getElementById(e.id); if(el) obs.observe(el); });
-  })();
-
-  // ===== CONSULTA ALVAN — 3 ETAPAS =====
-  let consultaTipo = '';
-  let consultaEtapaAtual = 1;
-
-  function irParaEtapa(num){
-    const atual = document.getElementById('etapa' + consultaEtapaAtual);
-    if(atual){
-      atual.style.opacity = '0';
-      atual.style.transform = 'translateY(-12px)';
-      atual.style.transition = 'opacity .28s ease-in, transform .28s ease-in';
-      setTimeout(() => {
-        atual.classList.remove('ativa');
-        atual.style.opacity = '';
-        atual.style.transform = '';
-        atual.style.transition = '';
-        // Pausa de 80ms antes de mostrar a próxima
-        setTimeout(() => mostrarEtapa(num), 80);
-      }, 280);
-    } else {
-      mostrarEtapa(num);
-    }
+/* ============ HERO SHADER — "PAINT POUR" (Three.js) — opcional ============ */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  if(typeof THREE === 'undefined'){
+    console.warn('Three.js não carregou — hero usa o gradiente CSS de fundo.');
+    return;
   }
 
-  function mostrarEtapa(num){
-    consultaEtapaAtual = num;
-    // Atualiza progresso
-    for(let i = 1; i <= 3; i++){
-      const seg = document.getElementById('seg' + i);
-      seg.classList.remove('done','active');
-      if(i < num) seg.classList.add('done');
-      if(i === num) seg.classList.add('active');
-    }
-    // Mostra nova etapa
-    const nova = document.getElementById('etapa' + num);
-    if(nova){
-      nova.classList.add('ativa');
-      setTimeout(() => {
-        nova.style.opacity = '1';
-        nova.style.transform = 'translateY(0)';
-      }, 50);
-    }
+  // Em celulares e aparelhos com poucos núcleos/memória, o custo do shader
+  // (ruído calculado por pixel, todo frame) pesa demais — usamos o
+  // gradiente CSS estático nesses casos em vez do WebGL.
+  const isLowPower = window.matchMedia('(max-width: 860px)').matches
+    || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+  if(isLowPower){
+    console.info('Aparelho de entrada detectado — hero usa o gradiente CSS (mais leve) no lugar do shader.');
+    return;
   }
 
-  function selecionarTipo(el, tipo){
-    consultaTipo = tipo;
-    const opcoes = document.getElementById('opcoesTipo');
-    opcoes.classList.add('tem-selecao');
-    document.querySelectorAll('.consulta-opcao').forEach(o => o.classList.remove('selecionada'));
-    el.classList.add('selecionada');
-    // Avança automaticamente após 700ms
-    setTimeout(() => irParaEtapa(2), 700);
+  let renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:false, powerPreference:'low-power' });
+  }catch(e){
+    console.warn('WebGL indisponível — hero usa o gradiente CSS de fundo.', e);
+    return;
   }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
 
-  function verificarBairro(){
-    const val = document.getElementById('inputBairro').value.trim();
-    const btn = document.getElementById('btnEtapa2');
-    if(val.length >= 3){
-      btn.classList.add('visivel');
-    } else {
-      btn.classList.remove('visivel');
-    }
-  }
+  const mouse = { x:.5, y:.5, tx:.5, ty:.5 };
+  window.addEventListener('pointermove', e=>{
+    mouse.tx = e.clientX/window.innerWidth;
+    mouse.ty = 1 - e.clientY/window.innerHeight;
+  });
 
-  function verificarMetros(){
-    const val = document.getElementById('inputMetros').value.trim();
-    const btn = document.getElementById('btnFinal');
-    if(val && parseInt(val) > 0){
-      btn.classList.add('visivel');
-    } else {
-      btn.classList.remove('visivel');
-    }
-  }
+  const uniforms = {
+    u_time:{ value:0 },
+    u_res:{ value:new THREE.Vector2(1,1) },
+    u_mouse:{ value:new THREE.Vector2(.5,.5) },
+    u_navy:{ value:new THREE.Vector3(0.043,0.102,0.169) },
+    u_orange:{ value:new THREE.Vector3(0.910,0.475,0.180) },
+    u_gold:{ value:new THREE.Vector3(0.788,0.635,0.153) }
+  };
 
-  function preencherMetros(val){
-    document.getElementById('inputMetros').value = val;
-    verificarMetros();
-  }
+  const geo = new THREE.PlaneGeometry(2,2);
+  const mat = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader:`
+      void main(){ gl_Position = vec4(position,1.0); }
+    `,
+    fragmentShader:`
+      precision highp float;
+      uniform float u_time;
+      uniform vec2 u_res;
+      uniform vec2 u_mouse;
+      uniform vec3 u_navy;
+      uniform vec3 u_orange;
+      uniform vec3 u_gold;
 
-  function enviarConsulta(){
-    const bairro = document.getElementById('inputBairro').value.trim() || 'Não informado';
-    const metros = document.getElementById('inputMetros').value.trim() || 'Não informado';
-
-    // Mostra confirmação
-    document.getElementById('etapa3').classList.remove('ativa');
-    const conf = document.getElementById('consultaConfirmacao');
-    conf.classList.add('ativa');
-
-    // Marca todos os segmentos como done
-    for(let i = 1; i <= 3; i++){
-      const seg = document.getElementById('seg' + i);
-      seg.classList.remove('active');
-      seg.classList.add('done');
-    }
-
-    // Abre WhatsApp após 1.2s
-    setTimeout(() => {
-      const msg = `Olá! Quero iniciar um projeto com a Alvan.\n\n✅ Tipo: ${consultaTipo}\n📍 Bairro: ${bairro}, Rio Branco\n📐 Tamanho: ${metros}m²\n\nAguardo contato!`;
-      window.open(`https://wa.me/55XXXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
-    }, 1200);
-  }
-
-
-
-  // Carrossel fade com loop infinito e barra de progresso
-  (function setupFadeCarousel(){
-    const cards = document.querySelectorAll('#portfolioCarousel .fade-card');
-    const counter = document.getElementById('portfolioCounter');
-    const progressBar = document.getElementById('portfolioProgress');
-    const total = cards.length;
-    const INTERVAL = 4000; // 4 segundos por card
-    let current = 0;
-    let timer = null;
-    let progressTimer = null;
-
-    function pad(n){ return String(n).padStart(2,'0'); }
-
-    function goTo(index){
-      cards[current].classList.remove('active');
-      current = (index + total) % total;
-      cards[current].classList.add('active');
-      if(counter) counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
-      startProgress();
-    }
-
-    function startProgress(){
-      if(progressBar){
-        progressBar.style.transition = 'none';
-        progressBar.style.width = '0%';
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            progressBar.style.transition = `width ${INTERVAL}ms linear`;
-            progressBar.style.width = '100%';
-          });
-        });
+      // simple 2D noise
+      vec2 hash(vec2 p){
+        p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
+        return -1.0 + 2.0*fract(sin(p)*43758.5453123);
       }
-    }
+      float noise(vec2 p){
+        vec2 i = floor(p); vec2 f = fract(p);
+        vec2 u = f*f*(3.0-2.0*f);
+        return mix( mix(dot(hash(i+vec2(0,0)),f-vec2(0,0)), dot(hash(i+vec2(1,0)),f-vec2(1,0)),u.x),
+                    mix(dot(hash(i+vec2(0,1)),f-vec2(0,1)), dot(hash(i+vec2(1,1)),f-vec2(1,1)),u.x), u.y);
+      }
+      float fbm(vec2 p){
+        float v=0.0, a=0.5;
+        for(int i=0;i<3;i++){ v += a*noise(p); p *= 2.02; a *= 0.5; }
+        return v;
+      }
 
-    function startAuto(){
-      if(timer) clearInterval(timer);
-      timer = setInterval(() => goTo(current + 1), INTERVAL);
-    }
+      void main(){
+        vec2 uv = gl_FragCoord.xy / u_res.xy;
+        vec2 p = uv; p.x *= u_res.x/u_res.y;
+        vec2 m = u_mouse; m.x *= u_res.x/u_res.y;
 
-    // Inicia
-    if(counter) counter.textContent = `${pad(1)} / ${pad(total)}`;
-    startProgress();
-    startAuto();
+        float t = u_time * 0.045;
+        vec2 flow = vec2(fbm(p*1.6 + t), fbm(p*1.6 - t + 4.0));
+        float d = fbm(p*2.2 + flow*1.4 + t*0.5);
 
-    // Toque no card avança manualmente
-    document.getElementById('portfolioCarousel').addEventListener('click', () => {
-      clearInterval(timer);
-      goTo(current + 1);
-      startAuto();
-    });
-  })();
+        float distToMouse = distance(p, m);
+        d += 0.18 * smoothstep(0.6, 0.0, distToMouse);
 
+        float mixA = smoothstep(-0.25, 0.55, d);
+        vec3 col = mix(u_navy, u_orange, mixA);
 
+        float goldVein = smoothstep(0.62, 0.66, fbm(p*3.0 - t*0.3));
+        col = mix(col, u_gold, goldVein*0.35);
 
+        float vig = smoothstep(1.1, 0.25, distance(uv, vec2(0.5)));
+        col *= mix(0.55, 1.0, vig);
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `
+  });
+
+  scene.add(new THREE.Mesh(geo, mat));
+
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w,h,false);
+    uniforms.u_res.value.set(w*renderer.getPixelRatio(), h*renderer.getPixelRatio());
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isVisible = true;
+  let rafId = null;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(entries=>{
+      isVisible = entries[0].isIntersecting;
+      if(isVisible && rafId===null) rafId = requestAnimationFrame(tick);
+    }).observe(canvas);
+  }
+  function tick(t){
+    mouse.x += (mouse.tx-mouse.x)*0.06;
+    mouse.y += (mouse.ty-mouse.y)*0.06;
+    uniforms.u_mouse.value.set(mouse.x, mouse.y);
+    uniforms.u_time.value = reduceMotion ? 0 : t*0.001;
+    renderer.render(scene, camera);
+    rafId = isVisible ? requestAnimationFrame(tick) : null;
+  }
+  requestAnimationFrame(tick);
+})();
 </script>
-
 </body>
 </html>
