@@ -4,67 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alvan Pintura e Reforma — Rio Branco, AC</title>
-<meta name="description" content="Pintura e reforma de alto padrão em Rio Branco, Acre. Acabamentos preparados para o clima amazônico, do orçamento à última demão.">
+<meta name="description" content="Pintura e reforma de alto padrão em Rio Branco, Acre. Acabamentos preparados para o clima acreano, do orçamento à última demão.">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Fraunces:ital,wght@0,300;0,400;1,400&family=Inter:wght@100;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
 <style>
 /* ============ TOKENS ============ */
 :root{
-  --navy-950:#060D16;
-  --navy-900:#0B1A2B;
-  --navy-800:#16293E;
-  --navy-700:#203a55;
-  --orange-500:#E8792E;
-  --orange-400:#F2934E;
-  --cream-100:#F5F1E8;
-  --cream-300:#D9D2C4;
-  --graphite-500:#8A93A0;
-  --gold-500:#C9A227;
+  --black-950:#0A0A0A;
+  --black-900:#141414;
+  --graphite-800:#262626;
+  --graphite-700:#3A3A3A;
+  --yellow-500:#E3B23C;
+  --yellow-400:#EFC65C;
+  --white-100:#F7F7F4;
+  --white-300:#D6D6D0;
+  --graphite-500:#9C9C96;
+  --yellow-600:#B8902A;
   --display:'Barlow Condensed',sans-serif;
   --body:'Inter',sans-serif;
   --mono:'JetBrains Mono',monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{background:var(--navy-950);}
+html{background:var(--black-950);}
 body{
   font-family:var(--body);
-  background:var(--navy-950);
-  color:var(--cream-100);
+  background:var(--black-950);
+  color:var(--white-100);
   overflow-x:hidden;
   line-height:1.5;
 }
 img,canvas{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
-::selection{background:var(--orange-500);color:var(--navy-950);}
+::selection{background:var(--yellow-500);color:var(--black-950);}
 
 .eyebrow{
   font-family:var(--mono);
   font-size:.72rem;
   letter-spacing:.18em;
   text-transform:uppercase;
-  color:var(--orange-400);
+  color:var(--yellow-400);
   display:flex;align-items:center;gap:.6em;
 }
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--orange-500);}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--yellow-500);}
 
 h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.005em;line-height:1.02;text-transform:uppercase;}
 
 .wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
 .btn{
+  position:relative;overflow:hidden;
   display:inline-flex;align-items:center;gap:.6em;
   font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
   padding:1rem 1.7rem;border-radius:2px;transition:transform .5s var(--ease),background .3s,color .3s;
 }
-.btn-primary{background:var(--orange-500);color:var(--navy-950);}
-.btn-primary:hover{background:var(--orange-400);transform:translateY(-2px);}
-.btn-ghost{border:1px solid rgba(245,241,232,.25);color:var(--cream-100);}
-.btn-ghost:hover{border-color:var(--orange-400);color:var(--orange-400);transform:translateY(-2px);}
+.btn .arrow{width:14px;height:14px;flex-shrink:0;transition:transform .4s var(--ease);position:relative;z-index:1;}
+.btn:hover .arrow{transform:translateX(5px);}
+.btn-primary{background:var(--yellow-500);color:var(--black-950);}
+.btn-primary::after{
+  content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-20deg);transition:left .6s var(--ease);
+}
+.btn-primary:hover::after{left:120%;}
+.btn-primary:hover{background:var(--yellow-400);transform:translateY(-2px);}
+.btn-ghost{border:1px solid rgba(247,247,244,.25);color:var(--white-100);}
+.btn-ghost:hover{border-color:var(--yellow-400);color:var(--yellow-400);transform:translateY(-2px);}
 
 section{position:relative;}
 /* .reveal fica visível por padrão; só é escondido se o GSAP carregar (ver script no fim do arquivo) */
@@ -74,146 +83,218 @@ html.gsap-ready .reveal{opacity:0;transform:translateY(34px);}
 /* ============ HEADER ============ */
 header{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:22px clamp(20px,5vw,64px);
+  padding:18px clamp(20px,5vw,64px);
   display:flex;justify-content:space-between;align-items:center;
   transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s;
   border-bottom:1px solid transparent;
 }
-header.scrolled{background:rgba(6,13,22,.92);backdrop-filter:blur(6px);padding-top:14px;padding-bottom:14px;border-color:rgba(245,241,232,.08);}
-.logo{font-family:var(--display);font-size:1.5rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;}
-.logo span{color:var(--orange-500);}
-nav{display:flex;gap:2.4rem;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;}
-nav a{position:relative;color:var(--cream-300);transition:color .3s;}
-nav a::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:1px;background:var(--orange-500);transition:width .35s var(--ease);}
-nav a:hover{color:var(--cream-100);}
-nav a:hover::after{width:100%;}
+header.scrolled{background:rgba(250,250,248,.85);backdrop-filter:blur(10px);padding-top:12px;padding-bottom:12px;border-color:rgba(17,17,17,.08);}
+.logo{display:flex;align-items:center;gap:.5rem;font-family:var(--display);font-size:1.5rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;}
+.logo span{color:var(--yellow-500);}
+nav{position:relative;display:flex;align-items:center;gap:.15rem;font-family:var(--body);}
+.nav-pill{position:absolute;top:4px;height:calc(100% - 8px);border-radius:999px;background:rgba(17,17,17,.06);opacity:0;transform:translateX(0);width:0;transition:transform .35s var(--ease),width .35s var(--ease),opacity .2s ease;pointer-events:none;z-index:0;}
+nav a{position:relative;z-index:1;color:#111111;font-size:.92rem;font-weight:500;letter-spacing:-.005em;padding:.6rem 1.05rem;border-radius:999px;transition:color .25s ease;}
+nav a.active{font-weight:600;}
+nav .btn-primary{border-radius:999px;}
+header.scrolled nav a{color:#111111;}
 .nav-toggle{display:none;}
 
-/* ============ HERO ============ */
-.hero{height:100svh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:radial-gradient(120% 90% at 30% 20%,var(--navy-800) 0%,var(--navy-900) 45%,var(--navy-950) 100%);}
-#hero-canvas{position:absolute;inset:0;width:100%;height:100%;}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,13,22,.15) 0%,rgba(6,13,22,.55) 68%,var(--navy-950) 100%);pointer-events:none;}
-.hero-inner{position:relative;z-index:2;padding:0 clamp(20px,5vw,64px) 5.5rem;}
-.hero h1{font-size:clamp(2.6rem,7.4vw,6rem);max-width:14ch;margin:1.1rem 0 1.6rem;}
-.hero h1 em{font-style:normal;color:var(--orange-500);}
-.hero p{max-width:46ch;font-size:1.05rem;color:var(--cream-300);margin-bottom:2.2rem;}
+/* ============ HERO — claro, editorial, inspirado em site de estúdio de arquitetura ============ */
+.hero{height:100svh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#FAFAF8;}
+.hero-inner{position:relative;z-index:2;padding:0 clamp(24px,6vw,90px) 6.5rem;max-width:640px;}
+.hero h1{
+  font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4.4vw,3.5rem);
+  letter-spacing:.005em;line-height:1.22;max-width:15ch;margin:0 0 1.8rem;color:#111111;
+}
+.hero h1 em{font-style:italic;font-weight:400;color:#111111;}
+.hero p{max-width:38ch;font-size:1rem;line-height:1.75;color:#666666;margin-bottom:2.4rem;}
+.hero .btn-ghost{border:1px solid rgba(17,17,17,.22);color:#111111;}
+.hero .btn-ghost:hover{border-color:#111111;color:#111111;background:rgba(17,17,17,.04);}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
-.hero-scroll{position:absolute;bottom:2rem;right:clamp(20px,5vw,64px);z-index:2;display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-300);}
-.hero-scroll .line{width:1px;height:34px;background:linear-gradient(var(--orange-500),transparent);animation:scrolldrop 1.8s ease-in-out infinite;}
+.hero-scroll{position:absolute;bottom:2rem;right:clamp(20px,5vw,64px);z-index:2;display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#666666;}
+.hero-scroll .line{width:1px;height:34px;background:linear-gradient(#111111,transparent);animation:scrolldrop 1.8s ease-in-out infinite;}
 @keyframes scrolldrop{0%{opacity:0;transform:scaleY(0);transform-origin:top;}50%{opacity:1;transform:scaleY(1);transform-origin:top;}100%{opacity:0;transform:scaleY(1);transform-origin:bottom;}}
 
 /* ============ SPECIALTY (grid) ============ */
-.specialty{padding:9rem 0 8rem;background:var(--navy-900);border-top:1px solid rgba(245,241,232,.06);}
-.specialty-head{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;margin-bottom:5rem;align-items:end;}
-.specialty-head h2{font-size:clamp(2.1rem,4.4vw,3.4rem);}
-.specialty-head p{color:var(--cream-300);font-size:1rem;max-width:42ch;}
-.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,241,232,.08);}
-.spec-card{background:var(--navy-900);padding:2.6rem 2rem;transition:background .4s;}
-.spec-card:hover{background:var(--navy-800);}
-.spec-num{font-family:var(--mono);font-size:.72rem;color:var(--orange-500);letter-spacing:.1em;margin-bottom:1.4rem;display:block;}
-.spec-card h3{font-size:1.5rem;margin-bottom:.8rem;text-transform:none;}
-.spec-card p{color:var(--cream-300);font-size:.92rem;}
+.specialty{padding:9rem 0 8rem;background:#FAFAF8;border-top:1px solid rgba(17,17,17,.08);}
+.specialty-head{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;margin-bottom:6rem;align-items:end;}
+.specialty-caption{
+  display:inline-block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;
+  font-size:1rem;letter-spacing:.01em;color:#666666;margin:.9rem 0 1.3rem;
+}
+.specialty-head h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4vw,3.2rem);line-height:1.22;letter-spacing:.005em;color:#111111;}
+.specialty-head p{color:#666666;font-size:1rem;line-height:1.7;max-width:42ch;}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:64px;}
+.spec-card{position:relative;padding-top:4.4rem;}
+.spec-num{
+  position:absolute;top:-14px;left:0;z-index:0;
+  font-family:var(--body);font-size:110px;font-weight:100;line-height:1;
+  color:#111111;opacity:.07;user-select:none;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.spec-tag{position:relative;z-index:1;display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#8A8A82;margin-bottom:1.1rem;}
+.spec-card h3{position:relative;z-index:1;font-size:1.45rem;font-weight:500;line-height:1.3;margin-bottom:1rem;text-transform:none;max-width:16ch;color:#111111;transition:color .3s ease;}
+.spec-card p{position:relative;z-index:1;color:#666666;font-size:.95rem;line-height:1.75;max-width:30ch;}
+.spec-card:hover .spec-num{opacity:.12;}
+.spec-card:hover h3{color:#000000;}
 
 /* ============ SERVICES ============ */
-.services{padding:8rem 0;background:var(--navy-950);}
-.services-top{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap;}
-.services-top h2{font-size:clamp(2.1rem,4.4vw,3.4rem);max-width:12ch;}
-.service-list{border-top:1px solid rgba(245,241,232,.14);}
+.services{padding:9rem 0;background:#FAFAF8;}
+.services-top{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:4rem;flex-wrap:wrap;}
+.services-top h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4vw,3.2rem);line-height:1.2;letter-spacing:.005em;color:#111111;max-width:12ch;}
+.service-list{border-top:1px solid rgba(17,17,17,.12);}
 .service-row{
-  display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:2rem;
-  padding:1.8rem 0;border-bottom:1px solid rgba(245,241,232,.14);
-  transition:padding-left .4s var(--ease);
+  position:relative;
+  display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:2rem;
+  padding:2.6rem 0;border-bottom:1px solid rgba(17,17,17,.12);
+  transition:border-color .4s ease;
 }
-.service-row:hover{padding-left:1rem;}
-.service-row .idx{font-family:var(--mono);font-size:.78rem;color:var(--graphite-500);}
-.service-row h3{font-size:clamp(1.5rem,3vw,2.1rem);text-transform:none;font-weight:600;transition:color .3s;}
-.service-row:hover h3{color:var(--orange-400);}
-.service-row .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-300);border:1px solid rgba(245,241,232,.2);padding:.5rem .9rem;border-radius:2px;white-space:nowrap;}
+.service-row .idx{font-family:var(--body);font-size:64px;font-weight:100;color:#111111;opacity:.14;line-height:1;transition:opacity .4s ease;}
+.service-row h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.4rem,2.6vw,1.9rem);text-transform:none;color:#111111;transition:color .3s ease;}
+.service-row:hover h3{color:#000000;}
+.service-row:hover .idx{opacity:.24;}
+.service-row:hover{border-color:rgba(17,17,17,.32);}
+.service-row .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#666666;white-space:nowrap;}
 
-/* ============ PORTFOLIO ============ */
-.portfolio{padding:8rem 0 6rem;background:var(--navy-900);overflow:hidden;}
-.portfolio-top{margin-bottom:3rem;}
-.portfolio-top h2{font-size:clamp(2.1rem,4.4vw,3.4rem);max-width:14ch;}
-.swiper{width:100%;padding-bottom:1rem;}
-.swiper-slide{width:min(78vw,440px);}
-.pf-card{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;isolation:isolate;}
-.pf-swatch{position:absolute;inset:0;}
-.pf-card:nth-child(6n+1) .pf-swatch{background:linear-gradient(145deg,#1c3550,#0b1a2b 60%,var(--orange-500));}
-.pf-card:nth-child(6n+2) .pf-swatch{background:linear-gradient(145deg,#0b1a2b,#16293e 55%,var(--gold-500));}
-.pf-card:nth-child(6n+3) .pf-swatch{background:linear-gradient(160deg,var(--orange-500),#16293e 60%,#060d16);}
-.pf-card:nth-child(6n+4) .pf-swatch{background:linear-gradient(145deg,#203a55,#0b1a2b 50%,#F2934E);}
-.pf-card:nth-child(6n+5) .pf-swatch{background:linear-gradient(160deg,#060d16,#16293e 55%,#C9A227);}
-.pf-card:nth-child(6n+6) .pf-swatch{background:linear-gradient(150deg,#0b1a2b,var(--orange-500) 70%,#060d16);}
-.pf-swatch::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),transparent 60%);mix-blend-mode:overlay;}
-.pf-info{position:absolute;left:0;right:0;bottom:0;padding:1.5rem;background:linear-gradient(0deg,rgba(6,13,22,.92),transparent);z-index:2;}
-.pf-info .eyebrow{margin-bottom:.4rem;}
-.pf-info h3{font-size:1.5rem;text-transform:none;font-weight:600;}
-.swiper-pagination{position:static !important;margin-top:2rem;display:flex;justify-content:center;gap:.5rem;}
-.swiper-pagination-bullet{width:26px;height:2px;border-radius:0;background:rgba(245,241,232,.25);opacity:1;transition:background .3s;}
-.swiper-pagination-bullet-active{background:var(--orange-500);}
+/* ============ SERVIÇOS EDITORIAL (ex-portfólio) — inspirado em sites de arquitetura/estúdios de design ============ */
+.editorial{background:#FAFAF8;padding:120px 0;}
+.ed-container{max-width:1600px;margin:0 auto;padding:0 80px;}
+.ed-row{
+  display:grid;grid-template-columns:25% 35% 40%;gap:32px;align-items:center;
+  min-height:200px;padding:48px 0;position:relative;
+}
+.ed-col-left{position:relative;display:flex;flex-direction:column;justify-content:center;min-height:120px;}
+.ed-num{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  font-family:var(--body);font-size:170px;font-weight:100;line-height:1;
+  color:#111111;opacity:.05;user-select:none;pointer-events:none;
+  transition:opacity .4s ease;white-space:nowrap;
+}
+.ed-title{
+  position:relative;font-family:var(--body);font-size:28px;font-weight:600;
+  line-height:110%;letter-spacing:-0.02em;color:#111111;
+  transition:color .3s ease;max-width:12ch;
+}
+.ed-desc{font-family:var(--body);font-size:16px;font-weight:400;line-height:160%;max-width:420px;color:#666666;}
+.ed-col-right{display:flex;justify-content:flex-end;}
+.ed-img{
+  width:320px;height:200px;object-fit:cover;border-radius:8px;
+  display:block;transition:transform .5s ease;
+}
+.ed-row:hover .ed-img{transform:scale(1.04);}
+.ed-row:hover .ed-num{opacity:.10;}
+.ed-row:hover .ed-title{color:#000000;}
+.ed-divider{height:1px;background:#E6E6E6;transition:background .4s ease;}
+.ed-row:hover + .ed-divider{background:#CCCCCC;}
+
+@media(max-width:860px){
+  .editorial{padding:80px 0;}
+  .ed-container{padding:0 24px;}
+  .ed-row{grid-template-columns:1fr;gap:16px;min-height:0;padding:32px 0;}
+  .ed-col-left{min-height:0;}
+  .ed-num{position:absolute;left:auto;right:0;top:0;transform:none;font-size:110px;opacity:.06;z-index:0;}
+  .ed-title,.ed-desc,.ed-col-right{position:relative;z-index:1;}
+  .ed-title{max-width:none;}
+  .ed-col-right{justify-content:flex-start;}
+  .ed-img{width:100%;height:220px;}
+}
 
 /* ============ WHY US ============ */
-.why{padding:8rem 0;background:var(--navy-950);}
-.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-.why-grid h2{font-size:clamp(2.1rem,4.4vw,3.2rem);margin-bottom:1.4rem;max-width:11ch;}
-.why-grid > div:first-child p{color:var(--cream-300);max-width:40ch;margin-bottom:2rem;}
-.stat-row{display:flex;gap:2.5rem;flex-wrap:wrap;}
-.stat b{font-family:var(--display);font-size:2.6rem;color:var(--orange-500);display:block;line-height:1;}
-.stat span{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite-500);}
-.why-list{display:flex;flex-direction:column;gap:0;}
-.why-item{display:flex;gap:1.4rem;padding:1.6rem 0;border-top:1px solid rgba(245,241,232,.12);}
-.why-item:last-child{border-bottom:1px solid rgba(245,241,232,.12);}
-.why-item .ico{font-family:var(--mono);color:var(--orange-500);font-size:.9rem;padding-top:.15rem;}
-.why-item h3{font-size:1.25rem;text-transform:none;margin-bottom:.35rem;}
-.why-item p{color:var(--cream-300);font-size:.9rem;}
+.why{padding:9rem 0;background:#FAFAF8;}
+.why-intro{max-width:640px;margin-bottom:4.5rem;}
+.why-intro h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4vw,3.2rem);line-height:1.22;letter-spacing:.005em;color:#111111;margin:1.1rem 0 1.4rem;max-width:14ch;}
+.why-intro p{color:#666666;max-width:44ch;line-height:1.7;}
+
+/* Faixa de estatísticas — "barra invisível", loop horizontal contínuo */
+.stats-marquee{position:relative;width:100%;overflow:hidden;border-top:1px solid rgba(17,17,17,.14);border-bottom:1px solid rgba(17,17,17,.14);padding:2.4rem 0;margin:0 0 5rem;}
+.stats-track{display:flex;align-items:baseline;gap:3.5rem;width:max-content;animation:stats-marquee 32s linear infinite;}
+.stats-marquee:hover .stats-track{animation-play-state:paused;}
+.stat-chip{display:inline-flex;align-items:baseline;gap:.7rem;white-space:nowrap;}
+.stat-chip b{font-family:var(--body);font-weight:100;font-size:2.4rem;color:#111111;line-height:1;}
+.stat-chip i{font-style:normal;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#8A8A82;}
+.stat-sep{color:#C4C4BC;font-size:1.1rem;}
+@keyframes stats-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+.why-list{display:flex;flex-direction:column;gap:0;max-width:900px;}
+.why-item{display:flex;gap:1.8rem;padding:2.2rem 0;border-top:1px solid rgba(17,17,17,.12);}
+.why-item:last-child{border-bottom:1px solid rgba(17,17,17,.12);}
+.why-item .ico{font-family:var(--body);font-weight:100;color:#111111;opacity:.3;font-size:1.7rem;line-height:1;padding-top:0;}
+.why-item h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.3rem;text-transform:none;margin-bottom:.4rem;color:#111111;}
+.why-item p{color:#666666;font-size:.92rem;line-height:1.6;}
 
 /* ============ FORM ============ */
-.quote{padding:8rem 0;background:var(--navy-900);}
-.quote-box{background:var(--navy-950);border:1px solid rgba(245,241,232,.1);border-radius:6px;padding:clamp(2rem,5vw,4rem);position:relative;overflow:hidden;}
-.quote-head{display:flex;justify-content:space-between;align-items:start;gap:2rem;margin-bottom:3rem;flex-wrap:wrap;}
-.quote-head h2{font-size:clamp(2rem,4vw,2.8rem);max-width:12ch;}
-.steps-track{display:flex;gap:.5rem;margin-bottom:2.5rem;}
-.steps-track span{height:2px;flex:1;background:rgba(245,241,232,.16);transition:background .4s;}
-.steps-track span.done{background:var(--orange-500);}
+.quote{padding:9rem 0;background:var(--black-900);}
+.quote-box{background:transparent;border:1px solid rgba(247,247,244,.12);border-radius:0;padding:clamp(2rem,5vw,4.5rem);position:relative;overflow:hidden;}
+.quote-head{display:flex;justify-content:space-between;align-items:start;gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap;}
+.quote-head h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.25;letter-spacing:.005em;max-width:12ch;}
+.steps-track{display:flex;gap:.5rem;margin-bottom:3rem;}
+.steps-track span{height:1px;flex:1;background:rgba(247,247,244,.16);transition:background .4s;}
+.steps-track span.done{background:var(--white-100);}
 .step{display:none;}
 .step.active{display:block;animation:fadein .5s var(--ease);}
 @keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-.step-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-400);margin-bottom:1.4rem;}
-.step h3{text-transform:none;font-size:1.6rem;margin-bottom:1.8rem;font-weight:600;}
+.step-label{font-family:var(--body);font-size:.78rem;letter-spacing:.02em;color:var(--white-300);margin-bottom:1.6rem;}
+.step h3{text-transform:none;font-family:'Fraunces',serif;font-weight:400;font-size:1.5rem;margin-bottom:1.8rem;}
 .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-bottom:2rem;}
-.opt{border:1px solid rgba(245,241,232,.18);padding:1.1rem 1rem;border-radius:4px;font-size:.9rem;transition:border-color .3s,background .3s;text-align:left;}
-.opt:hover{border-color:var(--orange-400);}
-.opt.selected{border-color:var(--orange-500);background:rgba(232,121,46,.1);color:var(--orange-400);}
+.opt{border:1px solid rgba(247,247,244,.16);padding:1.1rem 1rem;border-radius:0;font-size:.9rem;transition:border-color .3s,background .3s,color .3s;text-align:left;}
+.opt:hover{border-color:rgba(247,247,244,.4);}
+.opt.selected{border-color:var(--white-100);background:rgba(247,247,244,.06);color:var(--white-100);}
 .field{margin-bottom:1.4rem;}
-.field label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite-500);margin-bottom:.6rem;}
+.field label{display:block;font-family:var(--body);font-size:.78rem;letter-spacing:.01em;color:var(--white-300);margin-bottom:.6rem;}
 .field input,.field textarea{
-  width:100%;background:transparent;border:1px solid rgba(245,241,232,.2);border-radius:4px;
-  padding:.9rem 1rem;color:var(--cream-100);font-family:var(--body);font-size:.95rem;transition:border-color .3s;
+  width:100%;background:transparent;border:1px solid rgba(247,247,244,.2);border-radius:0;
+  padding:.9rem 1rem;color:var(--white-100);font-family:var(--body);font-size:.95rem;transition:border-color .3s;
 }
-.field input:focus,.field textarea:focus{outline:none;border-color:var(--orange-500);}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--white-100);}
 .step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;gap:1rem;}
-.summary{background:var(--navy-800);border-radius:4px;padding:1.4rem 1.6rem;margin-bottom:1.8rem;font-size:.9rem;color:var(--cream-300);}
-.summary b{color:var(--cream-100);}
+.summary{background:transparent;border:1px solid rgba(247,247,244,.14);border-radius:0;padding:1.4rem 1.6rem;margin-bottom:1.8rem;font-size:.9rem;color:var(--white-300);}
+.summary b{color:var(--white-100);}
 
 /* ============ FOOTER ============ */
-footer{padding:4rem 0 2.5rem;background:var(--navy-950);border-top:1px solid rgba(245,241,232,.08);}
+footer{padding:4rem 0 2.5rem;background:var(--black-950);border-top:1px solid rgba(247,247,244,.08);}
 .footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;}
 .footer-top h3{font-family:var(--display);font-size:1.7rem;text-transform:uppercase;margin-bottom:.9rem;}
-.footer-top p{color:var(--cream-300);font-size:.9rem;max-width:34ch;}
+.footer-top p{color:var(--white-300);font-size:.9rem;max-width:34ch;}
 .footer-col .eyebrow{margin-bottom:1rem;}
-.footer-col a{display:block;color:var(--cream-300);font-size:.92rem;padding:.35rem 0;transition:color .3s;}
-.footer-col a:hover{color:var(--orange-400);}
-.footer-bottom{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--graphite-500);border-top:1px solid rgba(245,241,232,.08);padding-top:1.6rem;flex-wrap:wrap;gap:1rem;}
+.footer-col a{display:block;color:var(--white-300);font-size:.92rem;padding:.35rem 0;transition:color .3s;}
+.footer-col a:hover{color:var(--yellow-400);}
+.footer-bottom{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--graphite-500);border-top:1px solid rgba(247,247,244,.08);padding-top:1.6rem;flex-wrap:wrap;gap:1rem;}
 
 /* ============ RESPONSIVE ============ */
 @media(max-width:860px){
-  nav{position:fixed;top:0;right:0;height:100vh;width:min(78vw,320px);background:var(--navy-900);flex-direction:column;justify-content:center;align-items:flex-start;padding:0 2.5rem;gap:1.6rem;transform:translateX(100%);transition:transform .5s var(--ease);border-left:1px solid rgba(245,241,232,.1);}
+  nav{position:fixed;top:0;right:0;height:100vh;width:min(80vw,340px);background:#0A0A0A;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 2.6rem;gap:0;transform:translateX(100%);transition:transform .5s var(--ease);border-left:none;box-shadow:-40px 0 80px rgba(0,0,0,.35);}
+  .nav-pill{display:none;}
+  nav a, header.scrolled nav a{
+    width:100%;color:var(--white-300);font-size:1.5rem;font-weight:500;letter-spacing:-.01em;
+    padding:.85rem 0;border-radius:0;
+    opacity:0;transform:translateY(14px);
+    transition:opacity .4s ease,transform .4s ease,color .3s ease;
+  }
+  nav.open a{opacity:1;transform:translateY(0);}
+  nav.open a:nth-of-type(1){transition-delay:.08s;}
+  nav.open a:nth-of-type(2){transition-delay:.14s;}
+  nav.open a:nth-of-type(3){transition-delay:.2s;}
+  nav.open a:nth-of-type(4){transition-delay:.26s;}
+  nav.open a:nth-of-type(5){transition-delay:.32s;margin-top:1.2rem;}
+  nav a:hover, nav a.active, header.scrolled nav a:hover, header.scrolled nav a.active{color:var(--white-100);}
+  nav a.active{font-weight:600;}
+  nav .btn-primary{width:auto;padding:.9rem 1.6rem !important;}
   nav.open{transform:translateX(0);}
   .nav-toggle{display:flex;flex-direction:column;gap:5px;width:26px;z-index:110;}
-  .nav-toggle span{height:2px;background:var(--cream-100);transition:transform .3s,opacity .3s;}
-  .specialty-head,.why-grid,.footer-top{grid-template-columns:1fr;}
-  .spec-grid{grid-template-columns:1fr;}
-  .service-row{grid-template-columns:40px 1fr;}
+  .nav-toggle span{height:2px;background:#111111;transition:transform .3s,opacity .3s,background .3s;}
+  header.scrolled .nav-toggle span{background:#111111;}
+  .nav-toggle.open span, header.scrolled .nav-toggle.open span{background:var(--white-100);}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .specialty-head,.footer-top{grid-template-columns:1fr;}
+  .stats-track{gap:2rem;animation-duration:20s;}
+  .stat-chip b{font-size:1.7rem;}
+  .stat-chip i{font-size:.62rem;}
+  .stats-marquee{padding:1.8rem 0;}
+  .spec-grid{grid-template-columns:1fr;gap:48px;}
+  .service-row{grid-template-columns:44px 1fr;}
+  .service-row .idx{font-size:34px;}
   .service-row .tag{display:none;}
 }
 
@@ -222,19 +303,22 @@ footer{padding:4rem 0 2.5rem;background:var(--navy-950);border-top:1px solid rgb
 }
 
 /* Keyboard focus visibility */
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--orange-500);outline-offset:3px;}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--yellow-500);outline-offset:3px;}
 </style>
 </head>
 <body>
+<div id="scrollSentinel" style="position:absolute;top:40px;left:0;height:1px;width:1px;pointer-events:none;"></div>
 
 <!-- ============ HEADER ============ -->
 <header id="site-header">
-  <a href="#top" class="logo">ALVAN<span>.</span></a>
+  <!-- espaço reservado para o logo/marca -->
+  <span></span>
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
   <nav id="mainNav">
-    <a href="#especialidade">Especialidade</a>
+    <span class="nav-pill" aria-hidden="true"></span>
+    <a href="#portfolio">Nossos trabalhos</a>
+    <a href="#especialidade">O que fazemos</a>
     <a href="#servicos">Serviços</a>
-    <a href="#portfolio">Portfólio</a>
     <a href="#porque-nos">Por que nós</a>
     <a href="#orcamento" class="btn btn-primary" style="padding:.6rem 1.1rem;">Orçamento</a>
   </nav>
@@ -242,17 +326,66 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
-    <span class="eyebrow reveal">Pintura & reforma premium — Rio Branco, AC</span>
-    <h1 class="reveal">Reformas que parecem ter <em>nascido</em> com a casa.</h1>
-    <p class="reveal">A Alvan projeta e executa acabamentos de alto padrão preparados para o clima amazônico — do primeiro orçamento à última demão.</p>
+    <h1 class="reveal">Reforma com <em>contrato, prazo e garantia</em> —</h1>
+    <p class="reveal">A Alvan projeta e executa um trabalho limpo e organizado, entregando um serviço profissional e com boa durabilidade — do primeiro orçamento à última demão.</p>
     <div class="hero-ctas reveal">
-      <a href="#orcamento" class="btn btn-primary">Solicitar orçamento</a>
-      <a href="#portfolio" class="btn btn-ghost">Ver portfólio</a>
+      <a href="#orcamento" class="btn btn-primary">Comece seu orçamento
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#portfolio" class="btn btn-ghost">Ver nossos trabalhos</a>
     </div>
   </div>
   <div class="hero-scroll"><span class="line"></span> Role para explorar</div>
+</section>
+
+<!-- ============ SERVIÇOS EDITORIAL (ex-portfólio) ============ -->
+<section class="editorial" id="portfolio">
+<div class="ed-container">
+  <div class="ed-row">
+    <div class="ed-col-left">
+      <span class="ed-num">01</span>
+      <h3 class="ed-title">Pintura Residencial</h3>
+    </div>
+    <div class="ed-col-mid">
+      <p class="ed-desc">Transformamos ambientes residenciais com acabamento uniforme, proteção das superfícies e atenção a cada detalhe para entregar espaços renovados e duradouros.</p>
+    </div>
+    <div class="ed-col-right">
+      <div class="ed-img" style="background:#E9E9E5;" role="img" aria-label="Pintura residencial"></div>
+    </div>
+  </div>
+  <div class="ed-divider"></div>
+
+  <div class="ed-row">
+    <div class="ed-col-left">
+      <span class="ed-num">02</span>
+      <h3 class="ed-title">Pintura Comercial</h3>
+    </div>
+    <div class="ed-col-mid">
+      <p class="ed-desc">Executamos pinturas comerciais com planejamento, organização e agilidade, reduzindo interferências na operação do seu negócio.</p>
+    </div>
+    <div class="ed-col-right">
+      <div class="ed-img" style="background:#E9E9E5;" role="img" aria-label="Pintura comercial"></div>
+    </div>
+  </div>
+  <div class="ed-divider"></div>
+
+  <div class="ed-row">
+    <div class="ed-col-left">
+      <span class="ed-num">03</span>
+      <h3 class="ed-title">Texturas &amp; Efeitos</h3>
+    </div>
+    <div class="ed-col-mid">
+      <p class="ed-desc">Aplicamos texturas decorativas e efeitos especiais que agregam personalidade, sofisticação e valorização aos ambientes.</p>
+    </div>
+    <div class="ed-col-right">
+      <div class="ed-img" style="background:#E9E9E5;" role="img" aria-label="Texturas e efeitos"></div>
+    </div>
+  </div>
+
+</div>
 </section>
 
 <!-- ============ ESPECIALIDADE ============ -->
@@ -260,24 +393,27 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   <div class="wrap">
     <div class="specialty-head">
       <div>
-        <span class="eyebrow reveal">Especialidade</span>
-        <h2 class="reveal">Pintura pensada para o clima que Rio Branco realmente tem.</h2>
+        <h2 class="reveal">Projeto pensado para a chuva, o sol e a umidade de Rio Branco.</h2>
+        <span class="specialty-caption">O que fazemos</span>
       </div>
       <p class="reveal">Umidade alta, chuva frequente e sol direto castigam tinta comum em poucos meses. Cada etapa da Alvan é escolhida para durar nesse clima — não no clima de catálogo.</p>
     </div>
     <div class="spec-grid">
       <div class="spec-card reveal">
-        <span class="spec-num">01 / Preparo</span>
+        <span class="spec-num">01</span>
+        <span class="spec-tag">Preparo</span>
         <h3>Superfície antes da cor</h3>
         <p>Tratamento de fungos, correção de trincas e selagem antes da primeira demão — a etapa que a maioria pula e a Amazônia sempre cobra de volta.</p>
       </div>
       <div class="spec-card reveal">
-        <span class="spec-num">02 / Tinta</span>
+        <span class="spec-num">02</span>
+        <span class="spec-tag">Tinta</span>
         <h3>Linhas antimofo e fosco lavável</h3>
         <p>Especificação de tinta por ambiente: fachada com proteção UV e antimofo, áreas internas com fosco lavável de alto tráfego.</p>
       </div>
       <div class="spec-card reveal">
-        <span class="spec-num">03 / Acabamento</span>
+        <span class="spec-num">03</span>
+        <span class="spec-tag">Acabamento</span>
         <h3>Texturas e efeitos sob medida</h3>
         <p>Grafiato, cimento queimado, laca em portas e marcenaria, e efeitos decorativos aplicados por equipe própria, não terceirizada.</p>
       </div>
@@ -290,7 +426,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   <div class="wrap">
     <div class="services-top">
       <h2 class="reveal">Serviços</h2>
-      <p class="reveal" style="color:var(--cream-300);max-width:36ch;">Do reparo pontual à reforma completa — um único time do orçamento à entrega.</p>
+      <p class="reveal" style="color:#666666;max-width:36ch;">Do reparo pontual à reforma completa — um único time do orçamento à entrega.</p>
     </div>
     <div class="service-list">
       <div class="service-row reveal"><span class="idx">01</span><h3>Pintura residencial</h3><span class="tag">Interno / Externo</span></div>
@@ -303,45 +439,50 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
 </section>
 
-<!-- ============ PORTFÓLIO ============ -->
-<section class="portfolio" id="portfolio">
-  <div class="wrap">
-    <div class="portfolio-top">
-      <span class="eyebrow reveal">Portfólio</span>
-      <h2 class="reveal">Obras entregues em Rio Branco.</h2>
-    </div>
-  </div>
-  <div class="swiper pf-swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Residencial</span><h3>Residência Bosque</h3></div></div></div>
-      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Fachada</span><h3>Edifício Amazônia</h3></div></div></div>
-      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Comercial</span><h3>Loja Centro</h3></div></div></div>
-      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Textura</span><h3>Cobertura Duplex</h3></div></div></div>
-      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Reforma</span><h3>Casa Vista Alegre</h3></div></div></div>
-      <div class="swiper-slide"><div class="pf-card"><div class="pf-swatch"></div><div class="pf-info"><span class="eyebrow">Impermeabilização</span><h3>Condomínio Rio Verde</h3></div></div></div>
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
-</section>
-
 <!-- ============ PORQUE NÓS ============ -->
 <section class="why" id="porque-nos">
-  <div class="wrap why-grid">
-    <div>
-      <span class="eyebrow reveal">Por que nós</span>
-      <h2 class="reveal">Confiança que se mede em obra entregue.</h2>
-      <p class="reveal">Equipe própria, prazo definido em contrato e orçamento detalhado antes do primeiro tambor de tinta aberto.</p>
-      <div class="stat-row reveal">
-        <div class="stat"><b>120+</b><span>Obras entregues</span></div>
-        <div class="stat"><b>6</b><span>Anos em Rio Branco</span></div>
-        <div class="stat"><b>98%</b><span>Prazo cumprido</span></div>
-      </div>
+  <div class="wrap why-intro">
+    <h2 class="reveal">Confiança que se prova em cada obra entregue.</h2>
+    <span class="specialty-caption">Por que nós</span>
+    <p class="reveal">Equipe própria, prazo definido em contrato e orçamento detalhado antes do primeiro tambor de tinta aberto.</p>
+  </div>
+
+  <div class="stats-marquee reveal" aria-label="120 mais obras entregues, 6 anos em Rio Branco, 98 por cento de prazo cumprido">
+    <div class="stats-track">
+      <span class="stat-chip"><b>120+</b><i>Obras entregues</i></span>
+      <span class="stat-sep">—</span>
+      <span class="stat-chip"><b>6</b><i>Anos em Rio Branco</i></span>
+      <span class="stat-sep">—</span>
+      <span class="stat-chip"><b>98%</b><i>Prazo cumprido</i></span>
+      <span class="stat-sep">—</span>
+      <span class="stat-chip"><b>120+</b><i>Obras entregues</i></span>
+      <span class="stat-sep">—</span>
+      <span class="stat-chip"><b>6</b><i>Anos em Rio Branco</i></span>
+      <span class="stat-sep">—</span>
+      <span class="stat-chip"><b>98%</b><i>Prazo cumprido</i></span>
+      <span class="stat-sep">—</span>
+      <!-- grupo duplicado, para o loop infinito ficar contínuo -->
+      <span class="stat-chip" aria-hidden="true"><b>120+</b><i>Obras entregues</i></span>
+      <span class="stat-sep" aria-hidden="true">—</span>
+      <span class="stat-chip" aria-hidden="true"><b>6</b><i>Anos em Rio Branco</i></span>
+      <span class="stat-sep" aria-hidden="true">—</span>
+      <span class="stat-chip" aria-hidden="true"><b>98%</b><i>Prazo cumprido</i></span>
+      <span class="stat-sep" aria-hidden="true">—</span>
+      <span class="stat-chip" aria-hidden="true"><b>120+</b><i>Obras entregues</i></span>
+      <span class="stat-sep" aria-hidden="true">—</span>
+      <span class="stat-chip" aria-hidden="true"><b>6</b><i>Anos em Rio Branco</i></span>
+      <span class="stat-sep" aria-hidden="true">—</span>
+      <span class="stat-chip" aria-hidden="true"><b>98%</b><i>Prazo cumprido</i></span>
+      <span class="stat-sep" aria-hidden="true">—</span>
     </div>
+  </div>
+
+  <div class="wrap">
     <div class="why-list">
-      <div class="why-item reveal"><span class="ico">→</span><div><h3>Equipe própria</h3><p>Sem terceirização — a mesma equipe do orçamento assina a entrega.</p></div></div>
-      <div class="why-item reveal"><span class="ico">→</span><div><h3>Orçamento detalhado</h3><p>Material, etapas e prazo descritos antes de qualquer sinal.</p></div></div>
-      <div class="why-item reveal"><span class="ico">→</span><div><h3>Garantia de obra</h3><p>Cobertura pós-entrega para reparo de qualquer inconformidade.</p></div></div>
-      <div class="why-item reveal"><span class="ico">→</span><div><h3>Atendimento direto</h3><p>Acompanhamento da obra por WhatsApp, do orçamento à última demão.</p></div></div>
+      <div class="why-item reveal"><span class="ico">01</span><div><h3>Equipe própria</h3><p>Sem terceirização — a mesma equipe do orçamento assina a entrega.</p></div></div>
+      <div class="why-item reveal"><span class="ico">02</span><div><h3>Orçamento detalhado</h3><p>Material, etapas e prazo descritos antes de qualquer sinal.</p></div></div>
+      <div class="why-item reveal"><span class="ico">03</span><div><h3>Garantia de obra</h3><p>Cobertura pós-entrega para reparo de qualquer inconformidade.</p></div></div>
+      <div class="why-item reveal"><span class="ico">04</span><div><h3>Atendimento direto</h3><p>Acompanhamento da obra por WhatsApp, do orçamento à última demão.</p></div></div>
     </div>
   </div>
 </section>
@@ -355,7 +496,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
           <span class="eyebrow reveal">Orçamento</span>
           <h2 class="reveal">Conte sobre a sua obra.</h2>
         </div>
-        <p style="color:var(--cream-300);max-width:30ch;font-size:.92rem;">Três perguntas rápidas e enviamos direto para o WhatsApp da Alvan.</p>
+        <p style="color:var(--white-300);max-width:30ch;font-size:.92rem;">Três perguntas rápidas e enviamos direto para o WhatsApp da Alvan.</p>
       </div>
 
       <div class="steps-track">
@@ -423,21 +564,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   <div class="wrap">
     <div class="footer-top">
       <div>
-        <h3>ALVAN<span style="color:var(--orange-500);">.</span></h3>
-        <p>Pintura e reforma de alto padrão em Rio Branco, Acre — preparada para durar no clima amazônico.</p>
+        <h3>ALVAN<span style="color:var(--yellow-500);">.</span></h3>
+        <p>Pintura e reforma de alto padrão em Rio Branco, Acre — preparada para durar no clima acreano.</p>
       </div>
       <div class="footer-col">
         <span class="eyebrow">Navegação</span>
-        <a href="#especialidade">Especialidade</a>
+        <a href="#portfolio">Nossos trabalhos</a>
+        <a href="#especialidade">O que fazemos</a>
         <a href="#servicos">Serviços</a>
-        <a href="#portfolio">Portfólio</a>
         <a href="#porque-nos">Por que nós</a>
       </div>
       <div class="footer-col">
         <span class="eyebrow">Contato</span>
-        <a href="#orcamento">Solicitar orçamento</a>
-        <a href="tel:+55689999999">+55 (68) 9999-9999</a>
-        <a href="#">Rio Branco, AC</a>
+        <a href="#orcamento">Comece seu orçamento</a>
+        <a href="tel:+5568999999999">+55 (68) 9999-9999</a>
+        <span style="display:block;color:var(--white-300);font-size:.92rem;padding:.35rem 0;">Rio Branco, AC</span>
       </div>
     </div>
     <div class="footer-bottom">
@@ -451,17 +592,60 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
 /* ============ HEADER STATE + MOBILE NAV (sem dependência externa) ============ */
 const header = document.getElementById('site-header');
 const nav = document.getElementById('mainNav');
 const navToggle = document.getElementById('navToggle');
-window.addEventListener('scroll', ()=>{ header.classList.toggle('scrolled', window.scrollY > 40); });
-navToggle.addEventListener('click', ()=>{ nav.classList.toggle('open'); });
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>nav.classList.remove('open')));
+try{
+  const sentinel = document.getElementById('scrollSentinel');
+  if(sentinel && 'IntersectionObserver' in window){
+    new IntersectionObserver(([entry])=>{
+      header.classList.toggle('scrolled', !entry.isIntersecting);
+    }, { threshold: 0 }).observe(sentinel);
+  } else {
+    window.addEventListener('scroll', ()=>{ header.classList.toggle('scrolled', window.scrollY > 40); });
+  }
+}catch(e){
+  window.addEventListener('scroll', ()=>{ header.classList.toggle('scrolled', window.scrollY > 40); });
+}
+navToggle.addEventListener('click', ()=>{ nav.classList.toggle('open'); navToggle.classList.toggle('open'); });
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{ nav.classList.remove('open'); navToggle.classList.remove('open'); }));
+
+/* ============ PÍLULA DESLIZANTE NO MENU (hover, estilo Linear) ============ */
+try{
+  const navPill = document.querySelector('.nav-pill');
+  const navLinks = [...nav.querySelectorAll('a:not(.btn)')];
+  if(navPill && navLinks.length){
+    const movePill = (el)=>{
+      navPill.style.width = el.offsetWidth + 'px';
+      navPill.style.transform = `translateX(${el.offsetLeft}px)`;
+      navPill.style.opacity = '1';
+    };
+    navLinks.forEach(a=>a.addEventListener('mouseenter', ()=>movePill(a)));
+    nav.addEventListener('mouseleave', ()=>{ navPill.style.opacity = '0'; });
+  }
+}catch(e){ console.warn('Pílula do menu ignorada.', e); }
+
+/* ============ SCROLL-SPY — destaca o link da seção visível ============ */
+try{
+  if('IntersectionObserver' in window){
+    const navByHash = {};
+    nav.querySelectorAll('a[href^="#"]').forEach(a=>{ navByHash[a.getAttribute('href').slice(1)] = a; });
+    const spySections = Object.keys(navByHash).map(id=>document.getElementById(id)).filter(Boolean);
+    const spy = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          Object.values(navByHash).forEach(a=>a.classList.remove('active'));
+          const link = navByHash[entry.target.id];
+          if(link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin:'-45% 0px -50% 0px' });
+    spySections.forEach(s=>spy.observe(s));
+  }
+}catch(e){ console.warn('Scroll-spy do menu ignorado.', e); }
 
 /* ============ SMOOTH SCROLL (Lenis) — opcional ============ */
 let lenisInstance = null;
@@ -483,10 +667,34 @@ try{
         lenisInstance.on('scroll', ScrollTrigger.update);
         gsap.ticker.lagSmoothing(0);
       }
+
+      const heroEls = gsap.utils.toArray('.hero .reveal');
+      const isLowPower = window.matchMedia('(max-width: 860px)').matches
+        || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+        || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+
+      if(isLowPower){
+        // Aparelhos de entrada: pin + scrub pesa demais numa GPU fraca — entrada simples ao carregar.
+        gsap.to(heroEls, { opacity:1, y:0, ease:'power3.out', stagger:0.2, delay:.2 });
+      } else {
+        // Hero fixo na tela (pin) enquanto os elementos entram em sequência —
+        // o avanço é controlado pelo scroll (scrub), como o movimento de uma câmera:
+        // rolar pra frente avança a cena, rolar pra trás recua exatamente na mesma proporção.
+        gsap.timeline({
+          scrollTrigger:{
+            trigger:'.hero',
+            start:'top top',
+            end:'+=100%',
+            pin:true,
+            scrub:1,
+            anticipatePin:1
+          }
+        }).to(heroEls, { opacity:1, y:0, ease:'power3.out', stagger:0.2 });
+      }
+    } else {
+      // Sem ScrollTrigger disponível: entrada simples, sem pin nem scrub.
+      gsap.to(document.querySelectorAll('.hero .reveal'), { opacity:1, y:0, ease:'power3.out', stagger:0.2, delay:.2 });
     }
-    document.querySelectorAll('.hero .reveal').forEach((el,i)=>{
-      gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',delay:.25+i*.12});
-    });
     document.querySelectorAll('section:not(.hero) .reveal').forEach(el=>{
       gsap.to(el,{
         opacity:1,y:0,duration:.9,ease:'power3.out',
@@ -496,20 +704,46 @@ try{
   }
 }catch(e){ console.warn('GSAP não carregou, conteúdo segue visível sem animação.', e); }
 
-/* ============ SWIPER (Portfólio) — opcional ============ */
+/* ============ LEGENDAS ('O que fazemos' e 'Por que nós') — revelação em wipe, depois do título ============ */
 try{
-  if(typeof Swiper !== 'undefined'){
-    new Swiper('.pf-swiper',{
-      slidesPerView:'auto',
-      spaceBetween:20,
-      freeMode:true,
-      grabCursor:true,
-      pagination:{ el:'.swiper-pagination', clickable:true }
+  if(typeof gsap !== 'undefined'){
+    document.querySelectorAll('.specialty-caption').forEach(caption=>{
+      const trigger = caption.closest('.specialty-head, .why-intro') || caption.parentElement;
+      gsap.set(caption, { clipPath:'inset(0 100% 0 0)' });
+      gsap.to(caption, {
+        clipPath:'inset(0 0% 0 0)',
+        duration:.9,
+        ease:'power3.out',
+        delay:.5,
+        scrollTrigger: typeof ScrollTrigger!=='undefined' ? { trigger:trigger, start:'top 82%' } : undefined
+      });
     });
-  } else {
-    document.querySelector('.pf-swiper .swiper-wrapper').style.cssText = 'display:flex;gap:20px;overflow-x:auto;padding:0 20px;';
   }
-}catch(e){ console.warn('Swiper não carregou, usando scroll horizontal simples.', e); }
+}catch(e){ console.warn('Animação das legendas ignorada.', e); }
+
+/* ============ SERVIÇOS EDITORIAL — sequência de entrada por linha (opcional, GSAP) ============ */
+try{
+  if(typeof gsap !== 'undefined'){
+    document.querySelectorAll('.ed-row').forEach(row=>{
+      const num = row.querySelector('.ed-num');
+      const title = row.querySelector('.ed-title');
+      const desc = row.querySelector('.ed-desc');
+      const img = row.querySelector('.ed-img');
+      if(!num || !title || !desc || !img) return;
+
+      gsap.set(num, { opacity:0, filter:'blur(8px)' });
+      gsap.set([title,desc,img], { opacity:0, y:14 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: typeof ScrollTrigger!=='undefined' ? { trigger:row, start:'top 82%' } : undefined
+      });
+      tl.to(num,   { opacity:.05, filter:'blur(0px)', duration:.7, ease:'power3.out' })
+        .to(title, { opacity:1, y:0, duration:.6, ease:'power3.out' }, '+=0.12')
+        .to(desc,  { opacity:1, y:0, duration:.6, ease:'power3.out' }, '+=0.12')
+        .to(img,   { opacity:1, y:0, duration:.6, ease:'power3.out' }, '+=0.12');
+    });
+  }
+}catch(e){ console.warn('Animação da seção editorial ignorada.', e); }
 
 /* ============ MULTI-STEP FORM ============ */
 (function(){
@@ -546,139 +780,6 @@ try{
     const msg = `Olá! Meu nome é ${nome}.%0AServiço: ${state.servico || '—'}%0ATamanho do ambiente: ${state.tamanho || '—'}%0ADetalhes: ${detalhes || '—'}%0AMeu WhatsApp: ${telefone}`;
     window.open(`https://wa.me/5568999999999?text=${msg}`, '_blank');
   });
-})();
-
-/* ============ HERO SHADER — "PAINT POUR" (Three.js) — opcional ============ */
-(function(){
-  const canvas = document.getElementById('hero-canvas');
-  if(typeof THREE === 'undefined'){
-    console.warn('Three.js não carregou — hero usa o gradiente CSS de fundo.');
-    return;
-  }
-
-  // Em celulares e aparelhos com poucos núcleos/memória, o custo do shader
-  // (ruído calculado por pixel, todo frame) pesa demais — usamos o
-  // gradiente CSS estático nesses casos em vez do WebGL.
-  const isLowPower = window.matchMedia('(max-width: 860px)').matches
-    || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
-    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
-  if(isLowPower){
-    console.info('Aparelho de entrada detectado — hero usa o gradiente CSS (mais leve) no lugar do shader.');
-    return;
-  }
-
-  let renderer;
-  try{
-    renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:false, powerPreference:'low-power' });
-  }catch(e){
-    console.warn('WebGL indisponível — hero usa o gradiente CSS de fundo.', e);
-    return;
-  }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
-  const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
-
-  const mouse = { x:.5, y:.5, tx:.5, ty:.5 };
-  window.addEventListener('pointermove', e=>{
-    mouse.tx = e.clientX/window.innerWidth;
-    mouse.ty = 1 - e.clientY/window.innerHeight;
-  });
-
-  const uniforms = {
-    u_time:{ value:0 },
-    u_res:{ value:new THREE.Vector2(1,1) },
-    u_mouse:{ value:new THREE.Vector2(.5,.5) },
-    u_navy:{ value:new THREE.Vector3(0.043,0.102,0.169) },
-    u_orange:{ value:new THREE.Vector3(0.910,0.475,0.180) },
-    u_gold:{ value:new THREE.Vector3(0.788,0.635,0.153) }
-  };
-
-  const geo = new THREE.PlaneGeometry(2,2);
-  const mat = new THREE.ShaderMaterial({
-    uniforms,
-    vertexShader:`
-      void main(){ gl_Position = vec4(position,1.0); }
-    `,
-    fragmentShader:`
-      precision highp float;
-      uniform float u_time;
-      uniform vec2 u_res;
-      uniform vec2 u_mouse;
-      uniform vec3 u_navy;
-      uniform vec3 u_orange;
-      uniform vec3 u_gold;
-
-      // simple 2D noise
-      vec2 hash(vec2 p){
-        p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
-        return -1.0 + 2.0*fract(sin(p)*43758.5453123);
-      }
-      float noise(vec2 p){
-        vec2 i = floor(p); vec2 f = fract(p);
-        vec2 u = f*f*(3.0-2.0*f);
-        return mix( mix(dot(hash(i+vec2(0,0)),f-vec2(0,0)), dot(hash(i+vec2(1,0)),f-vec2(1,0)),u.x),
-                    mix(dot(hash(i+vec2(0,1)),f-vec2(0,1)), dot(hash(i+vec2(1,1)),f-vec2(1,1)),u.x), u.y);
-      }
-      float fbm(vec2 p){
-        float v=0.0, a=0.5;
-        for(int i=0;i<3;i++){ v += a*noise(p); p *= 2.02; a *= 0.5; }
-        return v;
-      }
-
-      void main(){
-        vec2 uv = gl_FragCoord.xy / u_res.xy;
-        vec2 p = uv; p.x *= u_res.x/u_res.y;
-        vec2 m = u_mouse; m.x *= u_res.x/u_res.y;
-
-        float t = u_time * 0.045;
-        vec2 flow = vec2(fbm(p*1.6 + t), fbm(p*1.6 - t + 4.0));
-        float d = fbm(p*2.2 + flow*1.4 + t*0.5);
-
-        float distToMouse = distance(p, m);
-        d += 0.18 * smoothstep(0.6, 0.0, distToMouse);
-
-        float mixA = smoothstep(-0.25, 0.55, d);
-        vec3 col = mix(u_navy, u_orange, mixA);
-
-        float goldVein = smoothstep(0.62, 0.66, fbm(p*3.0 - t*0.3));
-        col = mix(col, u_gold, goldVein*0.35);
-
-        float vig = smoothstep(1.1, 0.25, distance(uv, vec2(0.5)));
-        col *= mix(0.55, 1.0, vig);
-
-        gl_FragColor = vec4(col, 1.0);
-      }
-    `
-  });
-
-  scene.add(new THREE.Mesh(geo, mat));
-
-  function resize(){
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    renderer.setSize(w,h,false);
-    uniforms.u_res.value.set(w*renderer.getPixelRatio(), h*renderer.getPixelRatio());
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let isVisible = true;
-  let rafId = null;
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(entries=>{
-      isVisible = entries[0].isIntersecting;
-      if(isVisible && rafId===null) rafId = requestAnimationFrame(tick);
-    }).observe(canvas);
-  }
-  function tick(t){
-    mouse.x += (mouse.tx-mouse.x)*0.06;
-    mouse.y += (mouse.ty-mouse.y)*0.06;
-    uniforms.u_mouse.value.set(mouse.x, mouse.y);
-    uniforms.u_time.value = reduceMotion ? 0 : t*0.001;
-    renderer.render(scene, camera);
-    rafId = isVisible ? requestAnimationFrame(tick) : null;
-  }
-  requestAnimationFrame(tick);
 })();
 </script>
 </body>
