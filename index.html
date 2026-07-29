@@ -229,6 +229,11 @@ header.scrolled nav a{color:#111111;}
 .quote-box{background:transparent;border:1px solid rgba(247,247,244,.12);border-radius:0;padding:clamp(2rem,5vw,4.5rem);position:relative;overflow:hidden;}
 .quote-head{display:flex;justify-content:space-between;align-items:start;gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap;}
 .quote-head h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.25;letter-spacing:.005em;max-width:12ch;}
+.quote-kicker{display:inline-flex;align-items:center;gap:.85em;margin-bottom:1.3rem;}
+.quote-kicker-line{width:34px;height:1px;background:var(--white-300);transform-origin:left;transition:width .4s ease,background .4s ease;}
+.quote-kicker-text{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(1rem,1.6vw,1.15rem);letter-spacing:.01em;color:var(--white-300);transition:color .4s ease;}
+.quote-kicker:hover .quote-kicker-line{width:46px;background:var(--yellow-400);}
+.quote-kicker:hover .quote-kicker-text{color:var(--white-100);}
 .steps-track{display:flex;gap:.5rem;margin-bottom:3rem;}
 .steps-track span{height:1px;flex:1;background:rgba(247,247,244,.16);transition:background .4s;}
 .steps-track span.done{background:var(--white-100);}
@@ -377,7 +382,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
       <p class="ed-desc">Executamos pinturas comerciais com planejamento, organização e agilidade, reduzindo interferências na operação do seu negócio.</p>
     </div>
     <div class="ed-col-right">
-      <div class="ed-img" style="background:#E9E9E5;" role="img" aria-label="Pintura comercial"></div>
+      <img class="ed-img" src="pintura-comercial.png" alt="Portão de acesso comercial pintado em azul-marinho e laranja pela Alvan" style="object-position:50% 28%;" width="853" height="1844" loading="lazy" decoding="async">
     </div>
   </div>
   <div class="ed-divider"></div>
@@ -503,7 +508,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     <div class="quote-box">
       <div class="quote-head">
         <div>
-          <span class="eyebrow reveal">Orçamento</span>
+          <span class="quote-kicker">
+            <span class="quote-kicker-line"></span>
+            <span class="quote-kicker-text">Orçamento</span>
+          </span>
           <h2 class="reveal">Conte sobre a sua obra.</h2>
         </div>
         <p style="color:var(--white-300);max-width:30ch;font-size:.92rem;">Três perguntas rápidas e enviamos direto para o WhatsApp da Alvan.</p>
@@ -730,6 +738,24 @@ try{
     });
   }
 }catch(e){ console.warn('Animação das legendas ignorada.', e); }
+
+/* ============ KICKER DO ORÇAMENTO — traço desenha, depois o texto revela em wipe ============ */
+try{
+  if(typeof gsap !== 'undefined'){
+    document.querySelectorAll('.quote-kicker').forEach(kicker=>{
+      const line = kicker.querySelector('.quote-kicker-line');
+      const text = kicker.querySelector('.quote-kicker-text');
+      if(!line || !text) return;
+      gsap.set(line, { scaleX:0 });
+      gsap.set(text, { clipPath:'inset(0 100% 0 0)' });
+      const tl = gsap.timeline({
+        scrollTrigger: typeof ScrollTrigger!=='undefined' ? { trigger:kicker.closest('.quote-head') || kicker, start:'top 85%' } : undefined
+      });
+      tl.to(line, { scaleX:1, duration:.6, ease:'power3.out' })
+        .to(text, { clipPath:'inset(0 0% 0 0)', duration:.7, ease:'power3.out' }, '-=0.2');
+    });
+  }
+}catch(e){ console.warn('Animação do kicker do orçamento ignorada.', e); }
 
 /* ============ SERVIÇOS EDITORIAL — sequência de entrada por linha (opcional, GSAP) ============ */
 try{
