@@ -83,21 +83,56 @@ html.gsap-ready .reveal{opacity:0;transform:translateY(34px);}
 /* ============ HEADER ============ */
 header{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:18px clamp(20px,5vw,64px);
+  min-height:100px;padding:0 40px;
   display:flex;justify-content:space-between;align-items:center;
-  transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s;
+  transition:background .3s var(--ease),min-height .3s var(--ease),border-color .3s,backdrop-filter .3s;
   border-bottom:1px solid transparent;
 }
-header.scrolled{background:rgba(250,250,248,.85);backdrop-filter:blur(10px);padding-top:12px;padding-bottom:12px;border-color:rgba(17,17,17,.08);}
-.logo{display:flex;align-items:center;gap:.5rem;font-family:var(--display);font-size:1.5rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;}
-.logo span{color:var(--yellow-500);}
-nav{position:relative;display:flex;align-items:center;gap:.15rem;font-family:var(--body);}
-.nav-pill{position:absolute;top:4px;height:calc(100% - 8px);border-radius:999px;background:rgba(17,17,17,.06);opacity:0;transform:translateX(0);width:0;transition:transform .35s var(--ease),width .35s var(--ease),opacity .2s ease;pointer-events:none;z-index:0;}
-nav a{position:relative;z-index:1;color:#111111;font-size:.92rem;font-weight:500;letter-spacing:-.005em;padding:.6rem 1.05rem;border-radius:999px;transition:color .25s ease;}
+header.scrolled{
+  background:rgba(15,15,15,.45);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  min-height:84px;
+  border-color:rgba(255,255,255,.08);
+}
+.logo{display:flex;align-items:baseline;gap:.35em;font-family:var(--body);font-size:29px;}
+.logo-primary{font-weight:700;color:#F5F5F5;}
+.logo-secondary{font-weight:400;color:#D0D0D0;}
+.navbar-right{display:flex;align-items:center;gap:32px;}
+.navbar-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:13px;
+  width:288px;height:68px;border-radius:999px;
+  background:#2E9E52;color:#FFFFFF;font-family:var(--body);font-weight:600;font-size:1rem;
+  transition:background .22s ease-out,transform .22s ease-out;
+}
+.navbar-cta:hover{background:#278B47;transform:translateY(-1px);}
+.navbar-cta:active{transform:scale(.98);}
+.navbar-cta .icon-wa{width:29px;height:29px;flex-shrink:0;}
+.nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:18px;width:38px;z-index:110;}
+.nav-toggle span{height:2px;width:100%;background:#FFFFFF;transition:transform .3s,opacity .3s;}
+.nav-toggle:hover span{opacity:.75;}
+.nav-toggle.open span:nth-child(1){transform:translateY(10px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){transform:translateY(-10px) rotate(-45deg);}
+nav{
+  position:fixed;top:0;right:0;height:100vh;width:min(80vw,340px);z-index:105;
+  background:#0A0A0A;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  padding:0 2.6rem;transform:translateX(100%);transition:transform .5s var(--ease);
+  box-shadow:-40px 0 80px rgba(0,0,0,.35);
+}
+nav.open{transform:translateX(0);}
+nav a{
+  width:100%;color:var(--white-300);font-size:1.5rem;font-weight:500;letter-spacing:-.01em;
+  padding:.85rem 0;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .4s ease,transform .4s ease,color .3s ease;
+}
+nav.open a{opacity:1;transform:translateY(0);}
+nav.open a:nth-of-type(1){transition-delay:.08s;}
+nav.open a:nth-of-type(2){transition-delay:.14s;}
+nav.open a:nth-of-type(3){transition-delay:.2s;}
+nav.open a:nth-of-type(4){transition-delay:.26s;}
+nav a:hover, nav a.active{color:var(--white-100);}
 nav a.active{font-weight:600;}
-nav .btn-primary{border-radius:999px;}
-header.scrolled nav a{color:#111111;}
-.nav-toggle{display:none;}
 
 /* ============ HERO — Alvan Pinturas, direção premium (fundo escuro + verde) ============ */
 .hero{
@@ -107,16 +142,27 @@ header.scrolled nav a{color:#111111;}
   --hero-green:#2E9E52;
   --hero-green-hover:#258744;
   --hero-green-pressed:#1F733A;
+
+  /* ENQUADRAMENTO DA FOTO DE FUNDO — troque só estas duas linhas.
+     Valores aceitos: "left center" | "center center" | "right center" */
+  --hero-position:center center;        /* desktop e tablet */
+  --hero-mobile-position:center center; /* só celular (abaixo de 860px, ver media query lá embaixo) */
+
   position:relative;min-height:100vh;min-height:100svh;
-  display:flex;align-items:flex-end;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:40px;overflow:hidden;
   background:var(--hero-bg-dark);
 }
-.hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;}
+.hero-bg-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover; /* preenche sem esticar — sempre corta o excesso, nunca deforma */
+  object-position:var(--hero-position, center center);
+  z-index:0;
+}
 .hero-overlay{
   position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.42) 45%, rgba(0,0,0,.58) 100%);
 }
-.hero-content{position:relative;z-index:2;max-width:700px;padding:0 64px 80px;}
+.hero-content{position:relative;z-index:2;max-width:700px;padding:0 64px;}
 .hero-eyebrow{
   display:block;font-family:var(--body);font-size:20px;font-weight:400;
   letter-spacing:.28em;text-transform:uppercase;color:var(--hero-white);
@@ -146,6 +192,11 @@ header.scrolled nav a{color:#111111;}
 .hero-btn-primary .icon-wa{width:28px;height:28px;flex-shrink:0;}
 .hero-btn-secondary{background:transparent;border:1px solid rgba(255,255,255,.35);color:var(--hero-white);}
 .hero-btn-secondary:hover{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.04);}
+.hero-stats{position:relative;z-index:2;width:100%;padding:0 36px 64px;}
+.hero-stats-line{width:100%;height:1px;background:rgba(255,255,255,.25);margin-bottom:32px;}
+.hero-stats-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:45px;row-gap:74px;}
+.hero-stat-number{font-family:var(--body);font-weight:700;font-size:38px;line-height:1;letter-spacing:-1.5px;color:var(--hero-white);margin:0 0 10px;}
+.hero-stat-label{font-family:var(--body);font-weight:400;line-height:1.2;color:rgba(255,255,255,.75);font-size:19px;margin:0;}
 
 /* ============ SPECIALTY (grid) ============ */
 .specialty{padding:9rem 0 8rem;background:#FAFAF8;border-top:1px solid rgba(17,17,17,.08);}
@@ -299,37 +350,25 @@ footer{padding:4rem 0 2.5rem;background:var(--black-950);border-top:1px solid rg
 
 /* ============ RESPONSIVE ============ */
 @media(max-width:860px){
-  .hero-content{padding:0 36px 48px;}
+  .hero-bg-img{object-position:var(--hero-mobile-position, center center);} /* troque --hero-mobile-position lá em cima pra testar left/center/right */
+  .hero-content{padding:0 36px;}
   .hero-eyebrow{font-size:14px;margin-bottom:16px;}
   .hero-title{font-size:clamp(38px,10vw,48px);max-width:none;}
   .hero-desc{font-size:18px;max-width:none;margin-bottom:32px;}
   .hero-ctas{align-items:stretch;}
   .hero-btn{width:100%;min-height:72px;font-size:20px;padding:14px 24px;}
-  nav{position:fixed;top:0;right:0;height:100vh;width:min(80vw,340px);background:#0A0A0A;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 2.6rem;gap:0;transform:translateX(100%);transition:transform .5s var(--ease);border-left:none;box-shadow:-40px 0 80px rgba(0,0,0,.35);}
-  .nav-pill{display:none;}
-  nav a{
-    width:100%;color:var(--white-300);font-size:1.5rem;font-weight:500;letter-spacing:-.01em;
-    padding:.85rem 0;border-radius:0;
-    opacity:0;transform:translateY(14px);
-    transition:opacity .4s ease,transform .4s ease,color .3s ease;
-  }
-  nav.open a{opacity:1;transform:translateY(0);}
-  nav.open a:nth-of-type(1){transition-delay:.08s;}
-  nav.open a:nth-of-type(2){transition-delay:.14s;}
-  nav.open a:nth-of-type(3){transition-delay:.2s;}
-  nav.open a:nth-of-type(4){transition-delay:.26s;}
-  nav.open a:nth-of-type(5){transition-delay:.32s;margin-top:1.2rem;}
-  nav a:hover, nav a.active, header.scrolled nav a:hover, header.scrolled nav a.active{color:var(--white-100);}
-  nav a.active{font-weight:600;}
-  nav .btn-primary{width:auto;padding:.9rem 1.6rem !important;}
-  nav.open{transform:translateX(0);}
-  .nav-toggle{display:flex;flex-direction:column;gap:5px;width:26px;z-index:110;}
-  .nav-toggle span{height:2px;background:#111111;transition:transform .3s,opacity .3s,background .3s;}
-  header.scrolled .nav-toggle span{background:#111111;}
-  .nav-toggle.open span, header.scrolled .nav-toggle.open span{background:var(--white-100);}
-  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .nav-toggle.open span:nth-child(2){opacity:0;}
-  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .hero{gap:24px;padding-top:96px;}
+  .hero-stats{padding:0 36px 40px;}
+  .hero-stats-line{margin-bottom:20px;}
+  .hero-stats-grid{column-gap:24px;row-gap:36px;}
+  .hero-stat-number{font-size:28px;}
+  .hero-stat-label{font-size:15px;}
+  header{min-height:64px;padding:0 16px;overflow-x:hidden;box-sizing:border-box;}
+  header.scrolled{min-height:56px;}
+  .logo{font-size:16px;min-width:0;flex-shrink:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+  .navbar-right{gap:10px;flex-shrink:0;}
+  .navbar-cta{width:auto;height:46px;padding:0 16px;gap:8px;font-size:14px;flex-shrink:0;white-space:nowrap;}
+  .navbar-cta .icon-wa{width:19px;height:19px;}
   .specialty-head,.footer-top{grid-template-columns:1fr;}
   .stats-track{gap:2rem;animation-duration:20s;}
   .stat-chip b{font-size:1.7rem;}
@@ -354,22 +393,28 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 <!-- ============ HEADER ============ -->
 <header id="site-header">
-  <!-- espaço reservado para o logo/marca -->
-  <span></span>
-  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  <a href="#top" class="logo"><span class="logo-primary">Alvan</span><span class="logo-secondary">Pinturas</span></a>
+  <div class="navbar-right">
+    <a href="#orcamento" class="navbar-cta">
+      <svg class="icon-wa" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 3.5c-4.7 0-8.5 3.6-8.5 8 0 1.7.5 3.2 1.5 4.5L4 20.5l4.7-1.2c1 .5 2.1.7 3.3.7 4.7 0 8.5-3.6 8.5-8s-3.8-8.5-8.5-8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M9 9.8c.2-.6.5-.6.8-.6.2 0 .4 0 .6.5.2.5.7 1.7.8 1.8.1.2.1.3 0 .5-.1.2-.2.3-.3.4-.2.2-.3.3-.1.6.4.7.9 1.3 1.6 1.7.2.2.4.2.6 0 .2-.2.6-.6.8-.8.2-.2.3-.2.5-.1.7.3 1.6.8 1.7.9.2.1.2.2.2.4 0 .5-.2 1-.5 1.3-.4.4-1.2.7-2.1.3-1.4-.5-2.6-1.4-3.6-2.6-.8-.9-1.3-1.8-1.6-2.5-.3-.7-.2-1.5.2-1.9Z" fill="currentColor"/>
+      </svg>
+      Orçamento
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span></button>
+  </div>
   <nav id="mainNav">
-    <span class="nav-pill" aria-hidden="true"></span>
     <a href="#portfolio">Nossos trabalhos</a>
     <a href="#especialidade">O que fazemos</a>
     <a href="#servicos">Serviços</a>
     <a href="#porque-nos">Por que nós</a>
-    <a href="#orcamento" class="btn btn-primary" style="padding:.6rem 1.1rem;">Orçamento</a>
   </nav>
 </header>
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <img class="hero-bg-img" src="hero-bg.jpg" alt="Equipe da Alvan em obra de pintura" loading="eager" fetchpriority="high" decoding="async">
+  <img class="hero-bg-img" src="hero-bg.jpg" alt="Sala de estar sofisticada com sofá bege, marcenaria em ripas de madeira, parede em mármore e iluminação ambiente" loading="eager" fetchpriority="high" decoding="async">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <span class="hero-eyebrow reveal">Rio Branco · Acre</span>
@@ -384,6 +429,27 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
         Solicitar orçamento no WhatsApp
       </a>
       <a href="#portfolio" class="hero-btn hero-btn-secondary">Ver projetos</a>
+    </div>
+  </div>
+  <div class="hero-stats reveal">
+    <div class="hero-stats-line"></div>
+    <div class="hero-stats-grid">
+      <div class="hero-stat">
+        <p class="hero-stat-number">+12 anos</p>
+        <p class="hero-stat-label">de experiência</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-number">+430</p>
+        <p class="hero-stat-label">ambientes entregues</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-number">100%</p>
+        <p class="hero-stat-label">obras com proteção</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-number">48h</p>
+        <p class="hero-stat-label">para o orçamento</p>
+      </div>
     </div>
   </div>
 </section>
