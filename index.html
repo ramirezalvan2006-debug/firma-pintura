@@ -114,11 +114,16 @@ header.scrolled{
 .nav-toggle.open span:nth-child(1){transform:translateY(10px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){transform:translateY(-10px) rotate(-45deg);}
 nav{
-  position:fixed;top:0;right:0;height:100vh;width:min(80vw,340px);z-index:105;
+  position:fixed;top:0;right:0;height:100vh;height:100dvh;width:min(80vw,340px);z-index:105;
   background:#0A0A0A;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   padding:0 2.6rem;transform:translateX(100%);transition:transform .5s var(--ease);
   box-shadow:-40px 0 80px rgba(0,0,0,.35);
 }
+.nav-backdrop{
+  position:fixed;inset:0;z-index:102;background:rgba(0,0,0,.5);
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.nav-backdrop.open{opacity:1;pointer-events:auto;}
 nav.open{transform:translateX(0);}
 nav a{
   width:100%;color:var(--white-300);font-size:1.5rem;font-weight:500;letter-spacing:-.01em;
@@ -198,33 +203,30 @@ nav a.active{font-weight:600;}
 .hero-stat-number{font-family:var(--body);font-weight:700;font-size:38px;line-height:1;letter-spacing:-1.5px;color:var(--hero-white);margin:0 0 10px;}
 .hero-stat-label{font-family:var(--body);font-weight:400;line-height:1.2;color:rgba(255,255,255,.75);font-size:19px;margin:0;}
 
-/* ============ SPECIALTY (grid) ============ */
+/* ============ ESPECIALIDADE (Não é só tinta. É método.) ============ */
 .specialty{padding:9rem 0 8rem;background:#FAFAF8;border-top:1px solid rgba(17,17,17,.08);}
-.specialty-head{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;margin-bottom:6rem;align-items:end;}
+.specialty-content{max-width:680px;}
 .specialty-caption{
   display:inline-block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;
   font-size:1rem;letter-spacing:.01em;color:#666666;margin:.9rem 0 1.3rem;
 }
-.specialty-head h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4vw,3.2rem);line-height:1.22;letter-spacing:.005em;color:#111111;}
-.specialty-head p{color:#666666;font-size:1rem;line-height:1.7;max-width:42ch;}
-.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:64px;}
-.spec-card{position:relative;padding-top:4.4rem;}
-.spec-num{
-  position:absolute;top:-14px;left:0;z-index:0;
-  font-family:var(--body);font-size:110px;font-weight:100;line-height:1;
-  color:#111111;opacity:.07;user-select:none;pointer-events:none;
-  transition:opacity .4s ease;
+.specialty-title{
+  font-family:var(--body);font-weight:400;text-transform:none;font-size:clamp(2rem,4.5vw,3.4rem);
+  line-height:1.15;letter-spacing:-0.02em;color:#111111;margin-bottom:1.8rem;
 }
-.spec-tag{position:relative;z-index:1;display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#8A8A82;margin-bottom:1.1rem;}
-.spec-card h3{position:relative;z-index:1;font-size:1.45rem;font-weight:500;line-height:1.3;margin-bottom:1rem;text-transform:none;max-width:16ch;color:#111111;transition:color .3s ease;}
-.spec-card p{position:relative;z-index:1;color:#666666;font-size:.95rem;line-height:1.75;max-width:30ch;}
-.spec-card:hover .spec-num{opacity:.12;}
-.spec-card:hover h3{color:#000000;}
+.specialty-text{font-size:1.1rem;line-height:1.75;color:#666666;max-width:56ch;margin-bottom:2.6rem;}
+.specialty-list{display:flex;flex-direction:column;gap:1.1rem;}
+.specialty-item{position:relative;padding-left:1.6rem;font-size:1.05rem;color:#111111;line-height:1.5;}
+.specialty-item::before{
+  content:'';position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;
+  background:var(--yellow-500);
+}
+
 
 /* ============ SERVICES ============ */
 .services{padding:9rem 0;background:#FAFAF8;}
 .services-top{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:4rem;flex-wrap:wrap;}
-.services-top h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4vw,3.2rem);line-height:1.2;letter-spacing:.005em;color:#111111;max-width:12ch;}
+.services-top h2{font-family:var(--body);font-weight:400;text-transform:none;font-size:clamp(2rem,4vw,3.2rem);line-height:1.2;letter-spacing:-0.02em;color:#111111;max-width:12ch;}
 .service-list{border-top:1px solid rgba(17,17,17,.12);}
 .service-row{
   position:relative;
@@ -281,29 +283,6 @@ nav a.active{font-weight:600;}
   .ed-col-right{justify-content:flex-start;}
   .ed-img{width:100%;height:220px;}
 }
-
-/* ============ WHY US ============ */
-.why{padding:9rem 0;background:#FAFAF8;}
-.why-intro{max-width:640px;margin-bottom:4.5rem;}
-.why-intro h2{font-family:'Fraunces',serif;font-weight:340;font-size:clamp(2rem,4vw,3.2rem);line-height:1.22;letter-spacing:.005em;color:#111111;margin:1.1rem 0 1.4rem;max-width:14ch;}
-.why-intro p{color:#666666;max-width:44ch;line-height:1.7;}
-
-/* Faixa de estatísticas — "barra invisível", loop horizontal contínuo */
-.stats-marquee{position:relative;width:100%;overflow:hidden;border-top:1px solid rgba(17,17,17,.14);border-bottom:1px solid rgba(17,17,17,.14);padding:2.4rem 0;margin:0 0 5rem;}
-.stats-track{display:flex;align-items:baseline;gap:3.5rem;width:max-content;animation:stats-marquee 32s linear infinite;}
-.stats-marquee:hover .stats-track{animation-play-state:paused;}
-.stat-chip{display:inline-flex;align-items:baseline;gap:.7rem;white-space:nowrap;}
-.stat-chip b{font-family:var(--body);font-weight:100;font-size:2.4rem;color:#111111;line-height:1;}
-.stat-chip i{font-style:normal;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#8A8A82;}
-.stat-sep{color:#C4C4BC;font-size:1.1rem;}
-@keyframes stats-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-.why-list{display:flex;flex-direction:column;gap:0;max-width:900px;}
-.why-item{display:flex;gap:1.8rem;padding:2.2rem 0;border-top:1px solid rgba(17,17,17,.12);}
-.why-item:last-child{border-bottom:1px solid rgba(17,17,17,.12);}
-.why-item .ico{font-family:var(--body);font-weight:100;color:#111111;opacity:.3;font-size:1.7rem;line-height:1;padding-top:0;}
-.why-item h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.3rem;text-transform:none;margin-bottom:.4rem;color:#111111;}
-.why-item p{color:#666666;font-size:.92rem;line-height:1.6;}
 
 /* ============ FORM ============ */
 .quote{padding:9rem 0;background:var(--black-900);}
@@ -369,12 +348,7 @@ footer{padding:4rem 0 2.5rem;background:var(--black-950);border-top:1px solid rg
   .navbar-right{gap:10px;flex-shrink:0;}
   .navbar-cta{width:auto;height:46px;padding:0 16px;gap:8px;font-size:14px;flex-shrink:0;white-space:nowrap;}
   .navbar-cta .icon-wa{width:19px;height:19px;}
-  .specialty-head,.footer-top{grid-template-columns:1fr;}
-  .stats-track{gap:2rem;animation-duration:20s;}
-  .stat-chip b{font-size:1.7rem;}
-  .stat-chip i{font-size:.62rem;}
-  .stats-marquee{padding:1.8rem 0;}
-  .spec-grid{grid-template-columns:1fr;gap:48px;}
+  .footer-top{grid-template-columns:1fr;}
   .service-row{grid-template-columns:44px 1fr;}
   .service-row .idx{font-size:34px;}
   .service-row .tag{display:none;}
@@ -404,13 +378,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span></button>
   </div>
-  <nav id="mainNav">
-    <a href="#portfolio">Nossos trabalhos</a>
-    <a href="#especialidade">O que fazemos</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#porque-nos">Por que nós</a>
-  </nav>
 </header>
+<!-- nav e o overlay ficam FORA do header de propósito: header.scrolled usa backdrop-filter,
+     que cria um novo "containing block" pra qualquer descendente position:fixed — isso fazia
+     o menu (que é fixed) se reposicionar relativo ao header em vez da tela assim que o usuário
+     rolava. Deixando nav como irmão do header, ele sempre fica relativo à viewport de verdade. -->
+<div class="nav-backdrop" id="navBackdrop"></div>
+<nav id="mainNav">
+  <a href="#especialidade">O que fazemos</a>
+  <a href="#servicos">Serviços</a>
+  <a href="#portfolio">Nossos trabalhos</a>
+</nav>
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
@@ -450,6 +428,40 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
         <p class="hero-stat-number">48h</p>
         <p class="hero-stat-label">para o orçamento</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESPECIALIDADE ============ -->
+<section class="specialty" id="especialidade">
+  <div class="wrap">
+    <div class="specialty-content">
+      <h2 class="specialty-title reveal">Não é só tinta. É método.</h2>
+      <p class="specialty-text reveal">A diferença entre uma parede bonita e uma parede que continua bonita depois de três anos está no que ninguém vê: correção, massa, lixamento e o sistema de tinta certo para cada superfície. É por isso que trabalhamos com escopo por escrito e vistoria final feita ao seu lado.</p>
+      <div class="specialty-list">
+        <div class="specialty-item reveal">Equipe própria e uniformizada</div>
+        <div class="specialty-item reveal">Tintas premium com garantia</div>
+        <div class="specialty-item reveal">Proteção total de piso e móveis</div>
+        <div class="specialty-item reveal">Ambiente entregue limpo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVIÇOS ============ -->
+<section class="services" id="servicos">
+  <div class="wrap">
+    <div class="services-top">
+      <h2 class="reveal">Serviços</h2>
+      <p class="reveal" style="color:#666666;max-width:36ch;">Do reparo pontual à reforma completa — um único time do orçamento à entrega.</p>
+    </div>
+    <div class="service-list">
+      <div class="service-row reveal"><span class="idx">01</span><h3>Pintura residencial</h3><span class="tag">Interno / Externo</span></div>
+      <div class="service-row reveal"><span class="idx">02</span><h3>Pintura comercial e predial</h3><span class="tag">Fachadas</span></div>
+      <div class="service-row reveal"><span class="idx">03</span><h3>Textura e efeitos especiais</h3><span class="tag">Grafiato · Cimento queimado</span></div>
+      <div class="service-row reveal"><span class="idx">04</span><h3>Reforma completa</h3><span class="tag">Alvenaria · Elétrica · Hidráulica</span></div>
+      <div class="service-row reveal"><span class="idx">05</span><h3>Impermeabilização</h3><span class="tag">Lajes · Caixas d'água</span></div>
+      <div class="service-row reveal"><span class="idx">06</span><h3>Reparos e massa corrida</h3><span class="tag">Trincas · Infiltrações</span></div>
     </div>
   </div>
 </section>
@@ -499,105 +511,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
 
 </div>
-</section>
-
-<!-- ============ ESPECIALIDADE ============ -->
-<section class="specialty" id="especialidade">
-  <div class="wrap">
-    <div class="specialty-head">
-      <div>
-        <h2 class="reveal">Projeto pensado para a chuva, o sol e a umidade de Rio Branco.</h2>
-        <span class="specialty-caption">O que fazemos</span>
-      </div>
-      <p class="reveal">Umidade alta, chuva frequente e sol direto castigam tinta comum em poucos meses. Cada etapa da Alvan é escolhida para durar nesse clima — não no clima de catálogo.</p>
-    </div>
-    <div class="spec-grid">
-      <div class="spec-card reveal">
-        <span class="spec-num">01</span>
-        <span class="spec-tag">Preparo</span>
-        <h3>Superfície antes da cor</h3>
-        <p>Tratamento de fungos, correção de trincas e selagem antes da primeira demão — a etapa que a maioria pula e a Amazônia sempre cobra de volta.</p>
-      </div>
-      <div class="spec-card reveal">
-        <span class="spec-num">02</span>
-        <span class="spec-tag">Tinta</span>
-        <h3>Linhas antimofo e fosco lavável</h3>
-        <p>Especificação de tinta por ambiente: fachada com proteção UV e antimofo, áreas internas com fosco lavável de alto tráfego.</p>
-      </div>
-      <div class="spec-card reveal">
-        <span class="spec-num">03</span>
-        <span class="spec-tag">Acabamento</span>
-        <h3>Texturas e efeitos sob medida</h3>
-        <p>Grafiato, cimento queimado, laca em portas e marcenaria, e efeitos decorativos aplicados por equipe própria, não terceirizada.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SERVIÇOS ============ -->
-<section class="services" id="servicos">
-  <div class="wrap">
-    <div class="services-top">
-      <h2 class="reveal">Serviços</h2>
-      <p class="reveal" style="color:#666666;max-width:36ch;">Do reparo pontual à reforma completa — um único time do orçamento à entrega.</p>
-    </div>
-    <div class="service-list">
-      <div class="service-row reveal"><span class="idx">01</span><h3>Pintura residencial</h3><span class="tag">Interno / Externo</span></div>
-      <div class="service-row reveal"><span class="idx">02</span><h3>Pintura comercial e predial</h3><span class="tag">Fachadas</span></div>
-      <div class="service-row reveal"><span class="idx">03</span><h3>Textura e efeitos especiais</h3><span class="tag">Grafiato · Cimento queimado</span></div>
-      <div class="service-row reveal"><span class="idx">04</span><h3>Reforma completa</h3><span class="tag">Alvenaria · Elétrica · Hidráulica</span></div>
-      <div class="service-row reveal"><span class="idx">05</span><h3>Impermeabilização</h3><span class="tag">Lajes · Caixas d'água</span></div>
-      <div class="service-row reveal"><span class="idx">06</span><h3>Reparos e massa corrida</h3><span class="tag">Trincas · Infiltrações</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PORQUE NÓS ============ -->
-<section class="why" id="porque-nos">
-  <div class="wrap why-intro">
-    <h2 class="reveal">Confiança que se prova em cada obra entregue.</h2>
-    <span class="specialty-caption">Por que nós</span>
-    <p class="reveal">Equipe própria, prazo definido em contrato e orçamento detalhado antes do primeiro tambor de tinta aberto.</p>
-  </div>
-
-  <div class="stats-marquee reveal" aria-label="120 mais obras entregues, 6 anos em Rio Branco, 98 por cento de prazo cumprido">
-    <div class="stats-track">
-      <span class="stat-chip"><b>120+</b><i>Obras entregues</i></span>
-      <span class="stat-sep">—</span>
-      <span class="stat-chip"><b>6</b><i>Anos em Rio Branco</i></span>
-      <span class="stat-sep">—</span>
-      <span class="stat-chip"><b>98%</b><i>Prazo cumprido</i></span>
-      <span class="stat-sep">—</span>
-      <span class="stat-chip"><b>120+</b><i>Obras entregues</i></span>
-      <span class="stat-sep">—</span>
-      <span class="stat-chip"><b>6</b><i>Anos em Rio Branco</i></span>
-      <span class="stat-sep">—</span>
-      <span class="stat-chip"><b>98%</b><i>Prazo cumprido</i></span>
-      <span class="stat-sep">—</span>
-      <!-- grupo duplicado, para o loop infinito ficar contínuo -->
-      <span class="stat-chip" aria-hidden="true"><b>120+</b><i>Obras entregues</i></span>
-      <span class="stat-sep" aria-hidden="true">—</span>
-      <span class="stat-chip" aria-hidden="true"><b>6</b><i>Anos em Rio Branco</i></span>
-      <span class="stat-sep" aria-hidden="true">—</span>
-      <span class="stat-chip" aria-hidden="true"><b>98%</b><i>Prazo cumprido</i></span>
-      <span class="stat-sep" aria-hidden="true">—</span>
-      <span class="stat-chip" aria-hidden="true"><b>120+</b><i>Obras entregues</i></span>
-      <span class="stat-sep" aria-hidden="true">—</span>
-      <span class="stat-chip" aria-hidden="true"><b>6</b><i>Anos em Rio Branco</i></span>
-      <span class="stat-sep" aria-hidden="true">—</span>
-      <span class="stat-chip" aria-hidden="true"><b>98%</b><i>Prazo cumprido</i></span>
-      <span class="stat-sep" aria-hidden="true">—</span>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="why-list">
-      <div class="why-item reveal"><span class="ico">01</span><div><h3>Equipe própria</h3><p>Sem terceirização — a mesma equipe do orçamento assina a entrega.</p></div></div>
-      <div class="why-item reveal"><span class="ico">02</span><div><h3>Orçamento detalhado</h3><p>Material, etapas e prazo descritos antes de qualquer sinal.</p></div></div>
-      <div class="why-item reveal"><span class="ico">03</span><div><h3>Garantia de obra</h3><p>Cobertura pós-entrega para reparo de qualquer inconformidade.</p></div></div>
-      <div class="why-item reveal"><span class="ico">04</span><div><h3>Atendimento direto</h3><p>Acompanhamento da obra por WhatsApp, do orçamento à última demão.</p></div></div>
-    </div>
-  </div>
 </section>
 
 <!-- ============ FORMULÁRIO ============ -->
@@ -685,10 +598,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
       </div>
       <div class="footer-col">
         <span class="eyebrow">Navegação</span>
-        <a href="#portfolio">Nossos trabalhos</a>
         <a href="#especialidade">O que fazemos</a>
         <a href="#servicos">Serviços</a>
-        <a href="#porque-nos">Por que nós</a>
+        <a href="#portfolio">Nossos trabalhos</a>
       </div>
       <div class="footer-col">
         <span class="eyebrow">Contato</span>
@@ -726,8 +638,34 @@ try{
 }catch(e){
   window.addEventListener('scroll', ()=>{ header.classList.toggle('scrolled', window.scrollY > 40); });
 }
-navToggle.addEventListener('click', ()=>{ nav.classList.toggle('open'); navToggle.classList.toggle('open'); });
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{ nav.classList.remove('open'); navToggle.classList.remove('open'); }));
+const navBackdrop = document.getElementById('navBackdrop');
+let navScrollY = 0;
+function openMenu(){
+  navScrollY = window.scrollY || window.pageYOffset || 0;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${navScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  if(typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.stop();
+  nav.classList.add('open');
+  navToggle.classList.add('open');
+  navBackdrop.classList.add('open');
+}
+function closeMenu(){
+  if(!nav.classList.contains('open')) return;
+  nav.classList.remove('open');
+  navToggle.classList.remove('open');
+  navBackdrop.classList.remove('open');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  window.scrollTo(0, navScrollY);
+  if(typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.start();
+}
+navToggle.addEventListener('click', ()=>{ nav.classList.contains('open') ? closeMenu() : openMenu(); });
+navBackdrop.addEventListener('click', closeMenu);
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMenu));
 
 /* ============ PÍLULA DESLIZANTE NO MENU (hover, estilo Linear) ============ */
 try{
